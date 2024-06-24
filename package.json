@@ -1,0 +1,15 @@
+{
+  "name": "moviepix_v3",
+  "version": "3.0.0",
+  "description": "A place to search for your favorite movies.",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "rm -rf .parcel-cache && parcel",
+    "build": "rm -rf .parcel-cache && parcel build"
+  },
+  "author": "Brandon Knight",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}
