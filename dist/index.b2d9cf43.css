@@ -1,6 +1,6 @@
 .movieImage {
-  width: 350px;
-  height: 400px;
+  width: 12rem;
+  height: 11rem;
 }
 
 .spinner {
@@ -22,5 +22,15 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.search__btn {
+  margin: 5rem;
+  padding: auto;
+}
+
+.search__field {
+  width: 15rem;
+  padding: auto;
 }
 /*# sourceMappingURL=index.b2d9cf43.css.map */

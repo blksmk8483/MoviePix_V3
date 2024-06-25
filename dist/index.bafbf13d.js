@@ -603,7 +603,6 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 // // console.log("hello there");
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "options3", ()=>options3);
 parcelHelpers.export(exports, "getAPIcall", ()=>getAPIcall);
 var _webImmediateJs = require("core-js/modules/web.immediate.js");
@@ -611,9 +610,6 @@ var _configJs = require("./config.js");
 var _popcornPng = require("url:./img/popcorn.png");
 var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
 var _runtime = require("regenerator-runtime/runtime");
-const state = {
-    movieData: {}
-};
 const options3 = {
     method: "GET",
     headers: {
@@ -634,52 +630,39 @@ const getAPIcall = async ()=>{
     try {
         renderSpinner(testData);
         // 1) loading movie data...
-        const res = await fetch(`${(0, _configJs.API_URL)}search/movie?query=Marvel%20Endgame&include_adult=false&language=en-US&page=1&append_to_response=images?include_image_language=299534aaa`, options3);
+        const res = await fetch(`${(0, _configJs.API_URL)}search/movie?query=SpiderMan&include_adult=false&language=en-US&page=1`, options3);
+        // fetch(
+        //   `${API_URL}search/movie?query=${}&include_adult=false&language=en-US&page=1`,
+        //   options3
+        // );
         const data = await res.json();
         console.log(data);
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-        let movieData = data.results["0"];
-        movieData = {
-            id: movieData.id,
-            title: movieData.original_title,
-            overview: movieData.overview,
-            image: movieData.poster_path,
-            genreID: movieData.genre_ids,
-            releaseDate: movieData.release_date
-        };
-        // const movieData = data.results["0"];
-        // state.movieData = {
-        //   id: movieData.id,
-        //   title: movieData.original_title,
-        //   overview: movieData.overview,
-        //   image: movieData.poster_path,
-        //   genreID: movieData.genre_ids,
-        //   releaseDate: movieData.release_date,
-        // };
+        const movieData = data.results.map((movie)=>({
+                id: movie.id,
+                title: movie.original_title,
+                overview: movie.overview,
+                image: movie.poster_path,
+                genreID: movie.genre_ids,
+                releaseDate: movie.release_date
+            }));
         console.log(movieData);
         testData = document.querySelector("#testData");
         // 2) rendering movie data...
-        const markup = `
-    <h2>${movieData.title}</h2>
-    <img class="movieImage" src="${(0, _configJs.API_IMAGE)}${movieData.image}" alt="${movieData.title}" />
-    <p>OVERVIEW: ${movieData.overview}</p>
-    <p>ID: ${movieData.id}</p>
-    <p>RELEASE DATE: ${movieData.releaseDate}</p>
-
-    <p>Lets try this....</p>
-    <p>Genre ID #3: ${movieData.genreID["2"]}</p>
-    <p>Lets try this...</p>
-
-    <p>This shows the three genre ids</p>
-    <ul> 
-    ${movieData.genreID.map((ids)=>{
+        const markup = movieData.map((movie)=>{
             return `
-      <li>
-      ${ids}
-      </li>`;
-        }).join("")}
-    </ul>
+    <h2>${movie.title}</h2>
+    <img class="movieImage" src="${0, _configJs.API_IMAGE}${movie.image}" alt="${movie.title}" />
+    <p>OVERVIEW: ${movie.overview}</p>
+    <p>ID: ${movie.id}</p>
+    <p>RELEASE DATE: ${movie.releaseDate}</p>
+    <p>GENRE ID: ${movie.genreID.map((gID)=>{
+                return `
+      ${gID}`;
+            }).join("")}</p>
+
     `;
+        }).join("");
         testData.innerHTML = "";
         testData.insertAdjacentHTML("afterbegin", markup);
     } catch (err) {
@@ -1929,7 +1912,10 @@ parcelHelpers.export(exports, "API_URL", ()=>API_URL);
 parcelHelpers.export(exports, "API_IMAGE", ()=>API_IMAGE);
 const API_ACCES_TOKEN = "bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YzI5Nzk1OWNmMzM0N2MxYmVjZmU0ODQ3NzNmODliNCIsInN1YiI6IjY2NjdiNzE2OTE0Yjg4OTA3YWU5ZWZkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TVs4E2FC6H2_ax1pesVaqnQn8AkrY2GNMLdb63JSFmQ";
 const API_URL = "https://api.themoviedb.org/3/";
-const API_IMAGE = "https://image.tmdb.org/t/p/original";
+const API_IMAGE = "https://image.tmdb.org/t/p/original"; // fetch(
+ //   "https://api.themoviedb.org/3/search/movie?query=avengers&include_adult=false&language=en-US&page=1",
+ //   options
+ // );
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
