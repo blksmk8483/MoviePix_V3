@@ -1,5 +1,3 @@
-//
-
 export const API_KEY = "5c297959cf3347c1becfe484773f89b4";
 
 export const API_URL = "https://api.themoviedb.org/3/";

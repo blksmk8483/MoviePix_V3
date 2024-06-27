@@ -47,6 +47,7 @@ const renderSpinner = function (parentEl) {
   parentEl.insertAdjacentHTML("afterbegin", markup);
 };
 
+// THIS GETS ME A SPECIFIC MOVIE BASED ON ID
 export const showMovie = async () => {
   try {
     const id = window.location.hash.slice(1);
@@ -65,7 +66,6 @@ export const showMovie = async () => {
 
     const data = await res.json();
     console.log(data);
-    console.log("hello there");
 
     if (!res.ok) throw new Error(`${data.message} (${res.status})`);
 
@@ -77,14 +77,6 @@ export const showMovie = async () => {
       genreID: data.genre_ids,
       releaseDate: data.release_date,
     };
-    // const movieData = data.results.map((movie) => ({
-    //   id: movie.id,
-    //   title: movie.original_title,
-    //   overview: movie.overview,
-    //   image: movie.poster_path,
-    //   genreID: movie.genre_ids,
-    //   releaseDate: movie.release_date,
-    // }));
 
     console.log(movieData);
 
@@ -97,30 +89,7 @@ export const showMovie = async () => {
     <p>OVERVIEW: ${movieData.overview}</p>
     <p>ID: ${movieData.id}</p>
     <p>RELEASE DATE: ${movieData.releaseDate}</p>
-   
-    
     `;
-
-    // const markup = movieData
-    //   .map((movie) => {
-    //     return `
-    // <h2>${movie.title}</h2>
-    // <img class="movieImage" src="${API_IMAGE}${movie.image}" alt="${
-    //       movie.title
-    //     }" />
-    // <p>OVERVIEW: ${movie.overview}</p>
-    // <p>ID: ${movie.id}</p>
-    // <p>RELEASE DATE: ${movie.releaseDate}</p>
-    // <p>GENRE ID: ${movie.genreID
-    //   .map((gID) => {
-    //     return `
-    //   ${gID}`;
-    //   })
-    //   .join("")}</p>
-
-    // `;
-    //   })
-    // .join("");
 
     testData.innerHTML = "";
     testData.insertAdjacentHTML("afterbegin", markup);
@@ -129,10 +98,79 @@ export const showMovie = async () => {
   }
 };
 
+// Now I am calling getAPIcall() in the event
 // getAPIcall();
 
 // This is the same as the two eventsListeners below just condensed
 ["hashchange", "load"].forEach((ev) => window.addEventListener(ev, showMovie));
-
 // window.addEventListener("hashchange", showMovie);
 // window.addEventListener("load", showMovie);
+
+// -------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------
+
+// THIS GETS ME ALL MOVIES BASED ON A SEARCH QUERY
+
+export const searchResultsAll = async () => {
+  try {
+    const id = window.location.hash.slice(1);
+    console.log(id);
+
+    pageNumber = 1;
+
+    // 1) loading movie data...
+    const res = await fetch(
+      `${API_URL}search/movie?query=SpiderMan&include_adult=false&language=en-US&page=${pageNumber}`,
+      OPTIONS
+    );
+
+    const data = await res.json();
+    console.log(data);
+
+    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+
+    const movieDataAll = data.results.map((movie) => ({
+      id: movie.id,
+      title: movie.original_title,
+      overview: movie.overview,
+      image: movie.poster_path,
+      genreID: movie.genre_ids,
+      releaseDate: movie.release_date,
+    }));
+
+    console.log(movieDataAll);
+
+    testAllData = document.querySelector("#testAllData");
+
+    // 2) rendering movie data...
+    const markup = movieDataAll
+      .map((movie) => {
+        return `
+    <h2>${movie.title}</h2>
+    <img class="movieImage" src="${API_IMAGE}${movie.image}" alt="${
+          movie.title
+        }" />
+    <p>OVERVIEW: ${movie.overview}</p>
+    <p>ID: ${movie.id}</p>
+    <p>RELEASE DATE: ${movie.releaseDate}</p>
+    <p>GENRE ID: ${movie.genreID
+      .map((gID) => {
+        return `
+      ${gID}`;
+      })
+      .join("")}</p>
+    `;
+      })
+      .join("");
+
+    testAllData.innerHTML = "";
+    testAllData.insertAdjacentHTML("afterbegin", markup);
+  } catch (err) {
+    alert(err);
+  }
+};
+
+searchResultsAll();
