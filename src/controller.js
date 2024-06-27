@@ -20,7 +20,12 @@
 
 // // console.log("hello there");
 
-import { API_ACCES_TOKEN, API_URL, API_IMAGE } from "./config.js";
+import {
+  API_ACCES_TOKEN,
+  API_URL,
+  API_IMAGE,
+  USER_LANGUAGE,
+} from "./config.js";
 import popcornImage from "url:./img/popcorn.png";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
@@ -67,7 +72,7 @@ export const showMovie = async () => {
     //   // OPTIONS
     // );
     fetch(
-      `https://api.themoviedb.org/3/${searchType}/${id}?language=en-US`,
+      `https://api.themoviedb.org/3/${searchType}/${id}?language=${USER_LANGUAGE}`,
       OPTIONS
     );
     console.log(res);
@@ -128,10 +133,11 @@ export const searchResultsAll = async () => {
     console.log(id);
 
     pageNumber = 1;
+    query = "Spider Man";
 
     // 1) loading movie data...
     const res = await fetch(
-      `${API_URL}search/movie?query=SpiderMan&include_adult=false&language=en-US&page=${pageNumber}`,
+      `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${pageNumber}`,
       OPTIONS
     );
 

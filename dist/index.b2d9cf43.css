@@ -5,12 +5,12 @@
 
 .spinner {
   text-align: center;
-  margin: 15rem auto;
+  margin: 10rem auto;
 }
 
 .spinner img {
-  width: 9rem;
-  height: 9rem;
+  width: 10rem;
+  height: 10rem;
   animation: 2s linear infinite rotate;
 }
 

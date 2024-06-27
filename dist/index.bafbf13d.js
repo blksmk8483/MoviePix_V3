@@ -640,7 +640,7 @@ const showMovie = async ()=>{
         const res = await //   // `${API_URL}search/movie?query=SpiderMan&include_adult=false&language=en-US&page=${pageNumber}&${id}`,
         //   // OPTIONS
         // );
-        fetch(`https://api.themoviedb.org/3/${searchType}/${id}?language=en-US`, OPTIONS);
+        fetch(`https://api.themoviedb.org/3/${searchType}/${id}?language=${(0, _configJs.USER_LANGUAGE)}`, OPTIONS);
         console.log(res);
         const data = await res.json();
         console.log(data);
@@ -681,8 +681,9 @@ const searchResultsAll = async ()=>{
         const id = window.location.hash.slice(1);
         console.log(id);
         pageNumber = 1;
+        query = "Spider Man";
         // 1) loading movie data...
-        const res = await fetch(`${(0, _configJs.API_URL)}search/movie?query=SpiderMan&include_adult=false&language=en-US&page=${pageNumber}`, OPTIONS);
+        const res = await fetch(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${pageNumber}`, OPTIONS);
         const data = await res.json();
         console.log(data);
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
@@ -1958,10 +1959,12 @@ parcelHelpers.export(exports, "API_ACCES_TOKEN", ()=>API_ACCES_TOKEN);
 parcelHelpers.export(exports, "API_KEY", ()=>API_KEY);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL);
 parcelHelpers.export(exports, "API_IMAGE", ()=>API_IMAGE);
+parcelHelpers.export(exports, "USER_LANGUAGE", ()=>USER_LANGUAGE);
 const API_ACCES_TOKEN = "bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YzI5Nzk1OWNmMzM0N2MxYmVjZmU0ODQ3NzNmODliNCIsInN1YiI6IjY2NjdiNzE2OTE0Yjg4OTA3YWU5ZWZkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TVs4E2FC6H2_ax1pesVaqnQn8AkrY2GNMLdb63JSFmQ";
 const API_KEY = "5c297959cf3347c1becfe484773f89b4";
 const API_URL = "https://api.themoviedb.org/3/";
-const API_IMAGE = "https://image.tmdb.org/t/p/original"; // fetch(
+const API_IMAGE = "https://image.tmdb.org/t/p/original";
+const USER_LANGUAGE = "en-US"; // fetch(
  //   "https://api.themoviedb.org/3/search/movie?query=avengers&include_adult=false&language=en-US&page=1",
  //   options
  // );

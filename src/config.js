@@ -4,7 +4,4 @@ export const API_URL = "https://api.themoviedb.org/3/";
 
 export const API_IMAGE = "https://image.tmdb.org/t/p/original";
 
-// fetch(
-//   "https://api.themoviedb.org/3/search/movie?query=avengers&include_adult=false&language=en-US&page=1",
-//   options
-// );
+export const USER_LANGUAGE = "en-US";
