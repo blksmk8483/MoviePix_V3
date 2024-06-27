@@ -631,6 +631,7 @@ const showMovie = async ()=>{
     try {
         const id = window.location.hash.slice(1);
         console.log(id);
+        if (!id) return;
         pageNumber = 1;
         renderSpinner(testData);
         // 1) loading movie data...

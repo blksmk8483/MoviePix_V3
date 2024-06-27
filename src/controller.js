@@ -53,6 +53,8 @@ export const showMovie = async () => {
     const id = window.location.hash.slice(1);
     console.log(id);
 
+    if (!id) return;
+
     pageNumber = 1;
 
     renderSpinner(testData);
