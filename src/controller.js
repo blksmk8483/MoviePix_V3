@@ -53,6 +53,9 @@ export const showMovie = async () => {
     const id = window.location.hash.slice(1);
     console.log(id);
 
+    // I can use "movie" or "tv"
+    const searchType = "movie";
+
     if (!id) return;
 
     pageNumber = 1;
@@ -63,7 +66,10 @@ export const showMovie = async () => {
     //   // `${API_URL}search/movie?query=SpiderMan&include_adult=false&language=en-US&page=${pageNumber}&${id}`,
     //   // OPTIONS
     // );
-    fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, OPTIONS);
+    fetch(
+      `https://api.themoviedb.org/3/${searchType}/${id}?language=en-US`,
+      OPTIONS
+    );
     console.log(res);
 
     const data = await res.json();
