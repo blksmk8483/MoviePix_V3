@@ -1,13 +1,4 @@
 import * as model from "./model.js";
-
-import {
-  API_ACCES_TOKEN,
-  API_URL,
-  API_IMAGE,
-  USER_LANGUAGE,
-  OPTIONS,
-} from "./config.js";
-
 import movieView from "./views/movieView.js";
 
 import "core-js/stable";
@@ -48,64 +39,64 @@ export const controlMovie = async function () {
 
 // THIS GETS ME ALL MOVIES BASED ON A SEARCH QUERY
 
-export const searchResultsAll = async () => {
-  try {
-    const id = window.location.hash.slice(1);
-    console.log(id);
+// export const searchResultsAll = async () => {
+//   try {
+//     const id = window.location.hash.slice(1);
+//     console.log(id);
 
-    pageNumber = 1;
-    query = "Spider Man";
+//     pageNumber = 1;
+//     query = "Spider Man";
 
-    // 1) loading search data...
-    const res = await fetch(
-      `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${pageNumber}`,
-      OPTIONS
-    );
+//     // 1) loading search data...
+//     const res = await fetch(
+//       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${pageNumber}`,
+//       OPTIONS
+//     );
 
-    const data = await res.json();
-    console.log(data);
+//     const data = await res.json();
+//     console.log(data);
 
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+//     if (!res.ok) throw new Error(`${data.message} (${res.status})`);
 
-    const movieDataAll = data.results.map((movie) => ({
-      id: movie.id,
-      title: movie.original_title,
-      overview: movie.overview,
-      image: movie.poster_path,
-      genreID: movie.genre_ids,
-      releaseDate: movie.release_date,
-    }));
+//     const movieDataAll = data.results.map((movie) => ({
+//       id: movie.id,
+//       title: movie.original_title,
+//       overview: movie.overview,
+//       image: movie.poster_path,
+//       genreID: movie.genre_ids,
+//       releaseDate: movie.release_date,
+//     }));
 
-    console.log(movieDataAll);
+//     console.log(movieDataAll);
 
-    testAllData = document.querySelector("#testAllData");
+//     testAllData = document.querySelector("#testAllData");
 
-    // 2) rendering all search data...
-    const markup = movieDataAll
-      .map((movie) => {
-        return `
-    <h2>${movie.title}</h2>
-    <img class="movieImage" src="${API_IMAGE}${movie.image}" alt="${
-          movie.title
-        }" />
-    <p>OVERVIEW: ${movie.overview}</p>
-    <p>ID: ${movie.id}</p>
-    <p>RELEASE DATE: ${movie.releaseDate}</p>
-    <p>GENRE ID: ${movie.genreID
-      .map((gID) => {
-        return `
-      ${gID}`;
-      })
-      .join("")}</p>
-    `;
-      })
-      .join("");
+//     // 2) rendering all search data...
+//     const markup = movieDataAll
+//       .map((movie) => {
+//         return `
+//     <h2>${movie.title}</h2>
+//     <img class="movieImage" src="${API_IMAGE}${movie.image}" alt="${
+//           movie.title
+//         }" />
+//     <p>OVERVIEW: ${movie.overview}</p>
+//     <p>ID: ${movie.id}</p>
+//     <p>RELEASE DATE: ${movie.releaseDate}</p>
+//     <p>GENRE ID: ${movie.genreID
+//       .map((gID) => {
+//         return `
+//       ${gID}`;
+//       })
+//       .join("")}</p>
+//     `;
+//       })
+//       .join("");
 
-    testAllData.innerHTML = "";
-    testAllData.insertAdjacentHTML("afterbegin", markup);
-  } catch (err) {
-    alert(err);
-  }
-};
+//     testAllData.innerHTML = "";
+//     testAllData.insertAdjacentHTML("afterbegin", markup);
+//   } catch (err) {
+//     alert(err);
+//   }
+// };
 
-searchResultsAll();
+// searchResultsAll();

@@ -1,11 +1,6 @@
-import {
-  API_ACCES_TOKEN,
-  API_URL,
-  API_IMAGE,
-  USER_LANGUAGE,
-  OPTIONS,
-  TV_OR_MOVIE,
-} from "./config.js";
+import { API_URL, USER_LANGUAGE, TV_OR_MOVIE } from "./config.js";
+
+import { getJSON } from "./helpers.js";
 
 export const state = {
   movie: {},
@@ -13,15 +8,18 @@ export const state = {
 
 export const loadMovie = async function (id) {
   try {
-    const res = await fetch(
-      `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`,
-      OPTIONS
+    const data = await getJSON(
+      `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`
     );
+    // const res = await fetch(
+    //   `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`,
+    //   OPTIONS
+    // );
 
-    const data = await res.json();
-    console.log("look at me!!!", data);
+    // const data = await res.json();
+    // console.log("look at me!!!", data);
 
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+    // if (!res.ok) throw new Error(`${data.message} (${res.status})`);
 
     const movie = data;
     state.movie = {
@@ -35,6 +33,7 @@ export const loadMovie = async function (id) {
 
     console.log(state.movie);
   } catch (err) {
-    alert(err);
+    // Temporary error handling
+    console.error(`${err} 😢 😢 😢 😢`);
   }
 };
