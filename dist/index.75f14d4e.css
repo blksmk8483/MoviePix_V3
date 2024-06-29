@@ -1,0 +1,36 @@
+.movieImage {
+  width: 12rem;
+  height: 11rem;
+}
+
+.spinner {
+  text-align: center;
+  margin: 10rem auto;
+}
+
+.spinner img {
+  width: 10rem;
+  height: 10rem;
+  animation: 2s linear infinite rotate;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.search__btn {
+  margin: 5rem;
+  padding: auto;
+}
+
+.search__field {
+  width: 15rem;
+  padding: auto;
+}
+/*# sourceMappingURL=index.75f14d4e.css.map */

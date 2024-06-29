@@ -25,8 +25,8 @@ import {
   API_URL,
   API_IMAGE,
   USER_LANGUAGE,
-} from "./config.js";
-import popcornImage from "url:./img/popcorn.png";
+} from "../config.js";
+import popcornImage from "url:../img/popcorn.png";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
