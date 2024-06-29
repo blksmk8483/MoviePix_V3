@@ -67,11 +67,7 @@ export const showMovie = async () => {
 
     renderSpinner(testData);
     // 1) loading movie data...
-    const res = await // fetch(
-    //   // `${API_URL}search/movie?query=SpiderMan&include_adult=false&language=en-US&page=${pageNumber}&${id}`,
-    //   // OPTIONS
-    // );
-    fetch(
+    const res = await fetch(
       `https://api.themoviedb.org/3/${searchType}/${id}?language=${USER_LANGUAGE}`,
       OPTIONS
     );
@@ -135,7 +131,7 @@ export const searchResultsAll = async () => {
     pageNumber = 1;
     query = "Spider Man";
 
-    // 1) loading movie data...
+    // 1) loading search data...
     const res = await fetch(
       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${pageNumber}`,
       OPTIONS
@@ -159,7 +155,7 @@ export const searchResultsAll = async () => {
 
     testAllData = document.querySelector("#testAllData");
 
-    // 2) rendering movie data...
+    // 2) rendering all search data...
     const markup = movieDataAll
       .map((movie) => {
         return `
