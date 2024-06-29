@@ -584,95 +584,37 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"aenu9":[function(require,module,exports) {
-// import * as model from "./model.js";
-// import searchResultsView from "./view/SearchResultsView.js";
-// const searchMovie = async function () {
-//   try {
-//     await model.getAPIcall();
-//     searchResultsView.render(model.state.movieData);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-// // const init = function () {
-// //   // searchResultsView._generateMarkup(searchMovie);
-// //   // searchResultsView.addHandlerRender(searchMovie);
-// //   searchResultsView.render(searchMovie);
-// // };
-// // init();
-// // console.log("hello there");
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "OPTIONS", ()=>OPTIONS);
-parcelHelpers.export(exports, "showMovie", ()=>showMovie);
+parcelHelpers.export(exports, "controlMovie", ()=>controlMovie);
 parcelHelpers.export(exports, "searchResultsAll", ()=>searchResultsAll);
 var _webImmediateJs = require("core-js/modules/web.immediate.js");
-var _configJs = require("../config.js");
-var _popcornPng = require("url:../img/popcorn.png");
-var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
+var _modelJs = require("./model.js");
+var _configJs = require("./config.js");
+var _movieViewJs = require("./views/movieView.js");
+var _movieViewJsDefault = parcelHelpers.interopDefault(_movieViewJs);
 var _runtime = require("regenerator-runtime/runtime");
-const OPTIONS = {
-    method: "GET",
-    headers: {
-        accept: "application/json",
-        Authorization: `${(0, _configJs.API_ACCES_TOKEN)}`
-    }
-};
-const renderSpinner = function(parentEl) {
-    const markup = `
-  <div class = "spinner">    
-    <img src="${(0, _popcornPngDefault.default)}" alt="">
-  </div>
-  `;
-    parentEl.innerHTML = "";
-    parentEl.insertAdjacentHTML("afterbegin", markup);
-};
-const showMovie = async ()=>{
+const controlMovie = async function() {
     try {
         const id = window.location.hash.slice(1);
-        console.log(id);
-        // I can use "movie" or "tv"
-        const searchType = "movie";
+        // console.log(id);
         if (!id) return;
-        pageNumber = 1;
-        renderSpinner(testData);
+        (0, _movieViewJsDefault.default).renderSpinner();
         // 1) loading movie data...
-        const res = await fetch(`https://api.themoviedb.org/3/${searchType}/${id}?language=${(0, _configJs.USER_LANGUAGE)}`, OPTIONS);
-        console.log(res);
-        const data = await res.json();
-        console.log(data);
-        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-        const movieData = {
-            id: data.id,
-            title: data.original_title,
-            overview: data.overview,
-            image: data.poster_path,
-            genreID: data.genre_ids,
-            releaseDate: data.release_date
-        };
-        console.log(movieData);
-        testData = document.querySelector("#testData");
+        await _modelJs.loadMovie(id);
         // 2) rendering movie data...
-        const markup = `
-    <h2>${movieData.title}</h2>
-    <img class="movieImage" src="${(0, _configJs.API_IMAGE)}${movieData.image}" alt="${movieData.title}" />
-    <p>OVERVIEW: ${movieData.overview}</p>
-    <p>ID: ${movieData.id}</p>
-    <p>RELEASE DATE: ${movieData.releaseDate}</p>
-    `;
-        testData.innerHTML = "";
-        testData.insertAdjacentHTML("afterbegin", markup);
+        (0, _movieViewJsDefault.default).render(_modelJs.state.movie);
     } catch (err) {
         alert(err);
     }
 };
-// Now I am calling getAPIcall() in the event
-// getAPIcall();
 // This is the same as the two eventsListeners below just condensed
+// window.addEventListener("hashchange", showMovie);
+// window.addEventListener("load", showMovie);
 [
     "hashchange",
     "load"
-].forEach((ev)=>window.addEventListener(ev, showMovie));
+].forEach((ev)=>window.addEventListener(ev, controlMovie));
 const searchResultsAll = async ()=>{
     try {
         const id = window.location.hash.slice(1);
@@ -680,7 +622,7 @@ const searchResultsAll = async ()=>{
         pageNumber = 1;
         query = "Spider Man";
         // 1) loading search data...
-        const res = await fetch(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${pageNumber}`, OPTIONS);
+        const res = await fetch(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${pageNumber}`, (0, _configJs.OPTIONS));
         const data = await res.json();
         console.log(data);
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
@@ -716,7 +658,7 @@ const searchResultsAll = async ()=>{
 };
 searchResultsAll();
 
-},{"core-js/modules/web.immediate.js":"49tUX","../config.js":"jtCLN","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../img/popcorn.png":"bBpmK"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/movieView.js":"e6B94","./config.js":"k5Hzs"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -1949,21 +1891,37 @@ module.exports = function(scheduler, hasTimeArg) {
 "use strict";
 /* global Bun -- Bun case */ module.exports = typeof Bun == "function" && Bun && typeof Bun.version == "string";
 
-},{}],"jtCLN":[function(require,module,exports) {
+},{}],"Y4A21":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "API_ACCES_TOKEN", ()=>API_ACCES_TOKEN);
-parcelHelpers.export(exports, "API_KEY", ()=>API_KEY);
-parcelHelpers.export(exports, "API_URL", ()=>API_URL);
-parcelHelpers.export(exports, "API_IMAGE", ()=>API_IMAGE);
-parcelHelpers.export(exports, "USER_LANGUAGE", ()=>USER_LANGUAGE);
-const API_ACCES_TOKEN = "bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YzI5Nzk1OWNmMzM0N2MxYmVjZmU0ODQ3NzNmODliNCIsInN1YiI6IjY2NjdiNzE2OTE0Yjg4OTA3YWU5ZWZkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TVs4E2FC6H2_ax1pesVaqnQn8AkrY2GNMLdb63JSFmQ";
-const API_KEY = "5c297959cf3347c1becfe484773f89b4";
-const API_URL = "https://api.themoviedb.org/3/";
-const API_IMAGE = "https://image.tmdb.org/t/p/original";
-const USER_LANGUAGE = "en-US";
+parcelHelpers.export(exports, "state", ()=>state);
+parcelHelpers.export(exports, "loadMovie", ()=>loadMovie);
+var _configJs = require("./config.js");
+const state = {
+    movie: {}
+};
+const loadMovie = async function(id) {
+    try {
+        const res = await fetch(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}`, (0, _configJs.OPTIONS));
+        const data = await res.json();
+        console.log("look at me!!!", data);
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        const movie = data;
+        state.movie = {
+            id: movie.id,
+            title: movie.original_title,
+            overview: movie.overview,
+            image: movie.poster_path,
+            genreID: movie.genre_ids,
+            releaseDate: movie.release_date
+        };
+        console.log(state.movie);
+    } catch (err) {
+        alert(err);
+    }
+};
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config.js":"k5Hzs"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -1993,7 +1951,29 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"dXNgZ":[function(require,module,exports) {
+},{}],"k5Hzs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "API_KEY", ()=>API_KEY);
+parcelHelpers.export(exports, "API_URL", ()=>API_URL);
+parcelHelpers.export(exports, "API_IMAGE", ()=>API_IMAGE);
+parcelHelpers.export(exports, "USER_LANGUAGE", ()=>USER_LANGUAGE);
+parcelHelpers.export(exports, "OPTIONS", ()=>OPTIONS);
+parcelHelpers.export(exports, "TV_OR_MOVIE", ()=>TV_OR_MOVIE);
+const API_KEY = "5c297959cf3347c1becfe484773f89b4";
+const API_URL = "https://api.themoviedb.org/3/";
+const API_IMAGE = "https://image.tmdb.org/t/p/original";
+const USER_LANGUAGE = "en-US";
+const OPTIONS = {
+    method: "GET",
+    headers: {
+        accept: "application/json",
+        Authorization: `${API_ACCES_TOKEN}`
+    }
+};
+const TV_OR_MOVIE = "movie";
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -2578,7 +2558,46 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"bBpmK":[function(require,module,exports) {
+},{}],"e6B94":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _config = require("../config");
+var _popcornPng = require("url:../../img/popcorn.png");
+var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
+class MovieView {
+    #parentElement = document.querySelector("#testData");
+    #data;
+    render(data) {
+        this.#data = data;
+        const markup = this.#generateMarkup();
+        this.#clear;
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    #clear() {
+        this.#parentElement.innerHTML = "";
+    }
+    renderSpinner = function() {
+        const markup = `
+    <div class = "spinner">    
+      <img src="${(0, _popcornPngDefault.default)}" alt="">
+    </div>
+    `;
+        this.#parentElement.innerHTML = "";
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    };
+    #generateMarkup() {
+        return `
+    <h2>${this.#data.title}</h2>
+    <img class="movieImage" src="${0, _config.API_IMAGE}${this.#data.image}" alt="${this.#data.title}" />
+    <p>OVERVIEW: ${this.#data.overview}</p>
+    <p>ID: ${this.#data.id}</p>
+    <p>RELEASE DATE: ${this.#data.releaseDate}</p>
+    `;
+    }
+}
+exports.default = new MovieView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../config":"k5Hzs","url:../../img/popcorn.png":"bBpmK"}],"bBpmK":[function(require,module,exports) {
 module.exports = require("bbd7c861c0dee775").getBundleURL("hWUTQ") + "popcorn.6445a6e0.png" + "?" + Date.now();
 
 },{"bbd7c861c0dee775":"lgJ39"}],"lgJ39":[function(require,module,exports) {
