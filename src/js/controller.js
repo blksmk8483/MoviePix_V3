@@ -19,17 +19,14 @@ export const controlMovie = async function () {
     // 2) rendering movie data...
     movieView.render(model.state.movie);
   } catch (err) {
-    alert(err);
+    console.log(err);
   }
 };
 
-// This is the same as the two eventsListeners below just condensed
-// window.addEventListener("hashchange", showMovie);
-// window.addEventListener("load", showMovie);
-
-["hashchange", "load"].forEach((ev) =>
-  window.addEventListener(ev, controlMovie)
-);
+const init = function () {
+  movieView.addHandlerRender(controlMovie);
+};
+init();
 
 // -------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------

@@ -1,5 +1,4 @@
 import { API_URL, USER_LANGUAGE, TV_OR_MOVIE } from "./config.js";
-
 import { getJSON } from "./helpers.js";
 
 export const state = {
@@ -30,8 +29,6 @@ export const loadMovie = async function (id) {
       genreID: movie.genre_ids,
       releaseDate: movie.release_date,
     };
-
-    console.log(state.movie);
   } catch (err) {
     // Temporary error handling
     console.error(`${err} 😢 😢 😢 😢`);

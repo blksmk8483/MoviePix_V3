@@ -26,6 +26,16 @@ class MovieView {
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   };
 
+  addHandlerRender(handler) {
+    // This is the same as the two eventsListeners below just condensed
+    // window.addEventListener("hashchange", showMovie);
+    // window.addEventListener("load", showMovie);
+
+    ["hashchange", "load"].forEach((ev) =>
+      window.addEventListener(ev, handler)
+    );
+  }
+
   #generateMarkup() {
     return `
     <h2>${this.#data.title}</h2>

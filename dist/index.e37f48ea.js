@@ -659,16 +659,13 @@ const controlMovie = async function() {
         // 2) rendering movie data...
         (0, _movieViewJsDefault.default).render(_modelJs.state.movie);
     } catch (err) {
-        alert(err);
+        console.log(err);
     }
 };
-// This is the same as the two eventsListeners below just condensed
-// window.addEventListener("hashchange", showMovie);
-// window.addEventListener("load", showMovie);
-[
-    "hashchange",
-    "load"
-].forEach((ev)=>window.addEventListener(ev, controlMovie));
+const init = function() {
+    (0, _movieViewJsDefault.default).addHandlerRender(controlMovie);
+};
+init();
 
 },{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
 "use strict";
@@ -1932,7 +1929,6 @@ const loadMovie = async function(id) {
             genreID: movie.genre_ids,
             releaseDate: movie.release_date
         };
-        console.log(state.movie);
     } catch (err) {
         // Temporary error handling
         console.error(`${err} \u{1F622} \u{1F622} \u{1F622} \u{1F622}`);
@@ -2021,7 +2017,7 @@ const getJSON = async function(url) {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config":"k5Hzs"}],"e6B94":[function(require,module,exports) {
+},{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e6B94":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _config = require("../config");
@@ -2048,6 +2044,15 @@ class MovieView {
         this.#parentElement.innerHTML = "";
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     };
+    addHandlerRender(handler) {
+        // This is the same as the two eventsListeners below just condensed
+        // window.addEventListener("hashchange", showMovie);
+        // window.addEventListener("load", showMovie);
+        [
+            "hashchange",
+            "load"
+        ].forEach((ev)=>window.addEventListener(ev, handler));
+    }
     #generateMarkup() {
         return `
     <h2>${this.#data.title}</h2>
