@@ -19,7 +19,7 @@ export const controlMovie = async function () {
     // 2) rendering movie data...
     movieView.render(model.state.movie);
   } catch (err) {
-    console.log(err);
+    movieView.renderError();
   }
 };
 

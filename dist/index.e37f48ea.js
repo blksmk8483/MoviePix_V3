@@ -659,7 +659,7 @@ const controlMovie = async function() {
         // 2) rendering movie data...
         (0, _movieViewJsDefault.default).render(_modelJs.state.movie);
     } catch (err) {
-        console.log(err);
+        (0, _movieViewJsDefault.default).renderError();
     }
 };
 const init = function() {
@@ -1932,6 +1932,7 @@ const loadMovie = async function(id) {
     } catch (err) {
         // Temporary error handling
         console.error(`${err} \u{1F622} \u{1F622} \u{1F622} \u{1F622}`);
+        throw err;
     }
 };
 
@@ -2026,6 +2027,8 @@ var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
 class MovieView {
     #parentElement = document.querySelector("#testData");
     #data;
+    #errorMessage = "Could not find that movie. Please try another one.";
+    #message = "";
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -2035,15 +2038,43 @@ class MovieView {
     #clear() {
         this.#parentElement.innerHTML = "";
     }
-    renderSpinner = function() {
+    renderSpinner() {
         const markup = `
     <div class = "spinner">    
       <img src="${(0, _popcornPngDefault.default)}" alt="">
     </div>
     `;
-        this.#parentElement.innerHTML = "";
+        this.#clear;
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-    };
+    }
+    renderError(message = this.#errorMessage) {
+        const markup = `
+    <div class="error">
+      <div>
+        <svg>
+          <use href="src/img/icons.svg#icon-alert-triangle"></use>
+        </svg>
+      </div>
+      <p>${message}</p>
+    </div>
+    `;
+        this.#clear;
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    renderMessage(message = this.#message) {
+        const markup = `
+    <div class="messge">
+      <div>
+        <svg>
+          <use href="src/img/icons.svg#icon-alert-triangle"></use>
+        </svg>
+      </div>
+      <p>${message}</p>
+    </div>
+    `;
+        this.#clear;
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
     addHandlerRender(handler) {
         // This is the same as the two eventsListeners below just condensed
         // window.addEventListener("hashchange", showMovie);

@@ -32,5 +32,6 @@ export const loadMovie = async function (id) {
   } catch (err) {
     // Temporary error handling
     console.error(`${err} 😢 😢 😢 😢`);
+    throw err;
   }
 };
