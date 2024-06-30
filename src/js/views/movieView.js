@@ -1,5 +1,6 @@
 import { API_IMAGE } from "../config";
 import popcornImage from "url:../../img/popcorn.png";
+import errorIcon from "url:../../img/spilled-popcorn.png";
 
 class MovieView {
   #parentElement = document.querySelector("#testData");
@@ -31,11 +32,7 @@ class MovieView {
   renderError(message = this.#errorMessage) {
     const markup = `
     <div class="error">
-      <div>
-        <svg>
-          <use href="src/img/icons.svg#icon-alert-triangle"></use>
-        </svg>
-      </div>
+         <img src="${errorIcon}">
       <p>${message}</p>
     </div>
     `;

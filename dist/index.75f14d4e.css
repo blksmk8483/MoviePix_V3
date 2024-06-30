@@ -33,4 +33,25 @@
   width: 15rem;
   padding: auto;
 }
+
+.error {
+  background-color: #f62f2f;
+  align-items: center;
+  width: 50rem;
+  margin: 2rem;
+  display: flex;
+}
+
+.error img {
+  width: auto;
+  height: 14rem;
+  margin: 1rem;
+}
+
+.error p {
+  color: #fff;
+  font-family: Courier New, Courier, monospace;
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
 /*# sourceMappingURL=index.75f14d4e.css.map */

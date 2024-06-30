@@ -2024,6 +2024,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _config = require("../config");
 var _popcornPng = require("url:../../img/popcorn.png");
 var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
+var _spilledPopcornPng = require("url:../../img/spilled-popcorn.png");
+var _spilledPopcornPngDefault = parcelHelpers.interopDefault(_spilledPopcornPng);
 class MovieView {
     #parentElement = document.querySelector("#testData");
     #data;
@@ -2050,11 +2052,7 @@ class MovieView {
     renderError(message = this.#errorMessage) {
         const markup = `
     <div class="error">
-      <div>
-        <svg>
-          <use href="src/img/icons.svg#icon-alert-triangle"></use>
-        </svg>
-      </div>
+         <img src="${(0, _spilledPopcornPngDefault.default)}">
       <p>${message}</p>
     </div>
     `;
@@ -2096,7 +2094,7 @@ class MovieView {
 }
 exports.default = new MovieView();
 
-},{"../config":"k5Hzs","url:../../img/popcorn.png":"bBpmK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bBpmK":[function(require,module,exports) {
+},{"../config":"k5Hzs","url:../../img/popcorn.png":"bBpmK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/spilled-popcorn.png":"afcnD"}],"bBpmK":[function(require,module,exports) {
 module.exports = require("bbd7c861c0dee775").getBundleURL("hWUTQ") + "popcorn.6445a6e0.png" + "?" + Date.now();
 
 },{"bbd7c861c0dee775":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -2134,7 +2132,10 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"dXNgZ":[function(require,module,exports) {
+},{}],"afcnD":[function(require,module,exports) {
+module.exports = require("679a49c9d66abef2").getBundleURL("hWUTQ") + "spilled-popcorn.e804d867.png" + "?" + Date.now();
+
+},{"679a49c9d66abef2":"lgJ39"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
