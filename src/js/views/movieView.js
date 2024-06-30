@@ -11,7 +11,7 @@ class MovieView {
   render(data) {
     this.#data = data;
     const markup = this.#generateMarkup();
-    this.#clear;
+    this.#clear();
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
@@ -25,7 +25,7 @@ class MovieView {
       <img src="${popcornImage}" alt="">
     </div>
     `;
-    this.#clear;
+    this.#clear();
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
@@ -36,7 +36,7 @@ class MovieView {
       <p>${message}</p>
     </div>
     `;
-    this.#clear;
+    this.#clear();
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 
@@ -51,7 +51,7 @@ class MovieView {
       <p>${message}</p>
     </div>
     `;
-    this.#clear;
+    this.#clear();
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   }
 

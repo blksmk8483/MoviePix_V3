@@ -2034,7 +2034,7 @@ class MovieView {
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
-        this.#clear;
+        this.#clear();
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }
     #clear() {
@@ -2046,7 +2046,7 @@ class MovieView {
       <img src="${(0, _popcornPngDefault.default)}" alt="">
     </div>
     `;
-        this.#clear;
+        this.#clear();
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }
     renderError(message = this.#errorMessage) {
@@ -2056,7 +2056,7 @@ class MovieView {
       <p>${message}</p>
     </div>
     `;
-        this.#clear;
+        this.#clear();
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }
     renderMessage(message = this.#message) {
@@ -2070,7 +2070,7 @@ class MovieView {
       <p>${message}</p>
     </div>
     `;
-        this.#clear;
+        this.#clear();
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }
     addHandlerRender(handler) {
@@ -2094,7 +2094,7 @@ class MovieView {
 }
 exports.default = new MovieView();
 
-},{"../config":"k5Hzs","url:../../img/popcorn.png":"bBpmK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/spilled-popcorn.png":"afcnD"}],"bBpmK":[function(require,module,exports) {
+},{"../config":"k5Hzs","url:../../img/popcorn.png":"bBpmK","url:../../img/spilled-popcorn.png":"afcnD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bBpmK":[function(require,module,exports) {
 module.exports = require("bbd7c861c0dee775").getBundleURL("hWUTQ") + "popcorn.6445a6e0.png" + "?" + Date.now();
 
 },{"bbd7c861c0dee775":"lgJ39"}],"lgJ39":[function(require,module,exports) {
