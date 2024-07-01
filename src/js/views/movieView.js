@@ -74,6 +74,12 @@ class MovieView {
     <p>OVERVIEW: ${this.#data.overview}</p>
     <p>ID: ${this.#data.id}</p>
     <p>RELEASE DATE: ${this.#data.releaseDate}</p>
+    <p>RUNTIME: ${this.#data.runtime} minutes</p>
+    <p>GENRES: ${this.#data.genres
+      .map((data) => {
+        return `   ${data.name}`;
+      })
+      .join(",   ")}</p>
     `;
   }
 }

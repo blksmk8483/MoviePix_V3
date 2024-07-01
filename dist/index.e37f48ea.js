@@ -647,6 +647,8 @@ var _webImmediateJs = require("core-js/modules/web.immediate.js"); // ----------
 var _modelJs = require("./model.js");
 var _movieViewJs = require("./views/movieView.js");
 var _movieViewJsDefault = parcelHelpers.interopDefault(_movieViewJs);
+var _searchViewJs = require("./views/searchView.js");
+var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 const controlMovie = async function() {
     try {
@@ -662,12 +664,26 @@ const controlMovie = async function() {
         (0, _movieViewJsDefault.default).renderError();
     }
 };
+const controlSearchResults = async function() {
+    try {
+        // 1) Get search query
+        const query = (0, _searchViewJsDefault.default).getQuery();
+        if (!query) return;
+        // 2) Load search results
+        await _modelJs.loadSearchResults(query);
+        // 3) Render Results
+        console.log(_modelJs.state.search.results);
+    } catch (err) {
+        console.log(err);
+    }
+};
 const init = function() {
     (0, _movieViewJsDefault.default).addHandlerRender(controlMovie);
+    (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/searchView.js":"9OQAM"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -1905,32 +1921,50 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadMovie", ()=>loadMovie);
+parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 var _configJs = require("./config.js");
 var _helpersJs = require("./helpers.js");
 const state = {
-    movie: {}
+    movie: {},
+    search: {
+        query: "",
+        results: []
+    }
 };
 const loadMovie = async function(id) {
     try {
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}`);
-        // const res = await fetch(
-        //   `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`,
-        //   OPTIONS
-        // );
-        // const data = await res.json();
-        // console.log("look at me!!!", data);
-        // if (!res.ok) throw new Error(`${data.message} (${res.status})`);
         const movie = data;
         state.movie = {
             id: movie.id,
             title: movie.original_title,
             overview: movie.overview,
             image: movie.poster_path,
-            genreID: movie.genre_ids,
-            releaseDate: movie.release_date
+            runtime: movie.runtime,
+            releaseDate: movie.release_date,
+            genres: movie.genres
         };
     } catch (err) {
         // Temporary error handling
+        console.error(`${err} \u{1F622} \u{1F622} \u{1F622} \u{1F622}`);
+        throw err;
+    }
+};
+const loadSearchResults = async function(query) {
+    try {
+        state.search.query = query;
+        pageNumber = 1;
+        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}`);
+        state.search.results = data.results.map((movie)=>({
+                id: movie.id,
+                title: movie.original_title,
+                overview: movie.overview,
+                image: movie.poster_path,
+                genreID: movie.genre_ids,
+                releaseDate: movie.release_date
+            }));
+    // console.log(state.search.results);
+    } catch (err) {
         console.error(`${err} \u{1F622} \u{1F622} \u{1F622} \u{1F622}`);
         throw err;
     }
@@ -2089,6 +2123,10 @@ class MovieView {
     <p>OVERVIEW: ${this.#data.overview}</p>
     <p>ID: ${this.#data.id}</p>
     <p>RELEASE DATE: ${this.#data.releaseDate}</p>
+    <p>RUNTIME: ${this.#data.runtime} minutes</p>
+    <p>GENRES: ${this.#data.genres.map((data)=>{
+            return `   ${data.name}`;
+        }).join(",   ")}</p>
     `;
     }
 }
@@ -2720,6 +2758,28 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}]},["hycaY","aenu9"], "aenu9", "parcelRequire6553")
+},{}],"9OQAM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class SearchView {
+    #parentElement = document.querySelector(".search");
+    getQuery() {
+        const query = this.#parentElement.querySelector(".search__field").value;
+        this.#clearInput();
+        return query;
+    }
+    #clearInput() {
+        this.#parentElement.querySelector(".search__field").value = "";
+    }
+    addHandlerSearch(handler) {
+        this.#parentElement.addEventListener("submit", function(e) {
+            e.preventDefault();
+            handler();
+        });
+    }
+}
+exports.default = new SearchView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire6553")
 
 //# sourceMappingURL=index.e37f48ea.js.map

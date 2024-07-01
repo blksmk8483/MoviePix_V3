@@ -1,5 +1,6 @@
 import * as model from "./model.js";
 import movieView from "./views/movieView.js";
+import searchView from "./views/searchView.js";
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
@@ -23,8 +24,25 @@ export const controlMovie = async function () {
   }
 };
 
+const controlSearchResults = async function () {
+  try {
+    // 1) Get search query
+    const query = searchView.getQuery();
+    if (!query) return;
+
+    // 2) Load search results
+    await model.loadSearchResults(query);
+
+    // 3) Render Results
+    console.log(model.state.search.results);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const init = function () {
   movieView.addHandlerRender(controlMovie);
+  searchView.addHandlerSearch(controlSearchResults);
 };
 init();
 
