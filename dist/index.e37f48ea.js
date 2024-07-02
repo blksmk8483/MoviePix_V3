@@ -652,6 +652,7 @@ var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _resultsViewJs = require("./views/resultsView.js");
 var _resultsViewJsDefault = parcelHelpers.interopDefault(_resultsViewJs);
 var _runtime = require("regenerator-runtime/runtime");
+if (module.hot) module.hot.accept();
 const controlMovie = async function() {
     try {
         const id = window.location.hash.slice(1);
@@ -675,7 +676,6 @@ const controlSearchResults = async function() {
         // 2) Load search results
         await _modelJs.loadSearchResults(query);
         // 3) Render Results
-        console.log(_modelJs.state.search.results);
         (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
     } catch (err) {
         console.log(err);
@@ -687,7 +687,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","./views/searchView.js":"9OQAM","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/resultsView.js":"cSbZE"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","./views/searchView.js":"9OQAM","./views/resultsView.js":"cSbZE","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -2091,7 +2091,7 @@ class MovieView extends (0, _viewDefault.default) {
 }
 exports.default = new MovieView();
 
-},{"../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./View":"5cUXS"}],"5cUXS":[function(require,module,exports) {
+},{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _popcornPng = require("url:../../img/popcorn.png");
@@ -2101,6 +2101,7 @@ var _spilledPopcornPngDefault = parcelHelpers.interopDefault(_spilledPopcornPng)
 class View {
     _data;
     render(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
@@ -2145,7 +2146,7 @@ class View {
 }
 exports.default = View;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/popcorn.png":"bBpmK","url:../../img/spilled-popcorn.png":"afcnD"}],"bBpmK":[function(require,module,exports) {
+},{"url:../../img/popcorn.png":"bBpmK","url:../../img/spilled-popcorn.png":"afcnD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bBpmK":[function(require,module,exports) {
 module.exports = require("bbd7c861c0dee775").getBundleURL("hWUTQ") + "popcorn.6445a6e0.png" + "?" + Date.now();
 
 },{"bbd7c861c0dee775":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -2208,7 +2209,58 @@ class SearchView {
 }
 exports.default = new SearchView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cSbZE":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _config = require("../config");
+var _view = require("./View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class ResultsView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector(".results");
+    _errorMessage = "No movies found. Please try again.";
+    _message = "";
+    _generateMarkup() {
+        // console.log(this._data);
+        return this._data.map(this._generateMarkupPreview).join("");
+    }
+    _generateMarkupPreview(result) {
+        return `
+    <li class="preview">
+          <a class="preview__link" href="#${result.id}">
+              <figure class="preview__fig">
+                <img src="${0, _config.API_IMAGE}${result.image}" alt="${result.title}" />
+              </figure>
+              <div class="preview__data">
+                <h4 class="preview__title">${result.title}</h4>
+                <p class="preview__publisher">${result.overview}</p>
+              </div>
+          </a>
+      </li>
+    `;
+    }
+}
+exports.default = new ResultsView(); // I need to go back and add the icons ...
+ // _generateMarkupPreview(result) {
+ //   return `
+ //   <li class="preview">
+ //         <a class="preview__link preview__link--active" href="#23456">
+ //             <figure class="preview__fig">
+ //               <img src="${API_IMAGE}${result.image}" alt="${result.title}" />
+ //             </figure>
+ //             <div class="preview__data">
+ //               <h4 class="preview__title">${result.title}</h4>
+ //               <p class="preview__publisher">${result.overview}</p>
+ //               <div class="preview__user-generated">
+ //                 <svg>
+ //                   <use href="src/img/icons.svg#icon-user"></use>
+ //                 </svg>
+ //               </div>
+ //             </div>
+ //         </a>
+ //     </li>
+ //   `;
+
+},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -2793,56 +2845,6 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"cSbZE":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _config = require("../config");
-var _view = require("./View");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-class ResultsView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector(".results");
-    _generateMarkup() {
-        console.log(this._data);
-        return this._data.map(this._generateMarkupPreview).join("");
-    }
-    _generateMarkupPreview(result) {
-        return `
-    <li class="preview">
-          <a class="preview__link preview__link--active" href="#${result.id}">
-              <figure class="preview__fig">
-                <img src="${0, _config.API_IMAGE}${result.image}" alt="${result.title}" />
-              </figure>
-              <div class="preview__data">
-                <h4 class="preview__title">${result.title}</h4>
-                <p class="preview__publisher">${result.id}</p>
-                <p class="preview__publisher">${result.overview}</p>
-              </div>
-          </a>
-      </li>
-    `;
-    }
-}
-exports.default = new ResultsView(); // I need to go back and add the icons ...
- // _generateMarkupPreview(result) {
- //   return `
- //   <li class="preview">
- //         <a class="preview__link preview__link--active" href="#23456">
- //             <figure class="preview__fig">
- //               <img src="${API_IMAGE}${result.image}" alt="${result.title}" />
- //             </figure>
- //             <div class="preview__data">
- //               <h4 class="preview__title">${result.title}</h4>
- //               <p class="preview__publisher">${result.overview}</p>
- //               <div class="preview__user-generated">
- //                 <svg>
- //                   <use href="src/img/icons.svg#icon-user"></use>
- //                 </svg>
- //               </div>
- //             </div>
- //         </a>
- //     </li>
- //   `;
-
-},{"./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../config":"k5Hzs"}]},["hycaY","aenu9"], "aenu9", "parcelRequire6553")
+},{}]},["hycaY","aenu9"], "aenu9", "parcelRequire6553")
 
 //# sourceMappingURL=index.e37f48ea.js.map

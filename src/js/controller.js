@@ -6,6 +6,10 @@ import resultsView from "./views/resultsView.js";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
+if (module.hot) {
+  module.hot.accept();
+}
+
 // THIS GETS ME A SPECIFIC MOVIE BASED ON ID
 export const controlMovie = async function () {
   try {
@@ -37,7 +41,6 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 3) Render Results
-    console.log(model.state.search.results);
     resultsView.render(model.state.search.results);
   } catch (err) {
     console.log(err);
