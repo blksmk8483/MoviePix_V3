@@ -38,7 +38,7 @@ export const loadSearchResults = async function (query) {
 
     pageNumber = 1;
     const data = await getJSON(
-      `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}`
+      `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${pageNumber}`
     );
 
     state.search.results = data.results.map((movie) => ({

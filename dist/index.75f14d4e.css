@@ -54,4 +54,22 @@
   font-size: 1.8rem;
   line-height: 1.8;
 }
+
+.preview {
+  background-color: #e7bcbc;
+  margin-bottom: .2rem;
+  padding: 1rem;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.preview__fig img {
+  border-radius: 12%;
+  width: 5rem;
+  height: 5rem;
+}
+
+.preview__fig img .preview__title {
+  text-decoration: none;
+}
 /*# sourceMappingURL=index.75f14d4e.css.map */

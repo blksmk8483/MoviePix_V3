@@ -649,6 +649,8 @@ var _movieViewJs = require("./views/movieView.js");
 var _movieViewJsDefault = parcelHelpers.interopDefault(_movieViewJs);
 var _searchViewJs = require("./views/searchView.js");
 var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
+var _resultsViewJs = require("./views/resultsView.js");
+var _resultsViewJsDefault = parcelHelpers.interopDefault(_resultsViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 const controlMovie = async function() {
     try {
@@ -666,6 +668,7 @@ const controlMovie = async function() {
 };
 const controlSearchResults = async function() {
     try {
+        (0, _resultsViewJsDefault.default).renderSpinner();
         // 1) Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
@@ -673,6 +676,7 @@ const controlSearchResults = async function() {
         await _modelJs.loadSearchResults(query);
         // 3) Render Results
         console.log(_modelJs.state.search.results);
+        (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
     } catch (err) {
         console.log(err);
     }
@@ -683,7 +687,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/searchView.js":"9OQAM"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","./views/searchView.js":"9OQAM","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/resultsView.js":"cSbZE"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -1954,7 +1958,7 @@ const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
         pageNumber = 1;
-        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}`);
+        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${pageNumber}`);
         state.search.results = data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
@@ -2055,24 +2059,55 @@ const getJSON = async function(url) {
 },{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e6B94":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _view = require("./View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
 var _config = require("../config");
+class MovieView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector("#testData");
+    _errorMessage = "Could not find that movie. Please try another one.";
+    _message = "";
+    addHandlerRender(handler) {
+        // This is the same as the two eventsListeners below just condensed
+        // window.addEventListener("hashchange", showMovie);
+        // window.addEventListener("load", showMovie);
+        [
+            "hashchange",
+            "load"
+        ].forEach((ev)=>window.addEventListener(ev, handler));
+    }
+    _generateMarkup() {
+        return `
+    <h2>${this._data.title}</h2>
+    <img class="movieImage" src="${0, _config.API_IMAGE}${this._data.image}" alt="${this._data.title}" />
+    <p>OVERVIEW: ${this._data.overview}</p>
+    <p>ID: ${this._data.id}</p>
+    <p>RELEASE DATE: ${this._data.releaseDate}</p>
+    <p>RUNTIME: ${this._data.runtime} minutes</p>
+    <p>GENRES: ${this._data.genres.map((data)=>{
+            return `   ${data.name}`;
+        }).join(",   ")}</p>
+    `;
+    }
+}
+exports.default = new MovieView();
+
+},{"../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./View":"5cUXS"}],"5cUXS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
 var _popcornPng = require("url:../../img/popcorn.png");
 var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
 var _spilledPopcornPng = require("url:../../img/spilled-popcorn.png");
 var _spilledPopcornPngDefault = parcelHelpers.interopDefault(_spilledPopcornPng);
-class MovieView {
-    #parentElement = document.querySelector("#testData");
-    #data;
-    #errorMessage = "Could not find that movie. Please try another one.";
-    #message = "";
+class View {
+    _data;
     render(data) {
-        this.#data = data;
-        const markup = this.#generateMarkup();
-        this.#clear();
-        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+        this._data = data;
+        const markup = this._generateMarkup();
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
-    #clear() {
-        this.#parentElement.innerHTML = "";
+    _clear() {
+        this._parentElement.innerHTML = "";
     }
     renderSpinner() {
         const markup = `
@@ -2080,20 +2115,20 @@ class MovieView {
       <img src="${(0, _popcornPngDefault.default)}" alt="">
     </div>
     `;
-        this.#clear();
-        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
-    renderError(message = this.#errorMessage) {
+    renderError(message = this._errorMessage) {
         const markup = `
     <div class="error">
          <img src="${(0, _spilledPopcornPngDefault.default)}">
       <p>${message}</p>
     </div>
     `;
-        this.#clear();
-        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
-    renderMessage(message = this.#message) {
+    renderMessage(message = this._message) {
         const markup = `
     <div class="messge">
       <div>
@@ -2104,35 +2139,13 @@ class MovieView {
       <p>${message}</p>
     </div>
     `;
-        this.#clear();
-        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-    }
-    addHandlerRender(handler) {
-        // This is the same as the two eventsListeners below just condensed
-        // window.addEventListener("hashchange", showMovie);
-        // window.addEventListener("load", showMovie);
-        [
-            "hashchange",
-            "load"
-        ].forEach((ev)=>window.addEventListener(ev, handler));
-    }
-    #generateMarkup() {
-        return `
-    <h2>${this.#data.title}</h2>
-    <img class="movieImage" src="${0, _config.API_IMAGE}${this.#data.image}" alt="${this.#data.title}" />
-    <p>OVERVIEW: ${this.#data.overview}</p>
-    <p>ID: ${this.#data.id}</p>
-    <p>RELEASE DATE: ${this.#data.releaseDate}</p>
-    <p>RUNTIME: ${this.#data.runtime} minutes</p>
-    <p>GENRES: ${this.#data.genres.map((data)=>{
-            return `   ${data.name}`;
-        }).join(",   ")}</p>
-    `;
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
 }
-exports.default = new MovieView();
+exports.default = View;
 
-},{"../config":"k5Hzs","url:../../img/popcorn.png":"bBpmK","url:../../img/spilled-popcorn.png":"afcnD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bBpmK":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/popcorn.png":"bBpmK","url:../../img/spilled-popcorn.png":"afcnD"}],"bBpmK":[function(require,module,exports) {
 module.exports = require("bbd7c861c0dee775").getBundleURL("hWUTQ") + "popcorn.6445a6e0.png" + "?" + Date.now();
 
 },{"bbd7c861c0dee775":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -2173,7 +2186,29 @@ exports.getOrigin = getOrigin;
 },{}],"afcnD":[function(require,module,exports) {
 module.exports = require("679a49c9d66abef2").getBundleURL("hWUTQ") + "spilled-popcorn.e804d867.png" + "?" + Date.now();
 
-},{"679a49c9d66abef2":"lgJ39"}],"dXNgZ":[function(require,module,exports) {
+},{"679a49c9d66abef2":"lgJ39"}],"9OQAM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class SearchView {
+    _parentElement = document.querySelector(".search");
+    getQuery() {
+        const query = this._parentElement.querySelector(".search__field").value;
+        this._clearInput();
+        return query;
+    }
+    _clearInput() {
+        this._parentElement.querySelector(".search__field").value = "";
+    }
+    addHandlerSearch(handler) {
+        this._parentElement.addEventListener("submit", function(e) {
+            e.preventDefault();
+            handler();
+        });
+    }
+}
+exports.default = new SearchView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -2758,28 +2793,56 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"9OQAM":[function(require,module,exports) {
+},{}],"cSbZE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-class SearchView {
-    #parentElement = document.querySelector(".search");
-    getQuery() {
-        const query = this.#parentElement.querySelector(".search__field").value;
-        this.#clearInput();
-        return query;
+var _config = require("../config");
+var _view = require("./View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class ResultsView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector(".results");
+    _generateMarkup() {
+        console.log(this._data);
+        return this._data.map(this._generateMarkupPreview).join("");
     }
-    #clearInput() {
-        this.#parentElement.querySelector(".search__field").value = "";
-    }
-    addHandlerSearch(handler) {
-        this.#parentElement.addEventListener("submit", function(e) {
-            e.preventDefault();
-            handler();
-        });
+    _generateMarkupPreview(result) {
+        return `
+    <li class="preview">
+          <a class="preview__link preview__link--active" href="#${result.id}">
+              <figure class="preview__fig">
+                <img src="${0, _config.API_IMAGE}${result.image}" alt="${result.title}" />
+              </figure>
+              <div class="preview__data">
+                <h4 class="preview__title">${result.title}</h4>
+                <p class="preview__publisher">${result.id}</p>
+                <p class="preview__publisher">${result.overview}</p>
+              </div>
+          </a>
+      </li>
+    `;
     }
 }
-exports.default = new SearchView();
+exports.default = new ResultsView(); // I need to go back and add the icons ...
+ // _generateMarkupPreview(result) {
+ //   return `
+ //   <li class="preview">
+ //         <a class="preview__link preview__link--active" href="#23456">
+ //             <figure class="preview__fig">
+ //               <img src="${API_IMAGE}${result.image}" alt="${result.title}" />
+ //             </figure>
+ //             <div class="preview__data">
+ //               <h4 class="preview__title">${result.title}</h4>
+ //               <p class="preview__publisher">${result.overview}</p>
+ //               <div class="preview__user-generated">
+ //                 <svg>
+ //                   <use href="src/img/icons.svg#icon-user"></use>
+ //                 </svg>
+ //               </div>
+ //             </div>
+ //         </a>
+ //     </li>
+ //   `;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire6553")
+},{"./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../config":"k5Hzs"}]},["hycaY","aenu9"], "aenu9", "parcelRequire6553")
 
 //# sourceMappingURL=index.e37f48ea.js.map

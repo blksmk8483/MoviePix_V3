@@ -1,59 +1,11 @@
+import View from "./View";
+
 import { API_IMAGE } from "../config";
-import popcornImage from "url:../../img/popcorn.png";
-import errorIcon from "url:../../img/spilled-popcorn.png";
 
-class MovieView {
-  #parentElement = document.querySelector("#testData");
-  #data;
-  #errorMessage = "Could not find that movie. Please try another one.";
-  #message = "";
-
-  render(data) {
-    this.#data = data;
-    const markup = this.#generateMarkup();
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-  }
-
-  #clear() {
-    this.#parentElement.innerHTML = "";
-  }
-
-  renderSpinner() {
-    const markup = `
-    <div class = "spinner">    
-      <img src="${popcornImage}" alt="">
-    </div>
-    `;
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-  }
-
-  renderError(message = this.#errorMessage) {
-    const markup = `
-    <div class="error">
-         <img src="${errorIcon}">
-      <p>${message}</p>
-    </div>
-    `;
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-  }
-
-  renderMessage(message = this.#message) {
-    const markup = `
-    <div class="messge">
-      <div>
-        <svg>
-          <use href="src/img/icons.svg#icon-alert-triangle"></use>
-        </svg>
-      </div>
-      <p>${message}</p>
-    </div>
-    `;
-    this.#clear();
-    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-  }
+class MovieView extends View {
+  _parentElement = document.querySelector("#testData");
+  _errorMessage = "Could not find that movie. Please try another one.";
+  _message = "";
 
   addHandlerRender(handler) {
     // This is the same as the two eventsListeners below just condensed
@@ -65,17 +17,17 @@ class MovieView {
     );
   }
 
-  #generateMarkup() {
+  _generateMarkup() {
     return `
-    <h2>${this.#data.title}</h2>
-    <img class="movieImage" src="${API_IMAGE}${this.#data.image}" alt="${
-      this.#data.title
+    <h2>${this._data.title}</h2>
+    <img class="movieImage" src="${API_IMAGE}${this._data.image}" alt="${
+      this._data.title
     }" />
-    <p>OVERVIEW: ${this.#data.overview}</p>
-    <p>ID: ${this.#data.id}</p>
-    <p>RELEASE DATE: ${this.#data.releaseDate}</p>
-    <p>RUNTIME: ${this.#data.runtime} minutes</p>
-    <p>GENRES: ${this.#data.genres
+    <p>OVERVIEW: ${this._data.overview}</p>
+    <p>ID: ${this._data.id}</p>
+    <p>RELEASE DATE: ${this._data.releaseDate}</p>
+    <p>RUNTIME: ${this._data.runtime} minutes</p>
+    <p>GENRES: ${this._data.genres
       .map((data) => {
         return `   ${data.name}`;
       })
