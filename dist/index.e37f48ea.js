@@ -676,6 +676,7 @@ const controlSearchResults = async function() {
         // 2) Load search results
         await _modelJs.loadSearchResults(query);
         // 3) Render Results
+        console.log(_modelJs.state.search.results);
         (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
     } catch (err) {
         console.log(err);
@@ -1926,6 +1927,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadMovie", ()=>loadMovie);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
+parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 var _configJs = require("./config.js");
 var _helpersJs = require("./helpers.js");
 const state = {
@@ -1946,7 +1948,8 @@ const loadMovie = async function(id) {
             image: movie.poster_path,
             runtime: movie.runtime,
             releaseDate: movie.release_date,
-            genres: movie.genres
+            genres: movie.genres,
+            tagline: movie.tagline
         };
     } catch (err) {
         // Temporary error handling
@@ -1957,8 +1960,10 @@ const loadMovie = async function(id) {
 const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
-        pageNumber = 1;
+        const pageNumber = 1;
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${pageNumber}`);
+        console.log(data);
+        console.log(data);
         state.search.results = data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
@@ -1972,6 +1977,12 @@ const loadSearchResults = async function(query) {
         console.error(`${err} \u{1F622} \u{1F622} \u{1F622} \u{1F622}`);
         throw err;
     }
+};
+const getSearchResultsPage = function(page = state.search.page) {
+    state.search.page = page;
+    const start = (page - 1) * state.search.resultsPerPage; // 0
+    const end = page * state.search.resultsPerPage; // 9
+    return state.search.results.slice(start, end);
 };
 
 },{"./config.js":"k5Hzs","./helpers.js":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
@@ -2078,6 +2089,7 @@ class MovieView extends (0, _viewDefault.default) {
     _generateMarkup() {
         return `
     <h2>${this._data.title}</h2>
+    <p>${this._data.tagline}</p>
     <img class="movieImage" src="${0, _config.API_IMAGE}${this._data.image}" alt="${this._data.title}" />
     <p>OVERVIEW: ${this._data.overview}</p>
     <p>ID: ${this._data.id}</p>

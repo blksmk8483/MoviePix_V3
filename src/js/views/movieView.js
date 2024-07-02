@@ -20,6 +20,7 @@ class MovieView extends View {
   _generateMarkup() {
     return `
     <h2>${this._data.title}</h2>
+    <p>${this._data.tagline}</p>
     <img class="movieImage" src="${API_IMAGE}${this._data.image}" alt="${
       this._data.title
     }" />
