@@ -651,6 +651,8 @@ var _searchViewJs = require("./views/searchView.js");
 var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _resultsViewJs = require("./views/resultsView.js");
 var _resultsViewJsDefault = parcelHelpers.interopDefault(_resultsViewJs);
+var _paginationViewJs = require("./views/paginationView.js");
+var _paginationViewJsDefault = parcelHelpers.interopDefault(_paginationViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 if (module.hot) module.hot.accept();
 const controlMovie = async function() {
@@ -676,19 +678,28 @@ const controlSearchResults = async function() {
         // 2) Load search results
         await _modelJs.loadSearchResults(query);
         // 3) Render Results
-        console.log(_modelJs.state.search.results);
-        (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
+        // resultsView.render(model.state.search.results);
+        (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage());
+        // 4) Render initial pagination buttons
+        (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (err) {
         console.log(err);
     }
 };
+const controlPagination = function(goToPage) {
+    // 1) Render NEW results
+    (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(goToPage));
+    // 2) Render NEW pagination buttons
+    (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
+};
 const init = function() {
     (0, _movieViewJsDefault.default).addHandlerRender(controlMovie);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
+    (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","./views/searchView.js":"9OQAM","./views/resultsView.js":"cSbZE","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","./views/searchView.js":"9OQAM","./views/resultsView.js":"cSbZE","./views/paginationView.js":"6z7bi","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -1934,7 +1945,9 @@ const state = {
     movie: {},
     search: {
         query: "",
-        results: []
+        results: [],
+        page: 1,
+        resultsPerPage: 5
     }
 };
 const loadMovie = async function(id) {
@@ -1960,9 +1973,9 @@ const loadMovie = async function(id) {
 const loadSearchResults = async function(query) {
     try {
         state.search.query = query;
-        const pageNumber = 1;
-        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${pageNumber}`);
-        console.log(data);
+        // pageNumber = 1;
+        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}`);
+        // console.log(data.total_pages);
         console.log(data);
         state.search.results = data.results.map((movie)=>({
                 id: movie.id,
@@ -1983,7 +1996,34 @@ const getSearchResultsPage = function(page = state.search.page) {
     const start = (page - 1) * state.search.resultsPerPage; // 0
     const end = page * state.search.resultsPerPage; // 9
     return state.search.results.slice(start, end);
-};
+}; // export const getSearchResultsPage = async function (page = state.search.page) {
+ //   try {
+ //     // state.search.query = query;
+ //     loadSearchResults(query) = query
+ //     state.search.page = page;
+ //     const data = await getJSON(
+ //       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
+ //     );
+ //     console.log(data);
+ //     page = data.total_pages;
+ //     const start = (page - 1) * state.search.resultsPerPage; // 0
+ //     const end = page * state.search.resultsPerPage; // 9
+ //     return state.search.results.slice(start, end);
+ //     console.log(data);
+ //     state.search.results = data.results.map((movie) => ({
+ //       id: movie.id,
+ //       title: movie.original_title,
+ //       overview: movie.overview,
+ //       image: movie.poster_path,
+ //       genreID: movie.genre_ids,
+ //       releaseDate: movie.release_date,
+ //     }));
+ //     // console.log(state.search.results);
+ //   } catch (err) {
+ //     console.error(`${err} 😢 😢 😢 😢`);
+ //     throw err;
+ //   }
+ // };
 
 },{"./config.js":"k5Hzs","./helpers.js":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -2272,7 +2312,75 @@ exports.default = new ResultsView(); // I need to go back and add the icons ...
  //     </li>
  //   `;
 
-},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
+},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6z7bi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("./View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+var _leftArrowPng = require("url:../../img/Left_Arrow.png");
+var _leftArrowPngDefault = parcelHelpers.interopDefault(_leftArrowPng);
+var _rightArrowPng = require("url:../../img/Right_Arrow.png");
+var _rightArrowPngDefault = parcelHelpers.interopDefault(_rightArrowPng);
+class PaginationView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector(".pagination");
+    addHandlerClick(handler) {
+        this._parentElement.addEventListener("click", function(e) {
+            const btn = e.target.closest(".btn--inline");
+            if (!btn) return;
+            const goToPage = +btn.dataset.goto;
+            handler(goToPage);
+        });
+    }
+    _generateMarkup() {
+        const curPage = this._data.page;
+        const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
+        // Page 1, and there are other pages
+        if (curPage === 1 && numPages > 1) return `
+        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
+          <span>Page ${curPage + 1}</span>
+          <svg class="search__icon">
+          <use href="./img/Right_Arrow.png"></use>
+          </svg>
+        </button>
+    `;
+        // Last page
+        if (curPage === numPages && numPages > 1) return `
+        <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
+          <svg class="search__icon">
+          <use href="./img/Left_Arrow.png"></use>
+          </svg>
+          <span>Page ${curPage - 1}</span>
+        </button>
+    `;
+        // Other page
+        if (curPage < numPages) return `
+        <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
+          <svg class="search__icon">
+          <use href="./img/Left_Arrow.png"></use>
+          </svg>
+          <span>Page ${curPage - 1}</span>
+        </button>
+        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
+        <span>Page ${curPage + 1}</span>
+        <svg class="search__icon">
+     
+        <use href="./img/Right_Arrow.png"></use>
+        </svg>
+      </button>
+    `;
+        // Page 1, and there are NO other pages
+        return "";
+    }
+}
+exports.default = new PaginationView();
+
+},{"./View":"5cUXS","url:../../img/Left_Arrow.png":"2ZBUp","url:../../img/Right_Arrow.png":"caaSP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2ZBUp":[function(require,module,exports) {
+module.exports = require("9c4d448523e29e91").getBundleURL("hWUTQ") + "Left_Arrow.fa35ce37.png" + "?" + Date.now();
+
+},{"9c4d448523e29e91":"lgJ39"}],"caaSP":[function(require,module,exports) {
+module.exports = require("2729802637459f9").getBundleURL("hWUTQ") + "Right_Arrow.927054b0.png" + "?" + Date.now();
+
+},{"2729802637459f9":"lgJ39"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *

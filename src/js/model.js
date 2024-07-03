@@ -6,6 +6,8 @@ export const state = {
   search: {
     query: "",
     results: [],
+    page: 1,
+    resultsPerPage: 5,
   },
 };
 
@@ -36,13 +38,12 @@ export const loadMovie = async function (id) {
 export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
-
-    const pageNumber = 1;
+    // pageNumber = 1;
 
     const data = await getJSON(
-      `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${pageNumber}`
+      `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}`
     );
-    console.log(data);
+    // console.log(data.total_pages);
 
     console.log(data);
     state.search.results = data.results.map((movie) => ({
@@ -69,3 +70,36 @@ export const getSearchResultsPage = function (page = state.search.page) {
 
   return state.search.results.slice(start, end);
 };
+
+// export const getSearchResultsPage = async function (page = state.search.page) {
+//   try {
+//     // state.search.query = query;
+//     loadSearchResults(query) = query
+//     state.search.page = page;
+
+//     const data = await getJSON(
+//       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
+//     );
+//     console.log(data);
+//     page = data.total_pages;
+
+//     const start = (page - 1) * state.search.resultsPerPage; // 0
+//     const end = page * state.search.resultsPerPage; // 9
+
+//     return state.search.results.slice(start, end);
+
+//     console.log(data);
+//     state.search.results = data.results.map((movie) => ({
+//       id: movie.id,
+//       title: movie.original_title,
+//       overview: movie.overview,
+//       image: movie.poster_path,
+//       genreID: movie.genre_ids,
+//       releaseDate: movie.release_date,
+//     }));
+//     // console.log(state.search.results);
+//   } catch (err) {
+//     console.error(`${err} 😢 😢 😢 😢`);
+//     throw err;
+//   }
+// };

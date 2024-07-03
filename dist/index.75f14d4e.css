@@ -72,4 +72,23 @@
 .preview__fig img .preview__title {
   text-decoration: none;
 }
+
+.pagination {
+  margin-top: auto;
+  padding: 0 3.5rem;
+}
+
+.pagination:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.pagination__btn--prev {
+  float: left;
+}
+
+.pagination__btn--next {
+  float: right;
+}
 /*# sourceMappingURL=index.75f14d4e.css.map */
