@@ -6,8 +6,9 @@ export const state = {
   search: {
     query: "",
     results: [],
+    nextPage: 1,
     page: 1,
-    resultsPerPage: 5,
+    resultsPerPage: 10,
   },
 };
 
@@ -35,33 +36,40 @@ export const loadMovie = async function (id) {
   }
 };
 
-export const loadSearchResults = async function (query) {
+export const loadSearchResults = async function (query, page = 1) {
   try {
     state.search.query = query;
-    // pageNumber = 1;
 
     const data = await getJSON(
-      `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}`
+      `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
     );
-    // console.log(data.total_pages);
-
     console.log(data);
-    state.search.results = data.results.map((movie) => ({
-      id: movie.id,
-      title: movie.original_title,
-      overview: movie.overview,
-      image: movie.poster_path,
-      genreID: movie.genre_ids,
-      releaseDate: movie.release_date,
-    }));
-    // console.log(state.search.results);
+
+    state.search.results.push(
+      ...data.results.map((movie) => ({
+        id: movie.id,
+        title: movie.original_title,
+        overview: movie.overview,
+        image: movie.poster_path,
+        genreID: movie.genre_ids,
+        releaseDate: movie.release_date,
+      }))
+    );
+
+    state.search.nextPage = data.page < data.total_pages ? data.page + 1 : null;
   } catch (err) {
     console.error(`${err} 😢 😢 😢 😢`);
     throw err;
   }
 };
 
-// PRACTICE AREA 😁
+export async function fetchAllResults(query) {
+  while (state.search.nextPage) {
+    await loadSearchResults(query, state.search.nextPage);
+  }
+  console.log(state.search.results);
+}
+
 export const getSearchResultsPage = function (page = state.search.page) {
   state.search.page = page;
 
@@ -70,36 +78,3 @@ export const getSearchResultsPage = function (page = state.search.page) {
 
   return state.search.results.slice(start, end);
 };
-
-// export const getSearchResultsPage = async function (page = state.search.page) {
-//   try {
-//     // state.search.query = query;
-//     loadSearchResults(query) = query
-//     state.search.page = page;
-
-//     const data = await getJSON(
-//       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
-//     );
-//     console.log(data);
-//     page = data.total_pages;
-
-//     const start = (page - 1) * state.search.resultsPerPage; // 0
-//     const end = page * state.search.resultsPerPage; // 9
-
-//     return state.search.results.slice(start, end);
-
-//     console.log(data);
-//     state.search.results = data.results.map((movie) => ({
-//       id: movie.id,
-//       title: movie.original_title,
-//       overview: movie.overview,
-//       image: movie.poster_path,
-//       genreID: movie.genre_ids,
-//       releaseDate: movie.release_date,
-//     }));
-//     // console.log(state.search.results);
-//   } catch (err) {
-//     console.error(`${err} 😢 😢 😢 😢`);
-//     throw err;
-//   }
-// };

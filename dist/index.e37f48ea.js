@@ -676,7 +676,7 @@ const controlSearchResults = async function() {
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
         // 2) Load search results
-        await _modelJs.loadSearchResults(query);
+        await _modelJs.fetchAllResults(query);
         // 3) Render Results
         // resultsView.render(model.state.search.results);
         (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage());
@@ -1938,6 +1938,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadMovie", ()=>loadMovie);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
+parcelHelpers.export(exports, "fetchAllResults", ()=>fetchAllResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 var _configJs = require("./config.js");
 var _helpersJs = require("./helpers.js");
@@ -1946,8 +1947,9 @@ const state = {
     search: {
         query: "",
         results: [],
+        nextPage: 1,
         page: 1,
-        resultsPerPage: 5
+        resultsPerPage: 10
     }
 };
 const loadMovie = async function(id) {
@@ -1970,60 +1972,35 @@ const loadMovie = async function(id) {
         throw err;
     }
 };
-const loadSearchResults = async function(query) {
+const loadSearchResults = async function(query, page = 1) {
     try {
         state.search.query = query;
-        // pageNumber = 1;
-        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}`);
-        // console.log(data.total_pages);
+        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${page}`);
         console.log(data);
-        state.search.results = data.results.map((movie)=>({
+        state.search.results.push(...data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
                 overview: movie.overview,
                 image: movie.poster_path,
                 genreID: movie.genre_ids,
                 releaseDate: movie.release_date
-            }));
-    // console.log(state.search.results);
+            })));
+        state.search.nextPage = data.page < data.total_pages ? data.page + 1 : null;
     } catch (err) {
         console.error(`${err} \u{1F622} \u{1F622} \u{1F622} \u{1F622}`);
         throw err;
     }
 };
+async function fetchAllResults(query) {
+    while(state.search.nextPage)await loadSearchResults(query, state.search.nextPage);
+    console.log(state.search.results);
+}
 const getSearchResultsPage = function(page = state.search.page) {
     state.search.page = page;
     const start = (page - 1) * state.search.resultsPerPage; // 0
     const end = page * state.search.resultsPerPage; // 9
     return state.search.results.slice(start, end);
-}; // export const getSearchResultsPage = async function (page = state.search.page) {
- //   try {
- //     // state.search.query = query;
- //     loadSearchResults(query) = query
- //     state.search.page = page;
- //     const data = await getJSON(
- //       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
- //     );
- //     console.log(data);
- //     page = data.total_pages;
- //     const start = (page - 1) * state.search.resultsPerPage; // 0
- //     const end = page * state.search.resultsPerPage; // 9
- //     return state.search.results.slice(start, end);
- //     console.log(data);
- //     state.search.results = data.results.map((movie) => ({
- //       id: movie.id,
- //       title: movie.original_title,
- //       overview: movie.overview,
- //       image: movie.poster_path,
- //       genreID: movie.genre_ids,
- //       releaseDate: movie.release_date,
- //     }));
- //     // console.log(state.search.results);
- //   } catch (err) {
- //     console.error(`${err} 😢 😢 😢 😢`);
- //     throw err;
- //   }
- // };
+};
 
 },{"./config.js":"k5Hzs","./helpers.js":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
