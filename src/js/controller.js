@@ -38,14 +38,19 @@ const controlSearchResults = async function () {
     const query = searchView.getQuery();
     if (!query) return;
 
-    // 2) Load search results
+    // 2) Clear previous results and reset state
+    model.state.search.results = [];
+    model.state.search.page = 1;
+    model.state.search.nextPage = 1;
+
+    // 3) Load search results
     await model.fetchAllResults(query);
 
-    // 3) Render Results
+    // 4) Render Results
     // resultsView.render(model.state.search.results);
     resultsView.render(model.getSearchResultsPage());
 
-    // 4) Render initial pagination buttons
+    // 5) Render initial pagination buttons
     paginationView.render(model.state.search);
   } catch (err) {
     console.log(err);

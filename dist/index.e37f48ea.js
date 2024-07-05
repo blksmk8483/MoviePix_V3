@@ -675,12 +675,16 @@ const controlSearchResults = async function() {
         // 1) Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
-        // 2) Load search results
+        // 2) Clear previous results and reset state
+        _modelJs.state.search.results = [];
+        _modelJs.state.search.page = 1;
+        _modelJs.state.search.nextPage = 1;
+        // 3) Load search results
         await _modelJs.fetchAllResults(query);
-        // 3) Render Results
+        // 4) Render Results
         // resultsView.render(model.state.search.results);
         (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage());
-        // 4) Render initial pagination buttons
+        // 5) Render initial pagination buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (err) {
         console.log(err);
@@ -1954,6 +1958,8 @@ const state = {
 };
 const loadMovie = async function(id) {
     try {
+        // Check if the movie ID is the same as the one in the state
+        if (state.movie.id === id) return; // Avoid reloading the same movie
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}`);
         const movie = data;
         state.movie = {
@@ -1975,8 +1981,15 @@ const loadMovie = async function(id) {
 const loadSearchResults = async function(query, page = 1) {
     try {
         state.search.query = query;
+        // Check if the new query is different from the current one
+        if (state.search.query !== query) {
+            // Reset state for a new search query
+            state.search.query = query;
+            state.search.results = []; // Clear previous search results
+            state.search.page = 1; // Reset current page to 1
+            state.search.nextPage = 1; // Reset nextPage to 1
+        }
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${page}`);
-        console.log(data);
         state.search.results.push(...data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
@@ -1992,8 +2005,11 @@ const loadSearchResults = async function(query, page = 1) {
     }
 };
 async function fetchAllResults(query) {
+    state.search.results = []; // Reset results
+    state.search.page = 1;
+    state.search.nextPage = 1;
     while(state.search.nextPage)await loadSearchResults(query, state.search.nextPage);
-    console.log(state.search.results);
+// console.log(state.search.results);
 }
 const getSearchResultsPage = function(page = state.search.page) {
     state.search.page = page;

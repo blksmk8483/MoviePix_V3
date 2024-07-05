@@ -14,6 +14,9 @@ export const state = {
 
 export const loadMovie = async function (id) {
   try {
+    // Check if the movie ID is the same as the one in the state
+    if (state.movie.id === id) return; // Avoid reloading the same movie
+
     const data = await getJSON(
       `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`
     );
@@ -40,10 +43,18 @@ export const loadSearchResults = async function (query, page = 1) {
   try {
     state.search.query = query;
 
+    // Check if the new query is different from the current one
+    if (state.search.query !== query) {
+      // Reset state for a new search query
+      state.search.query = query;
+      state.search.results = []; // Clear previous search results
+      state.search.page = 1; // Reset current page to 1
+      state.search.nextPage = 1; // Reset nextPage to 1
+    }
+
     const data = await getJSON(
       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
     );
-    console.log(data);
 
     state.search.results.push(
       ...data.results.map((movie) => ({
@@ -64,10 +75,14 @@ export const loadSearchResults = async function (query, page = 1) {
 };
 
 export async function fetchAllResults(query) {
+  state.search.results = []; // Reset results
+  state.search.page = 1;
+  state.search.nextPage = 1;
+
   while (state.search.nextPage) {
     await loadSearchResults(query, state.search.nextPage);
   }
-  console.log(state.search.results);
+  // console.log(state.search.results);
 }
 
 export const getSearchResultsPage = function (page = state.search.page) {
