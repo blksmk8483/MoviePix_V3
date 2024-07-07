@@ -1,4 +1,4 @@
-import { API_URL, USER_LANGUAGE, TV_OR_MOVIE } from "./config.js";
+import { API_URL, USER_LANGUAGE, TV_OR_MOVIE, RES_PER_PAGE } from "./config.js";
 import { getJSON } from "./helpers.js";
 
 export const state = {
@@ -6,9 +6,9 @@ export const state = {
   search: {
     query: "",
     results: [],
-    nextPage: 1,
-    page: 1,
-    resultsPerPage: 10,
+    nextPage: 1, // this references the next page of the api call (total_pages)
+    page: 1, // this references the next page the user will click
+    resultsPerPage: RES_PER_PAGE,
   },
 };
 
@@ -41,8 +41,6 @@ export const loadMovie = async function (id) {
 
 export const loadSearchResults = async function (query, page = 1) {
   try {
-    state.search.query = query;
-
     // Check if the new query is different from the current one
     if (state.search.query !== query) {
       // Reset state for a new search query
@@ -75,14 +73,14 @@ export const loadSearchResults = async function (query, page = 1) {
 };
 
 export async function fetchAllResults(query) {
-  state.search.results = []; // Reset results
-  state.search.page = 1;
-  state.search.nextPage = 1;
+  state.search.results = []; // Clears the previous search results
+  state.search.page = 1; // Resets the current page counter to 1
+  state.search.nextPage = 1; // Resets the next page counter to 1
 
+  // This loop continues as long as state.search.nextPage has a truthy value (i.e., there are more pages to fetch).
   while (state.search.nextPage) {
     await loadSearchResults(query, state.search.nextPage);
   }
-  // console.log(state.search.results);
 }
 
 export const getSearchResultsPage = function (page = state.search.page) {

@@ -587,63 +587,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "controlMovie", ()=>controlMovie);
-var _webImmediateJs = require("core-js/modules/web.immediate.js"); // -------------------------------------------------------------------------------------------
- // -------------------------------------------------------------------------------------------
- // -------------------------------------------------------------------------------------------
- // -------------------------------------------------------------------------------------------
- // -------------------------------------------------------------------------------------------
- // THIS GETS ME ALL MOVIES BASED ON A SEARCH QUERY
- // export const searchResultsAll = async () => {
- //   try {
- //     const id = window.location.hash.slice(1);
- //     console.log(id);
- //     pageNumber = 1;
- //     query = "Spider Man";
- //     // 1) loading search data...
- //     const res = await fetch(
- //       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${pageNumber}`,
- //       OPTIONS
- //     );
- //     const data = await res.json();
- //     console.log(data);
- //     if (!res.ok) throw new Error(`${data.message} (${res.status})`);
- //     const movieDataAll = data.results.map((movie) => ({
- //       id: movie.id,
- //       title: movie.original_title,
- //       overview: movie.overview,
- //       image: movie.poster_path,
- //       genreID: movie.genre_ids,
- //       releaseDate: movie.release_date,
- //     }));
- //     console.log(movieDataAll);
- //     testAllData = document.querySelector("#testAllData");
- //     // 2) rendering all search data...
- //     const markup = movieDataAll
- //       .map((movie) => {
- //         return `
- //     <h2>${movie.title}</h2>
- //     <img class="movieImage" src="${API_IMAGE}${movie.image}" alt="${
- //           movie.title
- //         }" />
- //     <p>OVERVIEW: ${movie.overview}</p>
- //     <p>ID: ${movie.id}</p>
- //     <p>RELEASE DATE: ${movie.releaseDate}</p>
- //     <p>GENRE ID: ${movie.genreID
- //       .map((gID) => {
- //         return `
- //       ${gID}`;
- //       })
- //       .join("")}</p>
- //     `;
- //       })
- //       .join("");
- //     testAllData.innerHTML = "";
- //     testAllData.insertAdjacentHTML("afterbegin", markup);
- //   } catch (err) {
- //     alert(err);
- //   }
- // };
- // searchResultsAll();
+var _webImmediateJs = require("core-js/modules/web.immediate.js");
 var _modelJs = require("./model.js");
 var _movieViewJs = require("./views/movieView.js");
 var _movieViewJsDefault = parcelHelpers.interopDefault(_movieViewJs);
@@ -658,7 +602,6 @@ if (module.hot) module.hot.accept();
 const controlMovie = async function() {
     try {
         const id = window.location.hash.slice(1);
-        // console.log(id);
         if (!id) return;
         (0, _movieViewJsDefault.default).renderSpinner();
         // 1) loading movie data...
@@ -1953,7 +1896,7 @@ const state = {
         results: [],
         nextPage: 1,
         page: 1,
-        resultsPerPage: 10
+        resultsPerPage: (0, _configJs.RES_PER_PAGE)
     }
 };
 const loadMovie = async function(id) {
@@ -1980,7 +1923,6 @@ const loadMovie = async function(id) {
 };
 const loadSearchResults = async function(query, page = 1) {
     try {
-        state.search.query = query;
         // Check if the new query is different from the current one
         if (state.search.query !== query) {
             // Reset state for a new search query
@@ -2005,11 +1947,11 @@ const loadSearchResults = async function(query, page = 1) {
     }
 };
 async function fetchAllResults(query) {
-    state.search.results = []; // Reset results
-    state.search.page = 1;
-    state.search.nextPage = 1;
+    state.search.results = []; // Clears the previous search results
+    state.search.page = 1; // Resets the current page counter to 1
+    state.search.nextPage = 1; // Resets the next page counter to 1
+    // This loop continues as long as state.search.nextPage has a truthy value (i.e., there are more pages to fetch).
     while(state.search.nextPage)await loadSearchResults(query, state.search.nextPage);
-// console.log(state.search.results);
 }
 const getSearchResultsPage = function(page = state.search.page) {
     state.search.page = page;
@@ -2028,6 +1970,7 @@ parcelHelpers.export(exports, "API_IMAGE", ()=>API_IMAGE);
 parcelHelpers.export(exports, "USER_LANGUAGE", ()=>USER_LANGUAGE);
 parcelHelpers.export(exports, "TV_OR_MOVIE", ()=>TV_OR_MOVIE);
 parcelHelpers.export(exports, "TIMEOUT_SEC", ()=>TIMEOUT_SEC);
+parcelHelpers.export(exports, "RES_PER_PAGE", ()=>RES_PER_PAGE);
 const API_ACCES_TOKEN = "bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YzI5Nzk1OWNmMzM0N2MxYmVjZmU0ODQ3NzNmODliNCIsInN1YiI6IjY2NjdiNzE2OTE0Yjg4OTA3YWU5ZWZkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TVs4E2FC6H2_ax1pesVaqnQn8AkrY2GNMLdb63JSFmQ";
 const API_KEY = "5c297959cf3347c1becfe484773f89b4";
 const API_URL = "https://api.themoviedb.org/3/";
@@ -2035,6 +1978,7 @@ const API_IMAGE = "https://image.tmdb.org/t/p/original";
 const USER_LANGUAGE = "en-US";
 const TV_OR_MOVIE = "movie";
 const TIMEOUT_SEC = 10;
+const RES_PER_PAGE = 10;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
