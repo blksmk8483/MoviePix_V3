@@ -38,9 +38,9 @@ const controlSearchResults = async function () {
     if (!query) return;
 
     // 2) Clear previous results and reset state
-    model.state.search.results = [];
-    model.state.search.page = 1;
-    model.state.search.nextPage = 1;
+    // model.state.search.results = [];
+    // model.state.search.page = 1;
+    // model.state.search.nextPage = 1;
 
     // 3) Load search results
     await model.fetchAllResults(query);
@@ -51,6 +51,18 @@ const controlSearchResults = async function () {
 
     // 5) Render initial pagination buttons
     paginationView.render(model.state.search);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const controlLoadMoreResults = async function () {
+  try {
+    await model.fetchAllResults(
+      model.state.search.query,
+      model.state.search.nextPage
+    );
+    resultsView.render(model.state.search.results);
   } catch (err) {
     console.log(err);
   }
@@ -67,6 +79,7 @@ const controlPagination = function (goToPage) {
 const init = function () {
   movieView.addHandlerRender(controlMovie);
   searchView.addHandlerSearch(controlSearchResults);
+  resultsView.addHandlerLoadMore(controlLoadMoreResults);
   paginationView.addHandlerClick(controlPagination);
 };
 init();

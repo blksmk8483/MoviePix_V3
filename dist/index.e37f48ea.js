@@ -619,9 +619,9 @@ const controlSearchResults = async function() {
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
         // 2) Clear previous results and reset state
-        _modelJs.state.search.results = [];
-        _modelJs.state.search.page = 1;
-        _modelJs.state.search.nextPage = 1;
+        // model.state.search.results = [];
+        // model.state.search.page = 1;
+        // model.state.search.nextPage = 1;
         // 3) Load search results
         await _modelJs.fetchAllResults(query);
         // 4) Render Results
@@ -629,6 +629,14 @@ const controlSearchResults = async function() {
         (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage());
         // 5) Render initial pagination buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
+    } catch (err) {
+        console.log(err);
+    }
+};
+const controlLoadMoreResults = async function() {
+    try {
+        await _modelJs.fetchAllResults(_modelJs.state.search.query, _modelJs.state.search.nextPage);
+        (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
     } catch (err) {
         console.log(err);
     }
@@ -642,6 +650,7 @@ const controlPagination = function(goToPage) {
 const init = function() {
     (0, _movieViewJsDefault.default).addHandlerRender(controlMovie);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
+    (0, _resultsViewJsDefault.default).addHandlerLoadMore(controlLoadMoreResults);
     (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
 };
 init();
@@ -2208,46 +2217,40 @@ class ResultsView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".results");
     _errorMessage = "No movies found. Please try again.";
     _message = "";
+    constructor(){
+        super();
+        this._addScrollHandler();
+    }
+    _addScrollHandler() {
+        window.addEventListener("scroll", async ()=>{
+            if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 10) {
+                if (this._handlerLoadMore) await this._handlerLoadMore();
+            }
+        });
+    }
     _generateMarkup() {
-        // console.log(this._data);
         return this._data.map(this._generateMarkupPreview).join("");
     }
     _generateMarkupPreview(result) {
         return `
-    <li class="preview">
-          <a class="preview__link" href="#${result.id}">
-              <figure class="preview__fig">
-                <img src="${0, _config.API_IMAGE}${result.image}" alt="${result.title}" />
-              </figure>
-              <div class="preview__data">
-                <h4 class="preview__title">${result.title}</h4>
-                <p class="preview__publisher">${result.overview}</p>
-              </div>
-          </a>
-      </li>
+      <li class="preview">
+            <a class="preview__link" href="#${result.id}">
+                <figure class="preview__fig">
+                  <img src="${0, _config.API_IMAGE}${result.image}" alt="${result.title}" />
+                </figure>
+                <div class="preview__data">
+                  <h4 class="preview__title">${result.title}</h4>
+                  <p class="preview__publisher">${result.overview}</p>
+                </div>
+            </a>
+        </li>
     `;
     }
+    addHandlerLoadMore(handler) {
+        this._handlerLoadMore = handler;
+    }
 }
-exports.default = new ResultsView(); // I need to go back and add the icons ...
- // _generateMarkupPreview(result) {
- //   return `
- //   <li class="preview">
- //         <a class="preview__link preview__link--active" href="#23456">
- //             <figure class="preview__fig">
- //               <img src="${API_IMAGE}${result.image}" alt="${result.title}" />
- //             </figure>
- //             <div class="preview__data">
- //               <h4 class="preview__title">${result.title}</h4>
- //               <p class="preview__publisher">${result.overview}</p>
- //               <div class="preview__user-generated">
- //                 <svg>
- //                   <use href="src/img/icons.svg#icon-user"></use>
- //                 </svg>
- //               </div>
- //             </div>
- //         </a>
- //     </li>
- //   `;
+exports.default = new ResultsView();
 
 },{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6z7bi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -2318,7 +2321,7 @@ class PaginationView extends (0, _viewDefault.default) {
 }
 exports.default = new PaginationView();
 
-},{"./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/icons.svg":"loVOp"}],"loVOp":[function(require,module,exports) {
+},{"./View":"5cUXS","url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"loVOp":[function(require,module,exports) {
 module.exports = require("9bcc84ee5d265e38").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
 
 },{"9bcc84ee5d265e38":"lgJ39"}],"dXNgZ":[function(require,module,exports) {
