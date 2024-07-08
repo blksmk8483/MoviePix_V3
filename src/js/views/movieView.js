@@ -3,7 +3,7 @@ import View from "./View";
 import { API_IMAGE } from "../config";
 
 class MovieView extends View {
-  _parentElement = document.querySelector("#testData");
+  _parentElement = document.querySelector(".movieView");
   _errorMessage = "Could not find that movie. Please try another one.";
   _message = "";
 

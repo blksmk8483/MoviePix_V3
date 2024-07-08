@@ -2051,7 +2051,7 @@ var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 var _config = require("../config");
 class MovieView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector("#testData");
+    _parentElement = document.querySelector(".movieView");
     _errorMessage = "Could not find that movie. Please try another one.";
     _message = "";
     addHandlerRender(handler) {
@@ -2254,10 +2254,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
-var _leftArrowPng = require("url:../../img/Left_Arrow.png");
-var _leftArrowPngDefault = parcelHelpers.interopDefault(_leftArrowPng);
-var _rightArrowPng = require("url:../../img/Right_Arrow.png");
-var _rightArrowPngDefault = parcelHelpers.interopDefault(_rightArrowPng);
+var _iconsSvg = require("url:../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class PaginationView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".pagination");
     addHandlerClick(handler) {
@@ -2279,12 +2277,22 @@ class PaginationView extends (0, _viewDefault.default) {
           <use href="./img/Right_Arrow.png"></use>
           </svg>
         </button>
+
+    `;
+        // Last page
+        if (curPage === 1 && numPages > 1) return `
+        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
+          <span>Page ${curPage + 1}</span>
+          <svg class="search__icon">
+            <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
+          </svg>
+        </button>
     `;
         // Last page
         if (curPage === numPages && numPages > 1) return `
         <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
           <svg class="search__icon">
-          <use href="./img/Left_Arrow.png"></use>
+            <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
           </svg>
           <span>Page ${curPage - 1}</span>
         </button>
@@ -2293,15 +2301,14 @@ class PaginationView extends (0, _viewDefault.default) {
         if (curPage < numPages) return `
         <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
           <svg class="search__icon">
-          <use href="./img/Left_Arrow.png"></use>
+            <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
           </svg>
           <span>Page ${curPage - 1}</span>
         </button>
         <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
         <span>Page ${curPage + 1}</span>
         <svg class="search__icon">
-     
-        <use href="./img/Right_Arrow.png"></use>
+          <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
         </svg>
       </button>
     `;
@@ -2311,13 +2318,10 @@ class PaginationView extends (0, _viewDefault.default) {
 }
 exports.default = new PaginationView();
 
-},{"./View":"5cUXS","url:../../img/Left_Arrow.png":"2ZBUp","url:../../img/Right_Arrow.png":"caaSP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2ZBUp":[function(require,module,exports) {
-module.exports = require("9c4d448523e29e91").getBundleURL("hWUTQ") + "Left_Arrow.fa35ce37.png" + "?" + Date.now();
+},{"./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/icons.svg":"loVOp"}],"loVOp":[function(require,module,exports) {
+module.exports = require("9bcc84ee5d265e38").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
 
-},{"9c4d448523e29e91":"lgJ39"}],"caaSP":[function(require,module,exports) {
-module.exports = require("2729802637459f9").getBundleURL("hWUTQ") + "Right_Arrow.927054b0.png" + "?" + Date.now();
-
-},{"2729802637459f9":"lgJ39"}],"dXNgZ":[function(require,module,exports) {
+},{"9bcc84ee5d265e38":"lgJ39"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *

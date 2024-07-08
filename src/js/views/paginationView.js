@@ -1,6 +1,5 @@
 import View from "./View";
-import leftArrow from "url:../../img/Left_Arrow.png";
-import rightArrow from "url:../../img/Right_Arrow.png";
+import icons from "url:../../img/icons.svg";
 
 class PaginationView extends View {
   _parentElement = document.querySelector(".pagination");
@@ -32,6 +31,21 @@ class PaginationView extends View {
           <use href="./img/Right_Arrow.png"></use>
           </svg>
         </button>
+
+    `;
+    }
+
+    // Last page
+    if (curPage === 1 && numPages > 1) {
+      return `
+        <button data-goto="${
+          curPage + 1
+        }" class="btn--inline pagination__btn--next">
+          <span>Page ${curPage + 1}</span>
+          <svg class="search__icon">
+            <use href="${icons}#icon-arrow-right"></use>
+          </svg>
+        </button>
     `;
     }
 
@@ -42,7 +56,7 @@ class PaginationView extends View {
           curPage - 1
         }" class="btn--inline pagination__btn--prev">
           <svg class="search__icon">
-          <use href="./img/Left_Arrow.png"></use>
+            <use href="${icons}#icon-arrow-left"></use>
           </svg>
           <span>Page ${curPage - 1}</span>
         </button>
@@ -56,7 +70,7 @@ class PaginationView extends View {
           curPage - 1
         }" class="btn--inline pagination__btn--prev">
           <svg class="search__icon">
-          <use href="./img/Left_Arrow.png"></use>
+            <use href="${icons}#icon-arrow-left"></use>
           </svg>
           <span>Page ${curPage - 1}</span>
         </button>
@@ -65,8 +79,7 @@ class PaginationView extends View {
         }" class="btn--inline pagination__btn--next">
         <span>Page ${curPage + 1}</span>
         <svg class="search__icon">
-     
-        <use href="./img/Right_Arrow.png"></use>
+          <use href="${icons}#icon-arrow-right"></use>
         </svg>
       </button>
     `;
@@ -76,4 +89,5 @@ class PaginationView extends View {
     return "";
   }
 }
+
 export default new PaginationView();
