@@ -1,8 +1,3 @@
-.movieImage {
-  width: 12rem;
-  height: 11rem;
-}
-
 .spinner {
   text-align: center;
   margin: 10rem auto;
@@ -24,16 +19,6 @@
   }
 }
 
-.search__btn {
-  margin: 5rem;
-  padding: auto;
-}
-
-.search__field {
-  width: 15rem;
-  padding: auto;
-}
-
 .error {
   background-color: #f62f2f;
   align-items: center;
@@ -53,47 +38,5 @@
   font-family: Courier New, Courier, monospace;
   font-size: 1.8rem;
   line-height: 1.8;
-}
-
-.preview {
-  background-color: #e7bcbc;
-  margin-bottom: .2rem;
-  padding: 1rem;
-  text-decoration: none;
-  list-style-type: none;
-}
-
-.preview__fig img {
-  border-radius: 12%;
-  width: 5rem;
-  height: 5rem;
-}
-
-.preview__fig img .preview__title {
-  text-decoration: none;
-}
-
-.pagination {
-  margin-top: auto;
-  padding: 0 3.5rem;
-}
-
-.pagination:after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.pagination__btn--prev {
-  float: left;
-}
-
-.pagination__btn--next {
-  float: right;
-}
-
-.search__icon {
-  width: 5rem;
-  height: 5rem;
 }
 /*# sourceMappingURL=index.75f14d4e.css.map */

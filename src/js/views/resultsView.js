@@ -29,19 +29,37 @@ class ResultsView extends View {
 
   _generateMarkupPreview(result) {
     return `
-      <li class="preview">
-            <a class="preview__link" href="#${result.id}">
-                <figure class="preview__fig">
-                  <img src="${API_IMAGE}${result.image}" alt="${result.title}" />
-                </figure>
-                <div class="preview__data">
-                  <h4 class="preview__title">${result.title}</h4>
-                  <p class="preview__publisher">${result.overview}</p>
-                </div>
+      <li class="m-1 p-0">
+         
+            <a class="" href="#${result.id}">
+            
+              <img class="m-0 max-w-full h-auto transition-shadow tablet:w-64 laptop:w-128" src="${API_IMAGE}${result.image}" alt="${result.title}" /> 
+           
+              <section class="my-0 ml-1 text-2xl content-center">
+                  <h4 class="">${result.title}</h4>
+                  <p class="">${result.releaseDate}</p>
+              </section>
             </a>
+          
         </li>
     `;
   }
+
+  // _generateMarkupPreview(result) {
+  //   return `
+  //     <li class="preview">
+  //           <a class="preview__link" href="#${result.id}">
+  //               <figure class="preview__fig">
+  //                 <img src="${API_IMAGE}${result.image}" alt="${result.title}" />
+  //               </figure>
+  //               <div class="preview__data">
+  //                 <h4 class="preview__title">${result.title}</h4>
+  //                 <p class="preview__publisher">${result.overview}</p>
+  //               </div>
+  //           </a>
+  //       </li>
+  //   `;
+  // }
 
   addHandlerLoadMore(handler) {
     this._handlerLoadMore = handler;

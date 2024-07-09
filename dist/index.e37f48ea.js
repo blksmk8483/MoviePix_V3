@@ -1941,11 +1941,13 @@ const loadSearchResults = async function(query, page = 1) {
             state.search.nextPage = 1; // Reset nextPage to 1
         }
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${page}`);
+        console.log(data);
         state.search.results.push(...data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
                 overview: movie.overview,
                 image: movie.poster_path,
+                backdrop: movie.backdrop_path,
                 genreID: movie.genre_ids,
                 releaseDate: movie.release_date
             })));
@@ -2233,19 +2235,36 @@ class ResultsView extends (0, _viewDefault.default) {
     }
     _generateMarkupPreview(result) {
         return `
-      <li class="preview">
-            <a class="preview__link" href="#${result.id}">
-                <figure class="preview__fig">
-                  <img src="${0, _config.API_IMAGE}${result.image}" alt="${result.title}" />
-                </figure>
-                <div class="preview__data">
-                  <h4 class="preview__title">${result.title}</h4>
-                  <p class="preview__publisher">${result.overview}</p>
-                </div>
+      <li class="m-1 p-0">
+         
+            <a class="" href="#${result.id}">
+            
+              <img class="m-0 max-w-full h-auto transition-shadow tablet:w-64 laptop:w-128" src="${0, _config.API_IMAGE}${result.image}" alt="${result.title}" /> 
+           
+              <section class="my-0 ml-1 text-2xl content-center">
+                  <h4 class="">${result.title}</h4>
+                  <p class="">${result.releaseDate}</p>
+              </section>
             </a>
+          
         </li>
     `;
     }
+    // _generateMarkupPreview(result) {
+    //   return `
+    //     <li class="preview">
+    //           <a class="preview__link" href="#${result.id}">
+    //               <figure class="preview__fig">
+    //                 <img src="${API_IMAGE}${result.image}" alt="${result.title}" />
+    //               </figure>
+    //               <div class="preview__data">
+    //                 <h4 class="preview__title">${result.title}</h4>
+    //                 <p class="preview__publisher">${result.overview}</p>
+    //               </div>
+    //           </a>
+    //       </li>
+    //   `;
+    // }
     addHandlerLoadMore(handler) {
         this._handlerLoadMore = handler;
     }
