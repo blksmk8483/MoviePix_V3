@@ -1,7 +1,5 @@
 import { API_IMAGE } from "../config";
 import View from "./View";
-// import moment from "moment";
-var moment = require("moment");
 
 class ResultsView extends View {
   _parentElement = document.querySelector(".results");
@@ -35,16 +33,11 @@ class ResultsView extends View {
          
             <a class="" href="#${result.id}">
             
-              <img class="m-0 max-w-full h-auto transition-shadow tablet:w-64 laptop:w-128" src="${API_IMAGE}${
-      result.image
-    }" alt="${result.title}" /> 
+              <img class="m-0 max-w-full h-auto transition-shadow tablet:w-64 laptop:w-128" src="${API_IMAGE}${result.image}" alt="${result.title}" /> 
            
               <section class="my-0 ml-1 text-2xl content-center">
                   <h4 class="">${result.title}</h4>
-                  <p class="">${result.releaseDate
-                    .moment("MM-DD-YYYY")
-                    .format()}</p>
-              </section>
+                  <p class="">${result.releaseDate}</section>
             </a>
           
         </li>

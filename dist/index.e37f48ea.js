@@ -2243,8 +2243,7 @@ class ResultsView extends (0, _viewDefault.default) {
            
               <section class="my-0 ml-1 text-2xl content-center">
                   <h4 class="">${result.title}</h4>
-                  <p class="">${result.releaseDate}</p>
-              </section>
+                  <p class="">${result.releaseDate}</section>
             </a>
           
         </li>
