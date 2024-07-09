@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,22 +11,25 @@
     <title>MoviePix</title>
   </head>
   <body>
-    <h1 class="mt-4 text-red">MoviePix</h1>
-
-    <form class="search">
+    <header class="flex bg-slate-800">
+      <img class="max-h-12 m-1" src="img/favicon.png" alt="" />
+      <h1 class="mt-4 text-white -tracking-tighter">MoviePix</h1>
+    </header>
+    <form class="search grid place-content-center bg-slate-800">
       <input
         type="text"
-        class="search__field"
-        placeholder="Search for your favorite movie..."
+        class="search__field mb-2 bg-slate-700 p-0.5 h-9 rounded border-black w-96 hover:bg-white focus:bg-red-600"
+        placeholder="&#x1F50E; Find movies, shows, and more"
       />
-      <button class="btn search__btn">
-        <span>Search</span>
+      <button class="btn search__btn container hidden lg:visible">
+        <span class="bg-slate-800">Search</span>
       </button>
     </form>
+    <hr class="h-px bg-slate-800 dark:bg-white w-full" />
 
     <div class="movieView"></div>
 
-    <div class="search-results container">
+    <div class="search-results container bg-slate-800">
       <ul class="results grid grid-cols-2"></ul>
     </div>
 
