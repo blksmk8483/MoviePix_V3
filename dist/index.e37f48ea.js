@@ -2077,17 +2077,13 @@ class MovieView extends (0, _viewDefault.default) {
     _generateMarkup() {
         return `
     <section class="bg-slate-800 text-white">
-    <h2>${this._data.title}</h2>
-    <p>${this._data.tagline}</p>
-    <img class="movieImage" src="${0, _config.API_IMAGE}${this._data.image}" alt="${this._data.title}" />
-    <p>OVERVIEW: ${this._data.overview}</p>
-    <p>ID: ${this._data.id}</p>
-    <p>RELEASE DATE: ${this._data.releaseDate}</p>
-    <p>RUNTIME: ${this._data.runtime} minutes</p>
-    <p>GENRES: ${this._data.genres.map((data)=>{
-            return `   ${data.name}`;
-        }).join(",   ")}</p>
-      </section>
+      <h2 class="ml-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
+      <p class="ml-2 mt-0.5 pb-1 text-base tracking-wider">${this._data.tagline}</p>
+      <img class="bg-center bg-cover h-2/5" src="${0, _config.API_IMAGE}${this._data.image}" alt="{this._data.title}" />
+      <p class="m-2.5 text-base tracking-wide leading-relaxed">${this._data.overview}</p>
+      <p class="ml-2 mt-4 text-base tracking-wider">${this._data.releaseDate}</p>
+      <p class="ml-2 pb-2 text-base tracking-wider">${this._data.runtime} minutes</p>
+    </section>
     `;
     }
 }
