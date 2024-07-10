@@ -1,12 +1,14 @@
 .spinner {
   text-align: center;
-  margin: 10rem auto;
+  background: #1e293b;
 }
 
 .spinner img {
-  width: 10rem;
-  height: 10rem;
+  width: 12rem;
+  height: 12rem;
+  margin: 0 auto;
   animation: 2s linear infinite rotate;
+  display: block;
 }
 
 @keyframes rotate {
@@ -17,26 +19,5 @@
   100% {
     transform: rotate(360deg);
   }
-}
-
-.error {
-  background-color: #f62f2f;
-  align-items: center;
-  width: 50rem;
-  margin: 2rem;
-  display: flex;
-}
-
-.error img {
-  width: auto;
-  height: 14rem;
-  margin: 1rem;
-}
-
-.error p {
-  color: #fff;
-  font-family: Courier New, Courier, monospace;
-  font-size: 1.8rem;
-  line-height: 1.8;
 }
 /*# sourceMappingURL=index.75f14d4e.css.map */

@@ -2240,7 +2240,7 @@ class ResultsView extends (0, _viewDefault.default) {
      <li class="m-1.5 p-0 bg-slate-700">
       <a class="" href="#${result.id}">
         <img
-          class="m-0 max-w-full h-auto transition-shadow tablet:w-64 laptop:w-128"
+          class="m-0 bg-cover tablet:w-64 laptop:w-128"
           src="${0, _config.API_IMAGE}${result.image}"
           alt="${result.title}"
         />
