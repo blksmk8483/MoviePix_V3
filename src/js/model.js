@@ -53,6 +53,7 @@ export const loadSearchResults = async function (query, page = 1) {
     const data = await getJSON(
       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
     );
+
     // console.log(data);
     state.search.results.push(
       ...data.results.map((movie) => ({
@@ -84,6 +85,12 @@ export async function fetchAllResults(query) {
   }
 }
 
+export const clearSearchResults = function () {
+  state.search.query = "";
+  state.search.results = [];
+};
+
+// PAGINATION - THIS WILL BE FOR FULL SCREEN ONLY
 export const getSearchResultsPage = function (page = state.search.page) {
   state.search.page = page;
 

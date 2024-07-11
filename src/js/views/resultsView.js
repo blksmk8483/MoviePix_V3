@@ -1,5 +1,6 @@
 import { API_IMAGE } from "../config";
 import View from "./View";
+import noImage from "../../img/popcorn.png";
 
 class ResultsView extends View {
   _parentElement = document.querySelector(".results");
@@ -48,6 +49,18 @@ class ResultsView extends View {
 
   addHandlerLoadMore(handler) {
     this._handlerLoadMore = handler;
+  }
+
+  clear() {
+    this._parentElement.innerHTML = "";
+    // document.querySelector(".search-results");
+  }
+
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Optional: Smooth scrolling effect
+    });
   }
 }
 

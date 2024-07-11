@@ -608,6 +608,11 @@ const controlMovie = async function() {
         await _modelJs.loadMovie(id);
         // 2) rendering movie data...
         (0, _movieViewJsDefault.default).render(_modelJs.state.movie);
+        // 3) Clears my search results when a movie is selected
+        _modelJs.clearSearchResults();
+        (0, _resultsViewJsDefault.default).clear();
+        // 4) User chooses a movie from searchResults and this takes them to the top of the screen
+        (0, _resultsViewJsDefault.default).scrollToTop();
     } catch (err) {
         (0, _movieViewJsDefault.default).renderError();
     }
@@ -627,8 +632,8 @@ const controlSearchResults = async function() {
         // 4) Render Results
         // resultsView.render(model.state.search.results);
         (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage());
-        // 5) Render initial pagination buttons
-        (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
+    // 5) Render initial pagination buttons
+    // paginationView.render(model.state.search);
     } catch (err) {
         console.log(err);
     }
@@ -651,7 +656,7 @@ const init = function() {
     (0, _movieViewJsDefault.default).addHandlerRender(controlMovie);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     (0, _resultsViewJsDefault.default).addHandlerLoadMore(controlLoadMoreResults);
-    (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
+// paginationView.addHandlerClick(controlPagination);
 };
 init();
 
@@ -1895,6 +1900,7 @@ parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadMovie", ()=>loadMovie);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "fetchAllResults", ()=>fetchAllResults);
+parcelHelpers.export(exports, "clearSearchResults", ()=>clearSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 var _configJs = require("./config.js");
 var _helpersJs = require("./helpers.js");
@@ -1964,6 +1970,10 @@ async function fetchAllResults(query) {
     // This loop continues as long as state.search.nextPage has a truthy value (i.e., there are more pages to fetch).
     while(state.search.nextPage)await loadSearchResults(query, state.search.nextPage);
 }
+const clearSearchResults = function() {
+    state.search.query = "";
+    state.search.results = [];
+};
 const getSearchResultsPage = function(page = state.search.page) {
     state.search.page = page;
     const start = (page - 1) * state.search.resultsPerPage; // 0
@@ -2080,7 +2090,7 @@ class MovieView extends (0, _viewDefault.default) {
       <h2 class="ml-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
       <p class="ml-2 mt-0.5 pb-1 text-base tracking-wider">${this._data.tagline}</p>
       <img class="bg-center bg-cover h-2/5" src="${0, _config.API_IMAGE}${this._data.image}" alt="{this._data.title}" />
-      <p class="m-2.5 text-base tracking-wide leading-relaxed">${this._data.overview}</p>
+      <p class="m-2.5 text-lg tracking-wide leading-relaxed">${this._data.overview}</p>
       <p class="ml-2 mt-4 text-base tracking-wider">${this._data.releaseDate}</p>
       <p class="ml-2 pb-2 text-base tracking-wider">${this._data.runtime} minutes</p>
     </section>
@@ -2099,7 +2109,10 @@ var _spilledPopcornPngDefault = parcelHelpers.interopDefault(_spilledPopcornPng)
 class View {
     _data;
     render(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        // if (!data || (Array.isArray(data) && data.length === 0))
+        //   return this.renderError();
+        if (!data) return;
+        // if (Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
@@ -2213,6 +2226,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _config = require("../config");
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
+var _popcornPng = require("../../img/popcorn.png");
+var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
 class ResultsView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".results");
     _errorMessage = "No movies found. Please try again.";
@@ -2252,82 +2267,107 @@ class ResultsView extends (0, _viewDefault.default) {
     addHandlerLoadMore(handler) {
         this._handlerLoadMore = handler;
     }
+    clear() {
+        this._parentElement.innerHTML = "";
+    // document.querySelector(".search-results");
+    }
+    scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
 }
 exports.default = new ResultsView();
 
-},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6z7bi":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _view = require("./View");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-var _iconsSvg = require("url:../../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-class PaginationView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector(".pagination");
-    addHandlerClick(handler) {
-        this._parentElement.addEventListener("click", function(e) {
-            const btn = e.target.closest(".btn--inline");
-            if (!btn) return;
-            const goToPage = +btn.dataset.goto;
-            handler(goToPage);
-        });
-    }
-    _generateMarkup() {
-        const curPage = this._data.page;
-        const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
-        // Page 1, and there are other pages
-        if (curPage === 1 && numPages > 1) return `
-        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
-          <span>Page ${curPage + 1}</span>
-          <svg class="search__icon">
-          <use href="./img/Right_Arrow.png"></use>
-          </svg>
-        </button>
+},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/popcorn.png":"5UwcL"}],"5UwcL":[function(require,module,exports) {
+module.exports = require("e19b19eeb0968fac").getBundleURL("hWUTQ") + "popcorn.b022b577.png" + "?" + Date.now();
 
-    `;
-        // Last page
-        if (curPage === 1 && numPages > 1) return `
-        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
-          <span>Page ${curPage + 1}</span>
-          <svg class="search__icon">
-            <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
-          </svg>
-        </button>
-    `;
-        // Last page
-        if (curPage === numPages && numPages > 1) return `
-        <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
-          <svg class="search__icon">
-            <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
-          </svg>
-          <span>Page ${curPage - 1}</span>
-        </button>
-    `;
-        // Other page
-        if (curPage < numPages) return `
-        <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
-          <svg class="search__icon">
-            <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
-          </svg>
-          <span>Page ${curPage - 1}</span>
-        </button>
-        <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
-        <span>Page ${curPage + 1}</span>
-        <svg class="search__icon">
-          <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
-        </svg>
-      </button>
-    `;
-        // Page 1, and there are NO other pages
-        return "";
-    }
-}
-exports.default = new PaginationView();
+},{"e19b19eeb0968fac":"lgJ39"}],"6z7bi":[function(require,module,exports) {
+// import View from "./View";
+// import icons from "url:../../img/icons.svg";
+// class PaginationView extends View {
+//   _parentElement = document.querySelector(".pagination");
+//   addHandlerClick(handler) {
+//     this._parentElement.addEventListener("click", function (e) {
+//       const btn = e.target.closest(".btn--inline");
+//       if (!btn) return;
+//       const goToPage = +btn.dataset.goto;
+//       handler(goToPage);
+//     });
+//   }
+//   _generateMarkup() {
+//     const curPage = this._data.page;
+//     const numPages = Math.ceil(
+//       this._data.results.length / this._data.resultsPerPage
+//     );
+//     // Page 1, and there are other pages
+//     if (curPage === 1 && numPages > 1) {
+//       return `
+//         <button data-goto="${
+//           curPage + 1
+//         }" class="btn--inline pagination__btn--next">
+//           <span>Page ${curPage + 1}</span>
+//           <svg class="search__icon">
+//           <use href="./img/Right_Arrow.png"></use>
+//           </svg>
+//         </button>
+//     `;
+//     }
+//     // Last page
+//     if (curPage === 1 && numPages > 1) {
+//       return `
+//         <button data-goto="${
+//           curPage + 1
+//         }" class="btn--inline pagination__btn--next">
+//           <span>Page ${curPage + 1}</span>
+//           <svg class="search__icon">
+//             <use href="${icons}#icon-arrow-right"></use>
+//           </svg>
+//         </button>
+//     `;
+//     }
+//     // Last page
+//     if (curPage === numPages && numPages > 1) {
+//       return `
+//         <button data-goto="${
+//           curPage - 1
+//         }" class="btn--inline pagination__btn--prev">
+//           <svg class="search__icon">
+//             <use href="${icons}#icon-arrow-left"></use>
+//           </svg>
+//           <span>Page ${curPage - 1}</span>
+//         </button>
+//     `;
+//     }
+//     // Other page
+//     if (curPage < numPages) {
+//       return `
+//         <button data-goto="${
+//           curPage - 1
+//         }" class="btn--inline pagination__btn--prev">
+//           <svg class="search__icon">
+//             <use href="${icons}#icon-arrow-left"></use>
+//           </svg>
+//           <span>Page ${curPage - 1}</span>
+//         </button>
+//         <button data-goto="${
+//           curPage + 1
+//         }" class="btn--inline pagination__btn--next">
+//         <span>Page ${curPage + 1}</span>
+//         <svg class="search__icon">
+//           <use href="${icons}#icon-arrow-right"></use>
+//         </svg>
+//       </button>
+//     `;
+//     }
+//     // Page 1, and there are NO other pages
+//     return "";
+//   }
+// }
+// export default new PaginationView();
 
-},{"./View":"5cUXS","url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"loVOp":[function(require,module,exports) {
-module.exports = require("9bcc84ee5d265e38").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
-
-},{"9bcc84ee5d265e38":"lgJ39"}],"dXNgZ":[function(require,module,exports) {
+},{}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
