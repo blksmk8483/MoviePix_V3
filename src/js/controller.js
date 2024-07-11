@@ -56,7 +56,10 @@ const controlSearchResults = async function () {
     // resultsView.render(model.state.search.results);
     resultsView.render(model.getSearchResultsPage());
 
-    // 5) Render initial pagination buttons
+    // 5) Clear the previous selection away
+    movieView._clear();
+
+    // 6) Render initial pagination buttons
     // paginationView.render(model.state.search);
   } catch (err) {
     console.log(err);

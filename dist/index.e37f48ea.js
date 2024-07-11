@@ -632,7 +632,9 @@ const controlSearchResults = async function() {
         // 4) Render Results
         // resultsView.render(model.state.search.results);
         (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage());
-    // 5) Render initial pagination buttons
+        // 5) Clear the previous selection away
+        (0, _movieViewJsDefault.default)._clear();
+    // 6) Render initial pagination buttons
     // paginationView.render(model.state.search);
     } catch (err) {
         console.log(err);
@@ -2280,7 +2282,7 @@ class ResultsView extends (0, _viewDefault.default) {
 }
 exports.default = new ResultsView();
 
-},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/popcorn.png":"5UwcL"}],"5UwcL":[function(require,module,exports) {
+},{"../config":"k5Hzs","./View":"5cUXS","../../img/popcorn.png":"5UwcL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5UwcL":[function(require,module,exports) {
 module.exports = require("e19b19eeb0968fac").getBundleURL("hWUTQ") + "popcorn.b022b577.png" + "?" + Date.now();
 
 },{"e19b19eeb0968fac":"lgJ39"}],"6z7bi":[function(require,module,exports) {
