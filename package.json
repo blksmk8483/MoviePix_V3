@@ -5,9 +5,9 @@
   "source": "src/index.html",
   "scripts": {
     "start": "rm -rf .parcel-cache && parcel",
-    "build": "rm -rf .parcel-cache && parcel build",
+    "build": "rm -rf .parcel-cache && parcel build src/index.html",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "author": "Brandon Knight",
   "license": "MIT",
