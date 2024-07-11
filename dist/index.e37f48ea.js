@@ -1941,7 +1941,7 @@ const loadSearchResults = async function(query, page = 1) {
             state.search.nextPage = 1; // Reset nextPage to 1
         }
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${page}`);
-        console.log(data);
+        // console.log(data);
         state.search.results.push(...data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
