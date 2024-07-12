@@ -294,8 +294,8 @@ img, video {
   margin: .375rem;
 }
 
-.m-2 {
-  margin: .5rem;
+.m-4 {
+  margin: 1rem;
 }
 
 .my-0 {
@@ -327,6 +327,18 @@ img, video {
   margin-left: 1rem;
 }
 
+.mr-1 {
+  margin-right: .25rem;
+}
+
+.mr-1\.5 {
+  margin-right: .375rem;
+}
+
+.mr-2 {
+  margin-right: .5rem;
+}
+
 .mr-4 {
   margin-right: 1rem;
 }
@@ -337,6 +349,14 @@ img, video {
 
 .mt-0\.5 {
   margin-top: .125rem;
+}
+
+.mt-1 {
+  margin-top: .25rem;
+}
+
+.mt-1\.5 {
+  margin-top: .375rem;
 }
 
 .mt-2 {
@@ -359,24 +379,16 @@ img, video {
   margin-top: 1rem;
 }
 
-.mr-2 {
-  margin-right: .5rem;
+.mt-6 {
+  margin-top: 1.5rem;
 }
 
-.mt-1 {
-  margin-top: .25rem;
+.mt-8 {
+  margin-top: 2rem;
 }
 
-.mt-1\.5 {
-  margin-top: .375rem;
-}
-
-.mr-1 {
-  margin-right: .25rem;
-}
-
-.mr-1\.5 {
-  margin-right: .375rem;
+.mt-7 {
+  margin-top: 1.75rem;
 }
 
 .flex {
@@ -425,14 +437,6 @@ img, video {
 
 .content-center {
   align-content: center;
-}
-
-.gap-x-1 {
-  column-gap: .25rem;
-}
-
-.gap-x-2 {
-  column-gap: .5rem;
 }
 
 .gap-x-0 {
@@ -510,6 +514,10 @@ img, video {
   padding-top: .625rem;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .font-serif {
   font-family: ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
 }
@@ -532,6 +540,11 @@ img, video {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .font-medium {
