@@ -294,6 +294,10 @@ img, video {
   margin: .375rem;
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
 .my-0 {
   margin-top: 0;
   margin-bottom: 0;
@@ -373,6 +377,18 @@ img, video {
 
 .mt-4 {
   margin-top: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-7 {
+  margin-top: 1.75rem;
 }
 
 .flex {
@@ -498,6 +514,10 @@ img, video {
   padding-top: .625rem;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .font-serif {
   font-family: ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
 }
@@ -520,6 +540,11 @@ img, video {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .font-medium {

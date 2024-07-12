@@ -1,5 +1,6 @@
 import { API_URL, USER_LANGUAGE, TV_OR_MOVIE, RES_PER_PAGE } from "./config.js";
 import { getJSON } from "./helpers.js";
+import moment from "moment";
 
 export const state = {
   movie: {},
@@ -21,6 +22,7 @@ export const loadMovie = async function (id) {
       `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`
     );
 
+    console.log(data);
     const movie = data;
     state.movie = {
       id: movie.id,
@@ -28,9 +30,10 @@ export const loadMovie = async function (id) {
       overview: movie.overview,
       image: movie.poster_path,
       runtime: movie.runtime,
-      releaseDate: movie.release_date,
+      releaseDate: moment(movie.release_date).format("YYYY"),
       genres: movie.genres,
       tagline: movie.tagline,
+      homepage: movie.homepage,
     };
   } catch (err) {
     // Temporary error handling
@@ -63,7 +66,7 @@ export const loadSearchResults = async function (query, page = 1) {
         image: movie.poster_path,
         backdrop: movie.backdrop_path,
         genreID: movie.genre_ids,
-        releaseDate: movie.release_date,
+        releaseDate: moment(movie.release_date).format("YYYY"),
       }))
     );
 

@@ -23,7 +23,7 @@ export default class View {
   renderSpinner() {
     const markup = `
     <div class = "spinner">    
-      <img src="${popcornImage}" alt="">
+      <img class="bg-center" src="${popcornImage}" alt="Bucket of popcorn rotating 360 degrees in a clockwise rotation.">
     </div>
     `;
     this._clear();
@@ -32,9 +32,9 @@ export default class View {
 
   renderError(message = this._errorMessage) {
     const markup = `
-    <div class="error">
-         <img src="${errorIcon}">
-      <p>${message}</p>
+    <div class="error mt-7">
+         <img class="bg-center max-h-svh" src="${errorIcon}">
+      <p class="m-4 text-2xl text-white text-center tracking-wider">${message}</p>
     </div>
     `;
     this._clear();
