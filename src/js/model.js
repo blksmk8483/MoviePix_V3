@@ -22,7 +22,6 @@ export const loadMovie = async function (id) {
       `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`
     );
 
-    console.log(data);
     const movie = data;
     state.movie = {
       id: movie.id,

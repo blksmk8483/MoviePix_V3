@@ -637,7 +637,8 @@ const controlSearchResults = async function() {
     // 6) Render initial pagination buttons
     // paginationView.render(model.state.search);
     } catch (err) {
-        console.log(err);
+        // console.log(err);
+        (0, _resultsViewJsDefault.default).renderError();
     }
 };
 const controlLoadMoreResults = async function() {
@@ -646,6 +647,7 @@ const controlLoadMoreResults = async function() {
         (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
     } catch (err) {
         console.log(err);
+        (0, _resultsViewJsDefault.default).renderError();
     }
 };
 const controlPagination = function(goToPage) {
@@ -1923,7 +1925,6 @@ const loadMovie = async function(id) {
         // Check if the movie ID is the same as the one in the state
         if (state.movie.id === id) return; // Avoid reloading the same movie
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}`);
-        console.log(data);
         const movie = data;
         state.movie = {
             id: movie.id,
@@ -5872,7 +5873,7 @@ class View {
     render(data) {
         // if (!data || (Array.isArray(data) && data.length === 0))
         //   return this.renderError();
-        if (!data) return;
+        if (!data || data.length === 0) return;
         // if (Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
         const markup = this._generateMarkup();
@@ -5884,7 +5885,7 @@ class View {
     }
     renderSpinner() {
         const markup = `
-    <div class = "spinner">    
+    <div class = "spinner col-span-full">    
       <img class="bg-center" src="${(0, _popcornPngDefault.default)}" alt="Bucket of popcorn rotating 360 degrees in a clockwise rotation.">
     </div>
     `;

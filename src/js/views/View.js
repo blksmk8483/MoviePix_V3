@@ -7,7 +7,7 @@ export default class View {
   render(data) {
     // if (!data || (Array.isArray(data) && data.length === 0))
     //   return this.renderError();
-    if (!data) return;
+    if (!data || data.length === 0) return;
     // if (Array.isArray(data) && data.length === 0) return this.renderError();
 
     this._data = data;
@@ -22,7 +22,7 @@ export default class View {
 
   renderSpinner() {
     const markup = `
-    <div class = "spinner">    
+    <div class = "spinner col-span-full">    
       <img class="bg-center" src="${popcornImage}" alt="Bucket of popcorn rotating 360 degrees in a clockwise rotation.">
     </div>
     `;
