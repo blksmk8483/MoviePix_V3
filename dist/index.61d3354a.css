@@ -282,20 +282,8 @@ img, video {
   }
 }
 
-.col-auto {
-  grid-column: auto;
-}
-
-.col-span-2 {
-  grid-column: span 2 / span 2;
-}
-
 .col-span-full {
   grid-column: 1 / -1;
-}
-
-.row-span-full {
-  grid-row: 1 / -1;
 }
 
 .m-0 {
