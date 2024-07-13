@@ -5974,9 +5974,11 @@ class SearchView {
         this._parentElement.querySelector(".search__field").value = "";
     }
     addHandlerSearch(handler) {
-        this._parentElement.addEventListener("click", function(e) {
-            e.preventDefault();
-            handler();
+        this._parentElement.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                handler();
+            }
         });
     }
 }
@@ -5994,10 +5996,10 @@ class ResultsView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".results");
     _errorMessage = "No movies found. Please try again.";
     _message = "";
-    constructor(){
-        super();
-        this._addScrollHandler();
-    }
+    // constructor() {
+    //   super();
+    //   this._addScrollHandler();
+    // }
     _addScrollHandler() {
         window.addEventListener("scroll", async ()=>{
             if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 10) {

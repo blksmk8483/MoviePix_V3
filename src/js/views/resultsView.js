@@ -7,10 +7,10 @@ class ResultsView extends View {
   _errorMessage = "No movies found. Please try again.";
   _message = "";
 
-  constructor() {
-    super();
-    this._addScrollHandler();
-  }
+  // constructor() {
+  //   super();
+  //   this._addScrollHandler();
+  // }
 
   _addScrollHandler() {
     window.addEventListener("scroll", async () => {

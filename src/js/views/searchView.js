@@ -12,9 +12,12 @@ class SearchView {
   }
 
   addHandlerSearch(handler) {
-    this._parentElement.addEventListener("click", function (e) {
-      e.preventDefault();
-      handler();
+    this._parentElement.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        handler();
+        document.activeElement.blur();
+      }
     });
   }
 }
