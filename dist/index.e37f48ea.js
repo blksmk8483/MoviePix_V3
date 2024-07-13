@@ -609,6 +609,7 @@ const controlMovie = async function() {
         // 2) rendering movie data...
         (0, _movieViewJsDefault.default).render(_modelJs.state.movie);
         // 3) Clears my search results when a movie is selected
+        // !!!!!!!!!!!! THIS IS WHAT I HAD BEFORE
         _modelJs.clearSearchResults();
         (0, _resultsViewJsDefault.default)._clear();
         // 4) User chooses a movie from searchResults and this takes them to the top of the screen
@@ -5862,7 +5863,15 @@ class MovieView extends (0, _viewDefault.default) {
     `;
     }
 }
-exports.default = new MovieView();
+// !!! This adds a link to the homepage from where the movie was created. I can add this later.
+// {
+/* <p class="ml-4 pb-4 text-lg tracking-wider">${this._data.homepage}</p> */ // }
+exports.default = new MovieView(); // {
+ /* <p class="ml-2">GENRES: ${this._data.genres
+  .map((data) => {
+    return `   ${data.name}`;
+  })
+  .join(",   ")}</p> */  // }
 
 },{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

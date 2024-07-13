@@ -26,6 +26,8 @@ export const controlMovie = async function () {
     movieView.render(model.state.movie);
 
     // 3) Clears my search results when a movie is selected
+
+    // !!!!!!!!!!!! THIS IS WHAT I HAD BEFORE
     model.clearSearchResults();
     resultsView._clear();
 

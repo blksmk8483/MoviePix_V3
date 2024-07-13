@@ -31,16 +31,16 @@ class MovieView extends View {
 }
 
 // !!! This adds a link to the homepage from where the movie was created. I can add this later.
-{
-  /* <p class="ml-4 pb-4 text-lg tracking-wider">${this._data.homepage}</p> */
-}
+// {
+/* <p class="ml-4 pb-4 text-lg tracking-wider">${this._data.homepage}</p> */
+// }
 
 export default new MovieView();
 
-{
-  /* <p class="ml-2">GENRES: ${this._data.genres
+// {
+/* <p class="ml-2">GENRES: ${this._data.genres
   .map((data) => {
     return `   ${data.name}`;
   })
   .join(",   ")}</p> */
-}
+// }
