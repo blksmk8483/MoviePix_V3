@@ -12,14 +12,14 @@ class ResultsView extends View {
   //   this._addScrollHandler();
   // }
 
-  _addScrollHandler() {
+  addScrollHandler(handler) {
     window.addEventListener("scroll", async () => {
       if (
         document.documentElement.scrollTop +
           document.documentElement.clientHeight >=
         document.documentElement.scrollHeight - 10
       ) {
-        if (this._handlerLoadMore) await this._handlerLoadMore();
+        if (handler) await handler();
       }
     });
   }
@@ -29,12 +29,13 @@ class ResultsView extends View {
   }
 
   _generateMarkupPreview(result) {
+    const imagePath = result.image ? `${API_IMAGE}${result.image}` : noImage;
     return `
      <li class="m-1.5 p-0 bg-slate-700">
       <a class="" href="#${result.id}">
         <img
           class="m-0 bg-cover tablet:w-64 laptop:w-128"
-          src="${API_IMAGE}${result.image}"
+          src="${imagePath}"
           alt="${result.title}"
         />
 
@@ -47,14 +48,9 @@ class ResultsView extends View {
     `;
   }
 
-  addHandlerLoadMore(handler) {
-    this._handlerLoadMore = handler;
-  }
-
-  clear() {
-    this._parentElement.innerHTML = "";
-    // document.querySelector(".search-results");
-  }
+  // addHandlerLoadMore(handler) {
+  //   this._handlerLoadMore = handler;
+  // }
 
   scrollToTop() {
     window.scrollTo({

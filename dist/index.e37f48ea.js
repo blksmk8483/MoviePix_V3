@@ -610,10 +610,11 @@ const controlMovie = async function() {
         (0, _movieViewJsDefault.default).render(_modelJs.state.movie);
         // 3) Clears my search results when a movie is selected
         _modelJs.clearSearchResults();
-        (0, _resultsViewJsDefault.default).clear();
+        (0, _resultsViewJsDefault.default)._clear();
         // 4) User chooses a movie from searchResults and this takes them to the top of the screen
         (0, _resultsViewJsDefault.default).scrollToTop();
     } catch (err) {
+        (0, _resultsViewJsDefault.default)._clear();
         (0, _movieViewJsDefault.default).renderError();
     }
 };
@@ -638,6 +639,7 @@ const controlSearchResults = async function() {
     // paginationView.render(model.state.search);
     } catch (err) {
         // console.log(err);
+        (0, _movieViewJsDefault.default)._clear();
         (0, _resultsViewJsDefault.default).renderError();
     }
 };
@@ -647,6 +649,7 @@ const controlLoadMoreResults = async function() {
         (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
     } catch (err) {
         console.log(err);
+        (0, _movieViewJsDefault.default)._clear();
         (0, _resultsViewJsDefault.default).renderError();
     }
 };
@@ -659,7 +662,7 @@ const controlPagination = function(goToPage) {
 const init = function() {
     (0, _movieViewJsDefault.default).addHandlerRender(controlMovie);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
-    (0, _resultsViewJsDefault.default).addHandlerLoadMore(controlLoadMoreResults);
+    (0, _resultsViewJsDefault.default).addScrollHandler(controlLoadMoreResults);
 // paginationView.addHandlerClick(controlPagination);
 };
 init();
@@ -5851,7 +5854,7 @@ class MovieView extends (0, _viewDefault.default) {
     <section class="bg-slate-800 text-white">
       <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
       <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
-      <img class="bg-center max-h-svh" src="${0, _config.API_IMAGE}${this._data.image}" alt="{this._data.title}" />
+      <img class="bg-center max-h-svh" src="${0, _config.API_IMAGE}${this._data.image}" alt="${this._data.title}" />
       <p class="mt-2.5 ml-4 mr-4 text-lg tracking-wide leading-relaxed">${this._data.overview}</p>
       <p class="ml-4 mt-4 text-lg tracking-wider">${this._data.releaseDate}</p>
       <p class="ml-4 pb-4 text-lg tracking-wider">${this._data.runtime} minutes</p>
@@ -5871,10 +5874,7 @@ var _spilledPopcornPngDefault = parcelHelpers.interopDefault(_spilledPopcornPng)
 class View {
     _data;
     render(data) {
-        // if (!data || (Array.isArray(data) && data.length === 0))
-        //   return this.renderError();
         if (!data || data.length === 0) return;
-        // if (Array.isArray(data) && data.length === 0) return this.renderError();
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
@@ -5894,7 +5894,7 @@ class View {
     }
     renderError(message = this._errorMessage) {
         const markup = `
-    <div class="error mt-7">
+    <div class="error mt-7 col-span-full">
          <img class="bg-center max-h-svh" src="${(0, _spilledPopcornPngDefault.default)}">
       <p class="m-4 text-2xl text-white text-center tracking-wider">${message}</p>
     </div>
@@ -5906,9 +5906,7 @@ class View {
         const markup = `
     <div class="messge">
       <div>
-        <svg>
-          <use href="src/img/icons.svg#icon-alert-triangle"></use>
-        </svg>
+       <img />
       </div>
       <p>${message}</p>
     </div>
@@ -5978,6 +5976,7 @@ class SearchView {
             if (event.key === "Enter") {
                 event.preventDefault();
                 handler();
+                document.activeElement.blur();
             }
         });
     }
@@ -6000,10 +5999,10 @@ class ResultsView extends (0, _viewDefault.default) {
     //   super();
     //   this._addScrollHandler();
     // }
-    _addScrollHandler() {
+    addScrollHandler(handler) {
         window.addEventListener("scroll", async ()=>{
             if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 10) {
-                if (this._handlerLoadMore) await this._handlerLoadMore();
+                if (handler) await handler();
             }
         });
     }
@@ -6011,12 +6010,13 @@ class ResultsView extends (0, _viewDefault.default) {
         return this._data.map(this._generateMarkupPreview).join("");
     }
     _generateMarkupPreview(result) {
+        const imagePath = result.image ? `${0, _config.API_IMAGE}${result.image}` : (0, _popcornPngDefault.default);
         return `
      <li class="m-1.5 p-0 bg-slate-700">
       <a class="" href="#${result.id}">
         <img
           class="m-0 bg-cover tablet:w-64 laptop:w-128"
-          src="${0, _config.API_IMAGE}${result.image}"
+          src="${imagePath}"
           alt="${result.title}"
         />
 
@@ -6028,13 +6028,9 @@ class ResultsView extends (0, _viewDefault.default) {
     </li>
     `;
     }
-    addHandlerLoadMore(handler) {
-        this._handlerLoadMore = handler;
-    }
-    clear() {
-        this._parentElement.innerHTML = "";
-    // document.querySelector(".search-results");
-    }
+    // addHandlerLoadMore(handler) {
+    //   this._handlerLoadMore = handler;
+    // }
     scrollToTop() {
         window.scrollTo({
             top: 0,

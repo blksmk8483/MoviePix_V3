@@ -5,10 +5,7 @@ export default class View {
   _data;
 
   render(data) {
-    // if (!data || (Array.isArray(data) && data.length === 0))
-    //   return this.renderError();
     if (!data || data.length === 0) return;
-    // if (Array.isArray(data) && data.length === 0) return this.renderError();
 
     this._data = data;
     const markup = this._generateMarkup();
@@ -32,7 +29,7 @@ export default class View {
 
   renderError(message = this._errorMessage) {
     const markup = `
-    <div class="error mt-7">
+    <div class="error mt-7 col-span-full">
          <img class="bg-center max-h-svh" src="${errorIcon}">
       <p class="m-4 text-2xl text-white text-center tracking-wider">${message}</p>
     </div>
@@ -45,9 +42,7 @@ export default class View {
     const markup = `
     <div class="messge">
       <div>
-        <svg>
-          <use href="src/img/icons.svg#icon-alert-triangle"></use>
-        </svg>
+       <img />
       </div>
       <p>${message}</p>
     </div>

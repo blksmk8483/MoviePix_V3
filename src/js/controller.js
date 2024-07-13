@@ -27,11 +27,12 @@ export const controlMovie = async function () {
 
     // 3) Clears my search results when a movie is selected
     model.clearSearchResults();
-    resultsView.clear();
+    resultsView._clear();
 
     // 4) User chooses a movie from searchResults and this takes them to the top of the screen
     resultsView.scrollToTop();
   } catch (err) {
+    resultsView._clear();
     movieView.renderError();
   }
 };
@@ -63,6 +64,7 @@ const controlSearchResults = async function () {
     // paginationView.render(model.state.search);
   } catch (err) {
     // console.log(err);
+    movieView._clear();
     resultsView.renderError();
   }
 };
@@ -76,6 +78,7 @@ const controlLoadMoreResults = async function () {
     resultsView.render(model.state.search.results);
   } catch (err) {
     console.log(err);
+    movieView._clear();
     resultsView.renderError();
   }
 };
@@ -91,7 +94,7 @@ const controlPagination = function (goToPage) {
 const init = function () {
   movieView.addHandlerRender(controlMovie);
   searchView.addHandlerSearch(controlSearchResults);
-  resultsView.addHandlerLoadMore(controlLoadMoreResults);
+  resultsView.addScrollHandler(controlLoadMoreResults);
   // paginationView.addHandlerClick(controlPagination);
 };
 init();
