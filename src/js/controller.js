@@ -3,6 +3,7 @@ import movieView from "./views/movieView.js";
 import searchView from "./views/searchView.js";
 import resultsView from "./views/resultsView.js";
 import paginationView from "./views/paginationView.js";
+import initalView from "./views/initialView.js";
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
@@ -10,6 +11,18 @@ import "regenerator-runtime/runtime";
 if (module.hot) {
   module.hot.accept();
 }
+
+// Initial page yields the most popular movies
+export const controlStartingPage = async function () {
+  try {
+    initalView.renderSpinner();
+    await model.popularMovies();
+
+    initalView.render(model.state.popularMovie);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // THIS GETS ME A SPECIFIC MOVIE BASED ON ID
 export const controlMovie = async function () {
@@ -24,6 +37,7 @@ export const controlMovie = async function () {
 
     // 2) rendering movie data...
     movieView.render(model.state.movie);
+    console.log(model.state.movie);
 
     // 3) Clears my search results when a movie is selected
 
@@ -47,25 +61,20 @@ const controlSearchResults = async function () {
     const query = searchView.getQuery();
     if (!query) return;
 
-    // 2) Clear previous results and reset state
-    // model.state.search.results = [];
-    // model.state.search.page = 1;
-    // model.state.search.nextPage = 1;
+    // 2) Clear the initial popular search results
+    initalView._clear();
 
     // 3) Load search results
     await model.fetchAllResults(query);
 
     // 4) Render Results
-    // resultsView.render(model.state.search.results);
     resultsView.render(model.getSearchResultsPage());
 
     // 5) Clear the previous selection away
     movieView._clear();
 
     // 6) Render initial pagination buttons
-    // paginationView.render(model.state.search);
   } catch (err) {
-    // console.log(err);
     movieView._clear();
     resultsView.renderError();
   }
@@ -85,15 +94,16 @@ const controlLoadMoreResults = async function () {
   }
 };
 
-const controlPagination = function (goToPage) {
-  // 1) Render NEW results
-  resultsView.render(model.getSearchResultsPage(goToPage));
+// const controlPagination = function (goToPage) {
+//   // 1) Render NEW results
+//   resultsView.render(model.getSearchResultsPage(goToPage));
 
-  // 2) Render NEW pagination buttons
-  paginationView.render(model.state.search);
-};
+//   // 2) Render NEW pagination buttons
+//   paginationView.render(model.state.search);
+// };
 
 const init = function () {
+  initalView.addHandlerInit(controlStartingPage);
   movieView.addHandlerRender(controlMovie);
   searchView.addHandlerSearch(controlSearchResults);
   resultsView.addScrollHandler(controlLoadMoreResults);

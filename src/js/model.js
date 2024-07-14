@@ -3,6 +3,9 @@ import { getJSON } from "./helpers.js";
 import moment from "moment";
 
 export const state = {
+  popularMovie: {
+    results: [],
+  },
   movie: {},
   search: {
     query: "",
@@ -100,4 +103,21 @@ export const getSearchResultsPage = function (page = state.search.page) {
   const end = page * state.search.resultsPerPage; // 9
 
   return state.search.results.slice(start, end);
+};
+
+export const popularMovies = async function () {
+  try {
+    const data = await getJSON(`
+      ${API_URL}${TV_OR_MOVIE}/popular?language=en-US&page=1`);
+
+    state.popularMovie.results = data.results.map((popular) => ({
+      id: popular.id,
+      title: popular.title,
+      image: popular.poster_path,
+      overview: popular.overview,
+    }));
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 };
