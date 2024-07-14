@@ -37,7 +37,6 @@ export const controlMovie = async function () {
 
     // 2) rendering movie data...
     movieView.render(model.state.movie);
-    console.log(model.state.movie);
 
     // 3) Clears my search results when a movie is selected
 

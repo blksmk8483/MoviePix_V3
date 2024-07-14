@@ -411,20 +411,12 @@ img, video {
   max-height: 3rem;
 }
 
-.max-h-svh {
-  max-height: 100svh;
-}
-
-.max-h-5 {
-  max-height: 1.25rem;
-}
-
-.max-h-24 {
-  max-height: 6rem;
-}
-
 .max-h-48 {
   max-height: 12rem;
+}
+
+.max-h-svh {
+  max-height: 100svh;
 }
 
 .w-96 {

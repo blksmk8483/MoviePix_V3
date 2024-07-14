@@ -620,7 +620,6 @@ const controlMovie = async function() {
         await _modelJs.loadMovie(id);
         // 2) rendering movie data...
         (0, _movieViewJsDefault.default).render(_modelJs.state.movie);
-        console.log(_modelJs.state.movie);
         // 3) Clears my search results when a movie is selected
         // !!!!!!!!!!!! THIS IS WHAT I HAD BEFORE
         _modelJs.clearSearchResults();
@@ -1942,6 +1941,7 @@ const loadMovie = async function(id) {
         // Check if the movie ID is the same as the one in the state
         if (state.movie.id === id) return; // Avoid reloading the same movie
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}`);
+        console.log("LOAD MOVIE", data);
         const movie = data;
         state.movie = {
             id: movie.id,
@@ -1971,7 +1971,7 @@ const loadSearchResults = async function(query, page = 1) {
             state.search.nextPage = 1; // Reset nextPage to 1
         }
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${page}`);
-        // console.log(data);
+        console.log("LOAD SEARCH RESULTS", data);
         state.search.results.push(...data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
@@ -6190,8 +6190,10 @@ class InitialView extends (0, _viewDefault.default) {
     _generateMarkupOMG(popularMovie) {
         return `
     <li class="m-1.5 p-0 bg-slate-800 text-white ">
+    <a href="#${popularMovie.id}">
         <h2 class="ml-3 mr-2 pt-2.5 text-lg font-medium tracking-wide">${popularMovie.title}</h2>
           <img class="bg-center max-h-48" src="${0, _config.API_IMAGE}${popularMovie.image}" alt="${popularMovie.title}" />
+          </a>
       </li>
       `;
     }

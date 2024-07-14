@@ -24,8 +24,10 @@ class InitialView extends View {
   _generateMarkupOMG(popularMovie) {
     return `
     <li class="m-1.5 p-0 bg-slate-800 text-white ">
+    <a href="#${popularMovie.id}">
         <h2 class="ml-3 mr-2 pt-2.5 text-lg font-medium tracking-wide">${popularMovie.title}</h2>
           <img class="bg-center max-h-48" src="${API_IMAGE}${popularMovie.image}" alt="${popularMovie.title}" />
+          </a>
       </li>
       `;
   }

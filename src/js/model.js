@@ -24,7 +24,7 @@ export const loadMovie = async function (id) {
     const data = await getJSON(
       `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`
     );
-
+    console.log("LOAD MOVIE", data);
     const movie = data;
     state.movie = {
       id: movie.id,
@@ -59,7 +59,7 @@ export const loadSearchResults = async function (query, page = 1) {
       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
     );
 
-    // console.log(data);
+    console.log("LOAD SEARCH RESULTS", data);
     state.search.results.push(
       ...data.results.map((movie) => ({
         id: movie.id,
