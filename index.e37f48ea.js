@@ -586,6 +586,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"aenu9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "controlStartingPage", ()=>controlStartingPage);
 parcelHelpers.export(exports, "controlMovie", ()=>controlMovie);
 var _webImmediateJs = require("core-js/modules/web.immediate.js");
 var _modelJs = require("./model.js");
@@ -597,8 +598,19 @@ var _resultsViewJs = require("./views/resultsView.js");
 var _resultsViewJsDefault = parcelHelpers.interopDefault(_resultsViewJs);
 var _paginationViewJs = require("./views/paginationView.js");
 var _paginationViewJsDefault = parcelHelpers.interopDefault(_paginationViewJs);
+var _initialViewJs = require("./views/initialView.js");
+var _initialViewJsDefault = parcelHelpers.interopDefault(_initialViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 if (module.hot) module.hot.accept();
+const controlStartingPage = async function() {
+    try {
+        (0, _initialViewJsDefault.default).renderSpinner();
+        await _modelJs.popularMovies();
+        (0, _initialViewJsDefault.default).render(_modelJs.state.popularMovie);
+    } catch (err) {
+        console.log(err);
+    }
+};
 const controlMovie = async function() {
     try {
         const id = window.location.hash.slice(1);
@@ -608,7 +620,9 @@ const controlMovie = async function() {
         await _modelJs.loadMovie(id);
         // 2) rendering movie data...
         (0, _movieViewJsDefault.default).render(_modelJs.state.movie);
+        console.log(_modelJs.state.movie);
         // 3) Clears my search results when a movie is selected
+        // !!!!!!!!!!!! THIS IS WHAT I HAD BEFORE
         _modelJs.clearSearchResults();
         (0, _resultsViewJsDefault.default)._clear();
         // 4) User chooses a movie from searchResults and this takes them to the top of the screen
@@ -624,21 +638,16 @@ const controlSearchResults = async function() {
         // 1) Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
-        // 2) Clear previous results and reset state
-        // model.state.search.results = [];
-        // model.state.search.page = 1;
-        // model.state.search.nextPage = 1;
+        // 2) Clear the initial popular search results
+        (0, _initialViewJsDefault.default)._clear();
         // 3) Load search results
         await _modelJs.fetchAllResults(query);
         // 4) Render Results
-        // resultsView.render(model.state.search.results);
         (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage());
         // 5) Clear the previous selection away
         (0, _movieViewJsDefault.default)._clear();
     // 6) Render initial pagination buttons
-    // paginationView.render(model.state.search);
     } catch (err) {
-        // console.log(err);
         (0, _movieViewJsDefault.default)._clear();
         (0, _resultsViewJsDefault.default).renderError();
     }
@@ -653,13 +662,14 @@ const controlLoadMoreResults = async function() {
         (0, _resultsViewJsDefault.default).renderError();
     }
 };
-const controlPagination = function(goToPage) {
-    // 1) Render NEW results
-    (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(goToPage));
-    // 2) Render NEW pagination buttons
-    (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
-};
+// const controlPagination = function (goToPage) {
+//   // 1) Render NEW results
+//   resultsView.render(model.getSearchResultsPage(goToPage));
+//   // 2) Render NEW pagination buttons
+//   paginationView.render(model.state.search);
+// };
 const init = function() {
+    (0, _initialViewJsDefault.default).addHandlerInit(controlStartingPage);
     (0, _movieViewJsDefault.default).addHandlerRender(controlMovie);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     (0, _resultsViewJsDefault.default).addScrollHandler(controlLoadMoreResults);
@@ -667,7 +677,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","./views/searchView.js":"9OQAM","./views/resultsView.js":"cSbZE","./views/paginationView.js":"6z7bi","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView.js":"e6B94","./views/searchView.js":"9OQAM","./views/resultsView.js":"cSbZE","./views/paginationView.js":"6z7bi","./views/initialView.js":"cMmmU","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -1909,11 +1919,15 @@ parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "fetchAllResults", ()=>fetchAllResults);
 parcelHelpers.export(exports, "clearSearchResults", ()=>clearSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
+parcelHelpers.export(exports, "popularMovies", ()=>popularMovies);
 var _configJs = require("./config.js");
 var _helpersJs = require("./helpers.js");
 var _moment = require("moment");
 var _momentDefault = parcelHelpers.interopDefault(_moment);
 const state = {
+    popularMovie: {
+        results: []
+    },
     movie: {},
     search: {
         query: "",
@@ -1989,6 +2003,21 @@ const getSearchResultsPage = function(page = state.search.page) {
     const start = (page - 1) * state.search.resultsPerPage; // 0
     const end = page * state.search.resultsPerPage; // 9
     return state.search.results.slice(start, end);
+};
+const popularMovies = async function() {
+    try {
+        const data = await (0, _helpersJs.getJSON)(`
+      ${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/popular?language=en-US&page=1`);
+        state.popularMovie.results = data.results.map((popular)=>({
+                id: popular.id,
+                title: popular.title,
+                image: popular.poster_path,
+                overview: popular.overview
+            }));
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
 };
 
 },{"./config.js":"k5Hzs","./helpers.js":"hGI1E","moment":"jwcsj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
@@ -5862,7 +5891,15 @@ class MovieView extends (0, _viewDefault.default) {
     `;
     }
 }
-exports.default = new MovieView();
+// !!! This adds a link to the homepage from where the movie was created. I can add this later.
+// {
+/* <p class="ml-4 pb-4 text-lg tracking-wider">${this._data.homepage}</p> */ // }
+exports.default = new MovieView(); // {
+ /* <p class="ml-2">GENRES: ${this._data.genres
+  .map((data) => {
+    return `   ${data.name}`;
+  })
+  .join(",   ")}</p> */  // }
 
 },{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -6127,7 +6164,41 @@ module.exports = require("e19b19eeb0968fac").getBundleURL("hWUTQ") + "popcorn.b0
 // }
 // export default new PaginationView();
 
-},{}],"dXNgZ":[function(require,module,exports) {
+},{}],"cMmmU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("./View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+var _config = require("../config");
+var _popcornPng = require("url:../../img/popcorn.png");
+var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
+class InitialView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector(".initalResults");
+    _errorMessage = "Sorry no popular movies are displying at the moment.";
+    // render(data) {
+    //   this._data = data;
+    //   const markup = this.generateMarkup();
+    //   // this._clear();
+    //   this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    // }
+    addHandlerInit(handler) {
+        handler();
+    }
+    _generateMarkup() {
+        return this._data.results.map(this._generateMarkupOMG).join("");
+    }
+    _generateMarkupOMG(popularMovie) {
+        return `
+    <li class="m-1.5 p-0 bg-slate-800 text-white ">
+        <h2 class="ml-3 mr-2 pt-2.5 text-lg font-medium tracking-wide">${popularMovie.title}</h2>
+          <img class="bg-center max-h-48" src="${0, _config.API_IMAGE}${popularMovie.image}" alt="${popularMovie.title}" />
+      </li>
+      `;
+    }
+}
+exports.default = new InitialView();
+
+},{"./View":"5cUXS","../config":"k5Hzs","url:../../img/popcorn.png":"bBpmK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
