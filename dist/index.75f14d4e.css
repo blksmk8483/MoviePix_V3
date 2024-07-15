@@ -20,4 +20,8 @@
     transform: rotate(360deg);
   }
 }
+
+.hidden {
+  display: none;
+}
 /*# sourceMappingURL=index.75f14d4e.css.map */
