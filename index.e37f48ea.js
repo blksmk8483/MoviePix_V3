@@ -5920,8 +5920,8 @@ exports.default = new MovieView();
 },{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _popcornPng = require("url:../../img/popcorn.png");
-var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
+var _popcornHoldTheButterWebp = require("url:../../img/popcornHoldTheButter.webp");
+var _popcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_popcornHoldTheButterWebp);
 var _spilledPopcornPng = require("url:../../img/spilled-popcorn.png");
 var _spilledPopcornPngDefault = parcelHelpers.interopDefault(_spilledPopcornPng);
 class View {
@@ -5939,7 +5939,7 @@ class View {
     renderSpinner() {
         const markup = `
     <div class = "spinner col-span-full">    
-      <img class="bg-center" src="${(0, _popcornPngDefault.default)}" alt="Bucket of popcorn rotating 360 degrees in a clockwise rotation.">
+      <img class="bg-center" src="${(0, _popcornHoldTheButterWebpDefault.default)}" alt="Bucket of popcorn rotating 360 degrees in a clockwise rotation.">
     </div>
     `;
         this._clear();
@@ -5970,10 +5970,10 @@ class View {
 }
 exports.default = View;
 
-},{"url:../../img/popcorn.png":"bBpmK","url:../../img/spilled-popcorn.png":"afcnD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bBpmK":[function(require,module,exports) {
-module.exports = require("bbd7c861c0dee775").getBundleURL("hWUTQ") + "popcorn.6445a6e0.png" + "?" + Date.now();
+},{"url:../../img/spilled-popcorn.png":"afcnD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/popcornHoldTheButter.webp":"lNOMI"}],"afcnD":[function(require,module,exports) {
+module.exports = require("679a49c9d66abef2").getBundleURL("hWUTQ") + "spilled-popcorn.e804d867.png" + "?" + Date.now();
 
-},{"bbd7c861c0dee775":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+},{"679a49c9d66abef2":"lgJ39"}],"lgJ39":[function(require,module,exports) {
 "use strict";
 var bundleURL = {};
 function getBundleURLCached(id) {
@@ -6008,10 +6008,10 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"afcnD":[function(require,module,exports) {
-module.exports = require("679a49c9d66abef2").getBundleURL("hWUTQ") + "spilled-popcorn.e804d867.png" + "?" + Date.now();
+},{}],"lNOMI":[function(require,module,exports) {
+module.exports = require("2565cc4d8420b816").getBundleURL("hWUTQ") + "popcornHoldTheButter.73b2eb3d.webp" + "?" + Date.now();
 
-},{"679a49c9d66abef2":"lgJ39"}],"9OQAM":[function(require,module,exports) {
+},{"2565cc4d8420b816":"lgJ39"}],"9OQAM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class SearchView {
@@ -6042,8 +6042,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _config = require("../config");
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
-var _popcornPng = require("../../img/popcorn.png");
-var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
+var _popcornHoldTheButterWebp = require("../../img/popcornHoldTheButter.webp");
+var _popcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_popcornHoldTheButterWebp);
 class ResultsView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".results");
     _errorMessage = "No movies found. Please try again.";
@@ -6059,7 +6059,7 @@ class ResultsView extends (0, _viewDefault.default) {
         return this._data.map(this._generateMarkupPreview).join("");
     }
     _generateMarkupPreview(result) {
-        const imagePath = result.image ? `${0, _config.API_IMAGE}${result.image}` : (0, _popcornPngDefault.default);
+        const imagePath = result.image ? `${0, _config.API_IMAGE}${result.image}` : (0, _popcornHoldTheButterWebpDefault.default);
         return `
      <li class="m-1.5 p-0 bg-slate-700">
       <a class="" href="#${result.id}">
@@ -6068,9 +6068,9 @@ class ResultsView extends (0, _viewDefault.default) {
           src="${imagePath}"
           alt="${result.title}"
         />
-        <section class="my-0 ml-1.5 content-center text-white text-base">
-          <h4 class="">${result.title}</h4>
-          <p class="">${result.releaseDate}</p>
+        <section class="my-0 ml-1.5 content-center text-white text-base tracking-wide">
+          <h4 class="pt-0.5">${result.title}</h4>
+          <p class="pb-2">${result.releaseDate}</p>
         </section>
       </a>
     </li>
@@ -6085,17 +6085,17 @@ class ResultsView extends (0, _viewDefault.default) {
 }
 exports.default = new ResultsView();
 
-},{"../config":"k5Hzs","./View":"5cUXS","../../img/popcorn.png":"5UwcL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5UwcL":[function(require,module,exports) {
-module.exports = require("e19b19eeb0968fac").getBundleURL("hWUTQ") + "popcorn.b022b577.png" + "?" + Date.now();
+},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/popcornHoldTheButter.webp":"4LK9z"}],"4LK9z":[function(require,module,exports) {
+module.exports = require("8cbd432852a3f429").getBundleURL("hWUTQ") + "popcornHoldTheButter.01b804cd.webp" + "?" + Date.now();
 
-},{"e19b19eeb0968fac":"lgJ39"}],"cMmmU":[function(require,module,exports) {
+},{"8cbd432852a3f429":"lgJ39"}],"cMmmU":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 var _config = require("../config");
-var _popcornPng = require("url:../../img/popcorn.png");
-var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
+var _popcornHoldTheButterWebp = require("url:../../img/popcornHoldTheButter.webp");
+var _popcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_popcornHoldTheButterWebp);
 class InitialView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".initialResults");
     _errorMessage = "Sorry, no popular movies are displaying at the moment.";
@@ -6109,8 +6109,8 @@ class InitialView extends (0, _viewDefault.default) {
         return `
     <li class="m-1.5 p-0 bg-slate-800 text-white">
       <a href="#${popularMovie.id}">
-        <h2 class="ml-3 mr-2 pt-2.5 text-lg font-medium tracking-wide">${popularMovie.title}</h2>
-        <img class="bg-center max-h-48" src="${0, _config.API_IMAGE}${popularMovie.image}" alt="${popularMovie.title}" />
+        <img class="m-0 bg-cover" src="${0, _config.API_IMAGE}${popularMovie.image}" alt="${popularMovie.title}" />
+        <h2 class="my-0 ml-1 pt-1 text-lg content-center font-medium tracking-wide">${popularMovie.title}</h2>
       </a>
     </li>
     `;
@@ -6118,7 +6118,7 @@ class InitialView extends (0, _viewDefault.default) {
 }
 exports.default = new InitialView();
 
-},{"./View":"5cUXS","../config":"k5Hzs","url:../../img/popcorn.png":"bBpmK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
+},{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/popcornHoldTheButter.webp":"lNOMI"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
