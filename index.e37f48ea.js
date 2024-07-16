@@ -584,188 +584,6 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"aenu9":[function(require,module,exports) {
-// import * as model from "./model.js";
-// import movieView from "./views/movieView.js";
-// import searchView from "./views/searchView.js";
-// import resultsView from "./views/resultsView.js";
-// import paginationView from "./views/paginationView.js";
-// import initalView from "./views/initialView.js";
-// import "core-js/stable";
-// import "regenerator-runtime/runtime";
-// if (module.hot) {
-//   module.hot.accept();
-// }
-// // Initial page yields the most popular movies
-// export const controlStartingPage = async function () {
-//   try {
-//     initalView.renderSpinner();
-//     await model.popularMovies();
-//     initalView.render(model.state.popularMovie);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-// // THIS GETS ME A SPECIFIC MOVIE BASED ON ID
-// export const controlMovie = async function () {
-//   try {
-//     const id = window.location.hash.slice(1);
-//     if (!id) return;
-//     // Hide the initial list and show the movie view
-//     document.querySelector(".initial-view-container").classList.add("hidden");
-//     document.querySelector(".movie-view-container").classList.remove("hidden");
-//     movieView.renderSpinner();
-//     // 1) loading movie data...
-//     await model.loadMovie(id);
-//     // 2) rendering movie data...
-//     movieView.render(model.state.movie);
-//     // 3) Clears my search results when a movie is selected
-//     // !!!!!!!!!!!! THIS IS WHAT I HAD BEFORE
-//     model.clearSearchResults();
-//     resultsView._clear();
-//     // 4) User chooses a movie from searchResults and this takes them to the top of the screen
-//     resultsView.scrollToTop();
-//   } catch (err) {
-//     resultsView._clear();
-//     movieView.renderError();
-//   }
-// };
-// const controlSearchResults = async function () {
-//   try {
-//     resultsView.renderSpinner();
-//     // 1) Get search query
-//     const query = searchView.getQuery();
-//     if (!query) return;
-//     // 2) Clear the initial popular search results
-//     initalView._clear();
-//     // 3) Load search results
-//     await model.fetchAllResults(query);
-//     // 4) Render Results
-//     resultsView.render(model.getSearchResultsPage());
-//     // 5) Clear the previous selection away
-//     movieView._clear();
-//     // 6) Render initial pagination buttons
-//   } catch (err) {
-//     movieView._clear();
-//     resultsView.renderError();
-//   }
-// };
-// const controlLoadMoreResults = async function () {
-//   try {
-//     await model.fetchAllResults(
-//       model.state.search.query,
-//       model.state.search.nextPage
-//     );
-//     resultsView.render(model.state.search.results);
-//   } catch (err) {
-//     console.log(err);
-//     movieView._clear();
-//     resultsView.renderError();
-//   }
-// };
-// const controlBackButton = function () {
-//   // Show the initial list and hide the movie view
-//   document.querySelector(".initial-view-container").classList.remove("hidden");
-//   document.querySelector(".movie-view-container").classList.add("hidden");
-// };
-// // const controlPagination = function (goToPage) {
-// //   // 1) Render NEW results
-// //   resultsView.render(model.getSearchResultsPage(goToPage));
-// //   // 2) Render NEW pagination buttons
-// //   paginationView.render(model.state.search);
-// // };
-// const init = function () {
-//   initalView.addHandlerInit(controlStartingPage);
-//   movieView.addHandlerRender(controlMovie);
-//   movieView.addHandlerBack(controlBackButton);
-//   searchView.addHandlerSearch(controlSearchResults);
-//   resultsView.addScrollHandler(controlLoadMoreResults);
-//   // paginationView.addHandlerClick(controlPagination);
-// };
-// init();
-// ROUND #2 Got the results but the button didn't work.
-// import * as model from "./model.js";
-// import movieView from "./views/movieView.js";
-// import searchView from "./views/searchView.js";
-// import resultsView from "./views/resultsView.js";
-// import initialView from "./views/initialView.js";
-// import "core-js/stable";
-// import "regenerator-runtime/runtime";
-// if (module.hot) {
-//   module.hot.accept();
-// }
-// // Initial page yields the most popular movies
-// export const controlStartingPage = async function () {
-//   try {
-//     initialView.renderSpinner();
-//     await model.popularMovies();
-//     initialView.render(model.state.popularMovie);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-// // THIS GETS ME A SPECIFIC MOVIE BASED ON ID
-// export const controlMovie = async function () {
-//   try {
-//     const id = window.location.hash.slice(1);
-//     if (!id) return;
-//     console.log("Movie ID:", id); // Debugging line
-//     // Hide the initial list and show the movie view
-//     document.querySelector(".initial-view-container").classList.add("hidden");
-//     document.querySelector(".movie-view-container").classList.remove("hidden");
-//     movieView.renderSpinner();
-//     // 1) loading movie data...
-//     await model.loadMovie(id);
-//     // 2) rendering movie data...
-//     movieView.render(model.state.movie);
-//     // 3) Clears my search results when a movie is selected
-//     model.clearSearchResults();
-//     resultsView._clear();
-//     // 4) User chooses a movie from searchResults and this takes them to the top of the screen
-//     resultsView.scrollToTop();
-//   } catch (err) {
-//     resultsView._clear();
-//     movieView.renderError();
-//   }
-// };
-// const controlSearchResults = async function () {
-//   try {
-//     resultsView.renderSpinner();
-//     // 1) Get search query
-//     const query = searchView.getQuery();
-//     if (!query) return;
-//     // 2) Clear the initial popular search results
-//     initialView._clear();
-//     // 3) Load search results
-//     await model.fetchAllResults(query);
-//     // 4) Render Results
-//     resultsView.render(model.getSearchResultsPage());
-//     // 5) Clear the previous selection away
-//     movieView._clear();
-//   } catch (err) {
-//     movieView._clear();
-//     resultsView.renderError();
-//   }
-// };
-// const controlLoadMoreResults = async function () {
-//   try {
-//     await model.fetchAllResults(
-//       model.state.search.query,
-//       model.state.search.nextPage
-//     );
-//     resultsView.render(model.state.search.results);
-//   } catch (err) {
-//     console.log(err);
-//     movieView._clear();
-//     resultsView.renderError();
-//   }
-// };
-// const init = function () {
-//   initialView.addHandlerInit(controlStartingPage);
-//   movieView.addHandlerRender(controlMovie);
-//   searchView.addHandlerSearch(controlSearchResults);
-//   resultsView.addScrollHandler(controlLoadMoreResults);
-// };
-// init();
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "controlStartingPage", ()=>controlStartingPage);
@@ -807,10 +625,7 @@ const controlMovie = async function() {
         await _modelJs.loadMovie(id);
         // 2) rendering movie data...
         (0, _movieViewJsDefault.default).render(_modelJs.state.movie);
-        // 3) Clears my search results when a movie is selected
-        _modelJs.clearSearchResults();
-        (0, _resultsViewJsDefault.default)._clear();
-        // 4) User chooses a movie from searchResults and this takes them to the top of the screen
+        // 3) User chooses a movie from searchResults and this takes them to the top of the screen
         (0, _resultsViewJsDefault.default).scrollToTop();
     } catch (err) {
         (0, _resultsViewJsDefault.default)._clear();
@@ -819,11 +634,13 @@ const controlMovie = async function() {
 };
 const controlBackToInitial = function() {
     if (_modelJs.state.view === "movie") {
-        // Hide the movie view and show the previous view
+        // Hide the movie view
         document.querySelector(".movie-view-container").classList.add("hidden");
-        if (_modelJs.state.search.query) // If there was a search query, go back to search results
-        document.querySelector(".results-view-container").classList.remove("hidden");
-        else // Otherwise, go back to initial popular movies
+        if (_modelJs.state.search.query) {
+            // If there was a search query, go back to search results
+            document.querySelector(".results-view-container").classList.remove("hidden");
+            (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
+        } else // Otherwise, go back to initial popular movies
         document.querySelector(".initial-view-container").classList.remove("hidden");
         _modelJs.state.view = _modelJs.state.search.query ? "search" : "initial";
         (0, _movieViewJsDefault.default)._clear();
@@ -837,13 +654,17 @@ const controlSearchResults = async function() {
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
         _modelJs.state.view = "search"; // Set view state to search
+        _modelJs.state.search.query = query; // Save search query to state
         // 2) Clear the initial popular search results
         (0, _initialViewJsDefault.default)._clear();
         // 3) Load search results
         await _modelJs.fetchAllResults(query);
         // 4) Render Results
         (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage());
-        // 5) Clear the previous selection away
+        // 5) Show the results container and hide the initial view container
+        document.querySelector(".results-view-container").classList.remove("hidden");
+        document.querySelector(".initial-view-container").classList.add("hidden");
+        // 6) Clear the previous selection away
         (0, _movieViewJsDefault.default)._clear();
     } catch (err) {
         (0, _movieViewJsDefault.default)._clear();
@@ -866,6 +687,11 @@ const init = function() {
     (0, _movieViewJsDefault.default).addHandlerBack(controlBackToInitial);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     (0, _resultsViewJsDefault.default).addScrollHandler(controlLoadMoreResults);
+    // Handle back/forward navigation
+    window.addEventListener("hashchange", function() {
+        if (!window.location.hash) controlBackToInitial();
+        else controlMovie();
+    });
 };
 init();
 
@@ -2165,7 +1991,6 @@ const loadSearchResults = async function(query, page = 1) {
             state.search.nextPage = 1; // Reset nextPage to 1
         }
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${page}`);
-        console.log("LOAD SEARCH RESULTS", data);
         state.search.results.push(...data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
@@ -6059,51 +5884,6 @@ parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 var _config = require("../config");
-// class MovieView extends View {
-//   _parentElement = document.querySelector("movie-view-container");
-//   _errorMessage = "Could not find that movie. <br> Please try another one.";
-//   _message = "";
-//   addHandlerRender(handler) {
-//     // This is the same as the two eventsListeners below just condensed
-//     // window.addEventListener("hashchange", showMovie);
-//     // window.addEventListener("load", showMovie);
-//     ["hashchange", "load"].forEach((ev) =>
-//       window.addEventListener(ev, handler)
-//     );
-//   }
-//   _generateMarkup() {
-//     return `
-//     <button class="back-button">Back</button>
-//     <section class="bg-slate-800 text-white">
-//       <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
-//       <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
-//       <img class="bg-center max-h-svh" src="${API_IMAGE}${this._data.image}" alt="${this._data.title}" />
-//       <p class="mt-2.5 ml-4 mr-4 text-lg tracking-wide leading-relaxed">${this._data.overview}</p>
-//       <p class="ml-4 mt-4 text-lg tracking-wider">${this._data.releaseDate}</p>
-//       <p class="ml-4 pb-4 text-lg tracking-wider">${this._data.runtime} minutes</p>
-//     </section>
-//     `;
-//   }
-//   addHandlerBack(handler) {
-//     this._parentElement.addEventListener("click", function (e) {
-//       const btn = e.target.closest(".back-button");
-//       if (!btn) return;
-//       handler();
-//     });
-//   }
-// }
-// // !!! This adds a link to the homepage from where the movie was created. I can add this later.
-// // {
-// /* <p class="ml-4 pb-4 text-lg tracking-wider">${this._data.homepage}</p> */
-// // }
-// export default new MovieView();
-// // {
-// /* <p class="ml-2">GENRES: ${this._data.genres
-//   .map((data) => {
-//     return `   ${data.name}`;
-//   })
-//   .join(",   ")}</p> */
-// // }
 class MovieView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".movieView");
     _errorMessage = "Could not find that movie. <br> Please try another one.";
@@ -6264,57 +6044,6 @@ var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 var _popcornPng = require("../../img/popcorn.png");
 var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
-// class ResultsView extends View {
-//   _parentElement = document.querySelector(".results");
-//   _errorMessage = "No movies found. Please try again.";
-//   _message = "";
-//   // constructor() {
-//   //   super();
-//   //   this._addScrollHandler();
-//   // }
-//   addScrollHandler(handler) {
-//     window.addEventListener("scroll", async () => {
-//       if (
-//         document.documentElement.scrollTop +
-//           document.documentElement.clientHeight >=
-//         document.documentElement.scrollHeight - 10
-//       ) {
-//         if (handler) await handler();
-//       }
-//     });
-//   }
-//   _generateMarkup() {
-//     return this._data.map(this._generateMarkupPreview).join("");
-//   }
-//   _generateMarkupPreview(result) {
-//     const imagePath = result.image ? `${API_IMAGE}${result.image}` : noImage;
-//     return `
-//      <li class="m-1.5 p-0 bg-slate-700">
-//       <a class="" href="#${result.id}">
-//         <img
-//           class="m-0 bg-cover tablet:w-64 laptop:w-128"
-//           src="${imagePath}"
-//           alt="${result.title}"
-//         />
-//         <section class="my-0 ml-1.5 content-center text-white text-base">
-//           <h4 class="">${result.title}</h4>
-//           <p class="">${result.releaseDate}</p>
-//         </section>
-//       </a>
-//     </li>
-//     `;
-//   }
-//   // addHandlerLoadMore(handler) {
-//   //   this._handlerLoadMore = handler;
-//   // }
-//   scrollToTop() {
-//     window.scrollTo({
-//       top: 0,
-//       behavior: "smooth", // Optional: Smooth scrolling effect
-//     });
-//   }
-// }
-// export default new ResultsView();
 class ResultsView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".results");
     _errorMessage = "No movies found. Please try again.";
@@ -6367,33 +6096,6 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 var _config = require("../config");
 var _popcornPng = require("url:../../img/popcorn.png");
 var _popcornPngDefault = parcelHelpers.interopDefault(_popcornPng);
-// class InitialView extends View {
-//   _parentElement = document.querySelector(".initalResults");
-//   _errorMessage = "Sorry no popular movies are displying at the moment.";
-//   // render(data) {
-//   //   this._data = data;
-//   //   const markup = this.generateMarkup();
-//   //   // this._clear();
-//   //   this._parentElement.insertAdjacentHTML("afterbegin", markup);
-//   // }
-//   addHandlerInit(handler) {
-//     handler();
-//   }
-//   _generateMarkup() {
-//     return this._data.results.map(this._generateMarkupOMG).join("");
-//   }
-//   _generateMarkupOMG(popularMovie) {
-//     return `
-//     <li class="m-1.5 p-0 bg-slate-800 text-white">
-//       <a href="#${popularMovie.id}">
-//         <h2 class="ml-3 mr-2 pt-2.5 text-lg font-medium tracking-wide">${popularMovie.title}</h2>
-//         <img class="bg-center max-h-48" src="${API_IMAGE}${popularMovie.image}" alt="${popularMovie.title}" />
-//       </a>
-//     </li>
-//     `;
-//   }
-// }
-// export default new InitialView();
 class InitialView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".initialResults");
     _errorMessage = "Sorry, no popular movies are displaying at the moment.";
