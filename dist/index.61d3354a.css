@@ -411,10 +411,6 @@ img, video {
   max-height: 3rem;
 }
 
-.max-h-48 {
-  max-height: 12rem;
-}
-
 .max-h-svh {
   max-height: 100svh;
 }
@@ -524,8 +520,24 @@ img, video {
   padding-bottom: .25rem;
 }
 
+.pb-2 {
+  padding-bottom: .5rem;
+}
+
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.pt-0 {
+  padding-top: 0;
+}
+
+.pt-0\.5 {
+  padding-top: .125rem;
+}
+
+.pt-1 {
+  padding-top: .25rem;
 }
 
 .pt-2 {

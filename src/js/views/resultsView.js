@@ -1,6 +1,6 @@
 import { API_IMAGE } from "../config";
 import View from "./View";
-import noImage from "../../img/popcorn.png";
+import noImage from "../../img/popcornHoldTheButter.webp";
 
 class ResultsView extends View {
   _parentElement = document.querySelector(".results");
@@ -33,9 +33,9 @@ class ResultsView extends View {
           src="${imagePath}"
           alt="${result.title}"
         />
-        <section class="my-0 ml-1.5 content-center text-white text-base">
-          <h4 class="">${result.title}</h4>
-          <p class="">${result.releaseDate}</p>
+        <section class="my-0 ml-1.5 content-center text-white text-base tracking-wide">
+          <h4 class="pt-0.5">${result.title}</h4>
+          <p class="pb-2">${result.releaseDate}</p>
         </section>
       </a>
     </li>

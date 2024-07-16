@@ -1,5 +1,5 @@
-import popcornImage from "url:../../img/popcorn.png";
-import errorIcon from "url:../../img/spilled-popcorn.png";
+import popcornImage from "url:../../img/popcornHoldTheButter.webp";
+import errorIcon from "url:../../img/spilledPopcornHoldTheButter.webp";
 
 export default class View {
   _data;
