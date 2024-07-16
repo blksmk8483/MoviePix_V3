@@ -5922,8 +5922,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _popcornHoldTheButterWebp = require("url:../../img/popcornHoldTheButter.webp");
 var _popcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_popcornHoldTheButterWebp);
-var _spilledPopcornPng = require("url:../../img/spilled-popcorn.png");
-var _spilledPopcornPngDefault = parcelHelpers.interopDefault(_spilledPopcornPng);
+var _spilledPopcornHoldTheButterWebp = require("url:../../img/spilledPopcornHoldTheButter.webp");
+var _spilledPopcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_spilledPopcornHoldTheButterWebp);
 class View {
     _data;
     render(data) {
@@ -5948,7 +5948,7 @@ class View {
     renderError(message = this._errorMessage) {
         const markup = `
     <div class="error mt-7 col-span-full">
-         <img class="bg-center max-h-svh" src="${(0, _spilledPopcornPngDefault.default)}">
+         <img class="bg-center max-h-svh" src="${(0, _spilledPopcornHoldTheButterWebpDefault.default)}">
       <p class="m-4 text-2xl text-white text-center tracking-wider">${message}</p>
     </div>
     `;
@@ -5970,10 +5970,10 @@ class View {
 }
 exports.default = View;
 
-},{"url:../../img/spilled-popcorn.png":"afcnD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/popcornHoldTheButter.webp":"lNOMI"}],"afcnD":[function(require,module,exports) {
-module.exports = require("679a49c9d66abef2").getBundleURL("hWUTQ") + "spilled-popcorn.e804d867.png" + "?" + Date.now();
+},{"url:../../img/popcornHoldTheButter.webp":"lNOMI","url:../../img/spilledPopcornHoldTheButter.webp":"7D8xA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lNOMI":[function(require,module,exports) {
+module.exports = require("2565cc4d8420b816").getBundleURL("hWUTQ") + "popcornHoldTheButter.73b2eb3d.webp" + "?" + Date.now();
 
-},{"679a49c9d66abef2":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+},{"2565cc4d8420b816":"lgJ39"}],"lgJ39":[function(require,module,exports) {
 "use strict";
 var bundleURL = {};
 function getBundleURLCached(id) {
@@ -6008,10 +6008,10 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"lNOMI":[function(require,module,exports) {
-module.exports = require("2565cc4d8420b816").getBundleURL("hWUTQ") + "popcornHoldTheButter.73b2eb3d.webp" + "?" + Date.now();
+},{}],"7D8xA":[function(require,module,exports) {
+module.exports = require("f5d79527d85a4b79").getBundleURL("hWUTQ") + "spilledPopcornHoldTheButter.bd11449b.webp" + "?" + Date.now();
 
-},{"2565cc4d8420b816":"lgJ39"}],"9OQAM":[function(require,module,exports) {
+},{"f5d79527d85a4b79":"lgJ39"}],"9OQAM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class SearchView {
@@ -6085,7 +6085,7 @@ class ResultsView extends (0, _viewDefault.default) {
 }
 exports.default = new ResultsView();
 
-},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/popcornHoldTheButter.webp":"4LK9z"}],"4LK9z":[function(require,module,exports) {
+},{"../config":"k5Hzs","./View":"5cUXS","../../img/popcornHoldTheButter.webp":"4LK9z","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4LK9z":[function(require,module,exports) {
 module.exports = require("8cbd432852a3f429").getBundleURL("hWUTQ") + "popcornHoldTheButter.01b804cd.webp" + "?" + Date.now();
 
 },{"8cbd432852a3f429":"lgJ39"}],"cMmmU":[function(require,module,exports) {
@@ -6118,7 +6118,7 @@ class InitialView extends (0, _viewDefault.default) {
 }
 exports.default = new InitialView();
 
-},{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","url:../../img/popcornHoldTheButter.webp":"lNOMI"}],"dXNgZ":[function(require,module,exports) {
+},{"./View":"5cUXS","../config":"k5Hzs","url:../../img/popcornHoldTheButter.webp":"lNOMI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
