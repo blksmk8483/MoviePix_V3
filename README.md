@@ -21,7 +21,7 @@ Search for your favorite movies, shows, and more...
 
 Click [here](https://moviepix.netlify.app/) to check it out!
 
-<img src="./Assets/MoviePixDemo.gif" width="auto" height="auto"/>
+<img src="./Assets/MoviePix.gif" width="auto" height="auto"/>
 
 ## Contact
 

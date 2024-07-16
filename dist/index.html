@@ -1,1 +1,52 @@
-<!DOCTYPE html><html lang="en" class="scroll-smooth"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Find movies, shows, and more"><meta name="keywords" content="Movies, TV"><meta name="author" content="Brandon Knight"><meta itemprop="image" content="/img/favicon.png"><meta itemprop="name" content="MoviePix"><meta itemprop="description" content="Find movies, shows, and more"><link rel="stylesheet" href="/index.f8def239.css"><link rel="stylesheet" href="/index.a0055487.css" type="text/css"><link rel="icon" href="/img/favicon.png" type="image/x-icon"><link rel="apple-touch-icon.png" href="/apple-touch-icon.ab21e236.png"><link rel="manifest" href="/manifest.webmanifest"><script type="module" src="/index.runtime.c1b51a27.js"></script><script type="module" src="/index.1e1937b8.js"></script><title>MoviePix &mdash; Find your movie!</title></head><body class="bg-slate-800 font-serif overscroll-none overscroll-x-none"> <header class="bg-slate-800 flex p-1"> <img class="m-1 max-h-12" src="/img/favicon.png" alt="red and blue vertically striped box of popcorn and a pair of red and blue 3d glasses"> <h1 class="ml-1 mt-3.5 text-white text-xl tracking-widest"> <span class="text-3xl">M</span>ovie<span class="text-3xl">P</span>ix </h1> </header> <form class="bg-slate-800 grid place-content-center search"> <input type="text" class="bg-slate-700 border-black focus:bg-slate-700 focus:placeholder:opacity-0 h-9 hover:bg-slate-700 mb-2 p-0.5 rounded search__field text-white w-96" placeholder="&#x1F50E; Find movies, shows, and more"> <button class="btn container hidden lg:visible search__btn"> <span class="bg-slate-800">Search</span> </button> </form> <hr class="bg-slate-800 dark:bg-white h-px w-full"> <div class="bg-slate-800 container initial-view-container mt-1.5"> <ul class="gap-x-0.5 grid grid-cols-2 initialResults ml-1.5 mr-1.5"></ul> </div> <div class="hidden movie-view-container"> <div class="movieView"></div> </div> <div class="bg-slate-800 container mt-1.5 results-view-container"> <ul class="gap-x-0.5 grid grid-cols-2 ml-1.5 mr-1.5 results"></ul> </div> <div class="pagination"></div> </body></html>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find movies, shows, and more">
+    <meta name="keywords" content="Movies, TV">
+    <meta name="author" content="Brandon Knight">
+    <meta itemprop="image" content="/img/favicon.png">
+    <meta itemprop="name" content="MoviePix">
+    <meta itemprop="description" content="Find movies, shows, and more">
+
+    <link rel="stylesheet" href="/index.75f14d4e.css">
+    <link rel="stylesheet" href="/index.61d3354a.css" type="text/css">
+    <link rel="icon" href="/img/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon.png" href="/apple-touch-icon.1196b5a9.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+
+    <script src="/index.e37f48ea.js" defer=""></script>
+
+    <title>MoviePix &mdash; Find your movie!</title>
+  </head>
+  <body class="overscroll-none overscroll-x-none font-serif bg-slate-800">
+    <header class="flex bg-slate-800 p-1">
+      <img class="max-h-12 m-1" src="/img/favicon.png" alt="red and blue vertically striped box of popcorn and a pair of red and blue 3d glasses">
+      <h1 class="mt-3.5 ml-1 text-white tracking-widest text-xl">
+        <span class="text-3xl">M</span>ovie<span class="text-3xl">P</span>ix
+      </h1>
+    </header>
+    <form class="search grid place-content-center bg-slate-800">
+      <input type="text" class="search__field mb-2 bg-slate-700 p-0.5 h-9 rounded border-black w-96 hover:bg-slate-700 focus:bg-slate-700 focus:placeholder:opacity-0 text-white" placeholder="&#x1F50E; Find movies, shows, and more">
+      <button class="btn search__btn container hidden lg:visible">
+        <span class="bg-slate-800">Search</span>
+      </button>
+    </form>
+    <hr class="h-px bg-slate-800 dark:bg-white w-full">
+
+    <div class="initial-view-container container bg-slate-800 mt-1.5">
+      <ul class="initialResults grid grid-cols-2 gap-x-0.5 ml-1.5 mr-1.5"></ul>
+    </div>
+
+    <div class="movie-view-container hidden">
+      <div class="movieView"></div>
+    </div>
+
+    <div class="results-view-container container bg-slate-800 mt-1.5">
+      <ul class="results grid grid-cols-2 gap-x-0.5 ml-1.5 mr-1.5"></ul>
+    </div>
+
+    <div class="pagination"></div>
+  </body>
+</html>
