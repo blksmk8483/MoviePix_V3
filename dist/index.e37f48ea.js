@@ -2057,7 +2057,7 @@ const API_IMAGE = "https://image.tmdb.org/t/p/original";
 const USER_LANGUAGE = "en-US";
 const TV_OR_MOVIE = "movie";
 const TIMEOUT_SEC = 10;
-const RES_PER_PAGE = 10;
+const RES_PER_PAGE = 20;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {

@@ -8,4 +8,4 @@ export const API_IMAGE = "https://image.tmdb.org/t/p/original";
 export const USER_LANGUAGE = "en-US";
 export const TV_OR_MOVIE = "movie";
 export const TIMEOUT_SEC = 10;
-export const RES_PER_PAGE = 10;
+export const RES_PER_PAGE = 20;
