@@ -25,7 +25,7 @@ export const loadMovie = async function (id) {
     const data = await getJSON(
       `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`
     );
-    console.log("LOAD MOVIE", data);
+    // console.log("LOAD MOVIE", data);
     const movie = data;
     state.movie = {
       id: movie.id,

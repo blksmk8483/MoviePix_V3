@@ -1,6 +1,6 @@
 import { API_IMAGE } from "../config";
 import View from "./View";
-import noImage from "../../img/popcornHoldTheButter.webp";
+import noImage from "../../img/movieChairs_HoldTheButter.webp";
 
 class ResultsView extends View {
   _parentElement = document.querySelector(".results");
@@ -24,18 +24,20 @@ class ResultsView extends View {
   }
 
   _generateMarkupPreview(result) {
-    const imagePath = result.image ? `${API_IMAGE}${result.image}` : noImage;
+    const isImage = result.image ? `${API_IMAGE}${result.image}` : noImage;
+
+    const releaseDate = isNaN(result.releaseDate) ? "" : result.releaseDate;
     return `
      <li class="m-1.5 p-0 bg-slate-700">
       <a class="" href="#${result.id}">
         <img
-          class="m-0 bg-cover tablet:w-64 laptop:w-128"
-          src="${imagePath}"
+          class="m-0 bg-contain"
+          src="${isImage}"
           alt="${result.title}"
         />
         <section class="my-0 ml-1.5 content-center text-white text-base tracking-wide">
           <h4 class="pt-0.5">${result.title}</h4>
-          <p class="pb-2">${result.releaseDate}</p>
+          <p class="pb-2">${releaseDate}</p>
         </section>
       </a>
     </li>

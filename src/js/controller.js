@@ -30,7 +30,6 @@ export const controlMovie = async function () {
     if (!id) return;
 
     model.state.view = "movie"; // Set view state to movie
-    console.log("Movie ID:", id); // Debugging line
 
     // Hide the initial list and show the movie view
     document.querySelector(".initial-view-container").classList.add("hidden");
