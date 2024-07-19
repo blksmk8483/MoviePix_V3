@@ -6085,7 +6085,7 @@ class ResultsView extends (0, _viewDefault.default) {
 }
 exports.default = new ResultsView();
 
-},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/movieChairs_HoldTheButter.webp":"81N47"}],"81N47":[function(require,module,exports) {
+},{"../config":"k5Hzs","./View":"5cUXS","../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"81N47":[function(require,module,exports) {
 module.exports = require("bfe064a6fee910d9").getBundleURL("hWUTQ") + "movieChairs_HoldTheButter.6331ab84.webp" + "?" + Date.now();
 
 },{"bfe064a6fee910d9":"lgJ39"}],"cMmmU":[function(require,module,exports) {
@@ -6108,10 +6108,10 @@ class InitialView extends (0, _viewDefault.default) {
     _generateMarkupOMG(popularMovie) {
         const isImage = popularMovie.image ? `${0, _config.API_IMAGE}${popularMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-1.5 p-0 bg-slate-800 text-white">
-      <a href="#${popularMovie.id}">
-        <img class="m-0 bg-cover" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-lg content-center font-medium tracking-wide">${popularMovie.title}</h2>
+    <li class="m-1.5 p-0 bg-slate-800 text-white snap-always snap-center">
+      <a  href="#${popularMovie.id}">
+        <img class="m-0 max-w-24 rounded-md" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
+        <h2 class="my-0 ml-1 pt-1 text-xs font-medium ">${popularMovie.title}</h2>
       </a>
     </li>
     `;
@@ -6119,7 +6119,7 @@ class InitialView extends (0, _viewDefault.default) {
 }
 exports.default = new InitialView();
 
-},{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/movieChairs_HoldTheButter.webp":"81N47"}],"dXNgZ":[function(require,module,exports) {
+},{"./View":"5cUXS","../config":"k5Hzs","../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
