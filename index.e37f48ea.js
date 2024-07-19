@@ -615,7 +615,6 @@ const controlMovie = async function() {
         const id = window.location.hash.slice(1);
         if (!id) return;
         _modelJs.state.view = "movie"; // Set view state to movie
-        console.log("Movie ID:", id); // Debugging line
         // Hide the initial list and show the movie view
         document.querySelector(".initial-view-container").classList.add("hidden");
         document.querySelector(".results-view-container").classList.add("hidden");
@@ -1961,7 +1960,7 @@ const loadMovie = async function(id) {
         // Check if the movie ID is the same as the one in the state
         if (state.movie.id === id) return; // Avoid reloading the same movie
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}`);
-        console.log("LOAD MOVIE", data);
+        // console.log("LOAD MOVIE", data);
         const movie = data;
         state.movie = {
             id: movie.id,
@@ -2057,7 +2056,7 @@ const API_IMAGE = "https://image.tmdb.org/t/p/original";
 const USER_LANGUAGE = "en-US";
 const TV_OR_MOVIE = "movie";
 const TIMEOUT_SEC = 10;
-const RES_PER_PAGE = 10;
+const RES_PER_PAGE = 20;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -6042,8 +6041,8 @@ parcelHelpers.defineInteropFlag(exports);
 var _config = require("../config");
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
-var _popcornHoldTheButterWebp = require("../../img/popcornHoldTheButter.webp");
-var _popcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_popcornHoldTheButterWebp);
+var _movieChairsHoldTheButterWebp = require("../../img/movieChairs_HoldTheButter.webp");
+var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
 class ResultsView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".results");
     _errorMessage = "No movies found. Please try again.";
@@ -6059,18 +6058,19 @@ class ResultsView extends (0, _viewDefault.default) {
         return this._data.map(this._generateMarkupPreview).join("");
     }
     _generateMarkupPreview(result) {
-        const imagePath = result.image ? `${0, _config.API_IMAGE}${result.image}` : (0, _popcornHoldTheButterWebpDefault.default);
+        const isImage = result.image ? `${0, _config.API_IMAGE}${result.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
+        const releaseDate = isNaN(result.releaseDate) ? "" : result.releaseDate;
         return `
      <li class="m-1.5 p-0 bg-slate-700">
       <a class="" href="#${result.id}">
         <img
-          class="m-0 bg-cover tablet:w-64 laptop:w-128"
-          src="${imagePath}"
+          class="m-0 bg-contain"
+          src="${isImage}"
           alt="${result.title}"
         />
         <section class="my-0 ml-1.5 content-center text-white text-base tracking-wide">
           <h4 class="pt-0.5">${result.title}</h4>
-          <p class="pb-2">${result.releaseDate}</p>
+          <p class="pb-2">${releaseDate}</p>
         </section>
       </a>
     </li>
@@ -6085,17 +6085,17 @@ class ResultsView extends (0, _viewDefault.default) {
 }
 exports.default = new ResultsView();
 
-},{"../config":"k5Hzs","./View":"5cUXS","../../img/popcornHoldTheButter.webp":"4LK9z","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4LK9z":[function(require,module,exports) {
-module.exports = require("8cbd432852a3f429").getBundleURL("hWUTQ") + "popcornHoldTheButter.01b804cd.webp" + "?" + Date.now();
+},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/movieChairs_HoldTheButter.webp":"81N47"}],"81N47":[function(require,module,exports) {
+module.exports = require("bfe064a6fee910d9").getBundleURL("hWUTQ") + "movieChairs_HoldTheButter.6331ab84.webp" + "?" + Date.now();
 
-},{"8cbd432852a3f429":"lgJ39"}],"cMmmU":[function(require,module,exports) {
+},{"bfe064a6fee910d9":"lgJ39"}],"cMmmU":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 var _config = require("../config");
-var _popcornHoldTheButterWebp = require("url:../../img/popcornHoldTheButter.webp");
-var _popcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_popcornHoldTheButterWebp);
+var _movieChairsHoldTheButterWebp = require("../../img/movieChairs_HoldTheButter.webp");
+var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
 class InitialView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".initialResults");
     _errorMessage = "Sorry, no popular movies are displaying at the moment.";
@@ -6106,10 +6106,11 @@ class InitialView extends (0, _viewDefault.default) {
         return this._data.results.map(this._generateMarkupOMG).join("");
     }
     _generateMarkupOMG(popularMovie) {
+        const isImage = popularMovie.image ? `${0, _config.API_IMAGE}${popularMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
     <li class="m-1.5 p-0 bg-slate-800 text-white">
       <a href="#${popularMovie.id}">
-        <img class="m-0 bg-cover" src="${0, _config.API_IMAGE}${popularMovie.image}" alt="${popularMovie.title}" />
+        <img class="m-0 bg-cover" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-lg content-center font-medium tracking-wide">${popularMovie.title}</h2>
       </a>
     </li>
@@ -6118,7 +6119,7 @@ class InitialView extends (0, _viewDefault.default) {
 }
 exports.default = new InitialView();
 
-},{"./View":"5cUXS","../config":"k5Hzs","url:../../img/popcornHoldTheButter.webp":"lNOMI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
+},{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/movieChairs_HoldTheButter.webp":"81N47"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
