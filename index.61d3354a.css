@@ -688,16 +688,12 @@ img, video {
   transition-delay: .5s;
 }
 
-.delay-1000 {
-  transition-delay: 1s;
+.ease-in {
+  transition-timing-function: cubic-bezier(.4, 0, 1, 1);
 }
 
 .ease-in-out {
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-}
-
-.ease-in {
-  transition-timing-function: cubic-bezier(.4, 0, 1, 1);
 }
 
 .scrollable-content::-webkit-scrollbar {
