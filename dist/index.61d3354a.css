@@ -282,6 +282,10 @@ img, video {
   }
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .col-span-full {
   grid-column: 1 / -1;
 }
@@ -320,8 +324,8 @@ img, video {
   margin-bottom: .5rem;
 }
 
-.mb-6 {
-  margin-bottom: 1.5rem;
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .ml-1 {
@@ -398,10 +402,6 @@ img, video {
 
 .mt-7 {
   margin-top: 1.75rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
 }
 
 .flex {
@@ -759,8 +759,28 @@ img, video {
 }
 
 @media (width >= 768px) {
+  .md\:visible {
+    visibility: visible;
+  }
+
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:inline-flex {
+    display: inline-flex;
+  }
+
+  .md\:contents {
+    display: contents;
+  }
+
   .md\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .md\:justify-center {
+    justify-content: center;
   }
 
   .md\:gap-x-8 {
@@ -773,6 +793,10 @@ img, video {
 }
 
 @media (width >= 1024px) {
+  .lg\:visible {
+    visibility: visible;
+  }
+
   .lg\:ml-2 {
     margin-left: .5rem;
   }
@@ -795,6 +819,10 @@ img, video {
 }
 
 @media (width >= 1280px) {
+  .xl\:visible {
+    visibility: visible;
+  }
+
   .xl\:ml-2 {
     margin-left: .5rem;
   }
@@ -817,6 +845,10 @@ img, video {
 }
 
 @media (width >= 1536px) {
+  .\32 xl\:visible {
+    visibility: visible;
+  }
+
   .\32 xl\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
