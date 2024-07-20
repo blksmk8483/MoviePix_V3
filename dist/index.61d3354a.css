@@ -312,8 +312,16 @@ img, video {
   margin-bottom: 0;
 }
 
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
 .mb-2 {
   margin-bottom: .5rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
 }
 
 .ml-1 {
@@ -392,24 +400,8 @@ img, video {
   margin-top: 1.75rem;
 }
 
-.mb-3 {
-  margin-bottom: .75rem;
-}
-
 .mb-4 {
   margin-bottom: 1rem;
-}
-
-.mb-12 {
-  margin-bottom: 3rem;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
-}
-
-.mb-6 {
-  margin-bottom: 1.5rem;
 }
 
 .flex {
@@ -422,21 +414,6 @@ img, video {
 
 .hidden {
   display: none;
-}
-
-.size-4 {
-  width: 1rem;
-  height: 1rem;
-}
-
-.size-20 {
-  width: 5rem;
-  height: 5rem;
-}
-
-.size-12 {
-  width: 3rem;
-  height: 3rem;
 }
 
 .size-10 {
@@ -500,24 +477,12 @@ img, video {
   flex-direction: row;
 }
 
-.flex-col {
-  flex-direction: column;
-}
-
 .place-content-center {
   place-content: center;
 }
 
 .content-center {
   align-content: center;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-between {
-  justify-content: space-between;
 }
 
 .justify-evenly {
@@ -574,10 +539,6 @@ img, video {
 
 .rounded-md {
   border-radius: .375rem;
-}
-
-.rounded-xl {
-  border-radius: .75rem;
 }
 
 .border-2 {
@@ -812,10 +773,6 @@ img, video {
 }
 
 @media (width >= 1024px) {
-  .lg\:visible {
-    visibility: visible;
-  }
-
   .lg\:ml-2 {
     margin-left: .5rem;
   }
