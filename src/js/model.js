@@ -6,6 +6,15 @@ export const state = {
   popularMovie: {
     results: [],
   },
+  nowPlayingMovie: {
+    results: [],
+  },
+  topRatedMovie: {
+    results: [],
+  },
+  upcomingMovie: {
+    results: [],
+  },
   movie: {},
   search: {
     query: "",
@@ -115,6 +124,59 @@ export const popularMovies = async function () {
       title: popular.title,
       image: popular.poster_path,
       overview: popular.overview,
+    }));
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+export const nowPlayingMovies = async function () {
+  try {
+    const data = await getJSON(`
+      ${API_URL}${TV_OR_MOVIE}/now_playing?language=en-US&page=1`);
+    console.log(data);
+    state.nowPlayingMovie.results = data.results.map((nowPlaying) => ({
+      id: nowPlaying.id,
+      title: nowPlaying.original_title,
+      image: nowPlaying.poster_path,
+      overview: nowPlaying.overview,
+    }));
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+export const topRatedMovies = async function () {
+  try {
+    const data = await getJSON(`
+      ${API_URL}${TV_OR_MOVIE}/top_rated?language=en-US&page=1`);
+    console.log("top rated", data);
+
+    state.topRatedMovie.results = data.results.map((topRated) => ({
+      id: topRated.id,
+      title: topRated.title,
+      image: topRated.poster_path,
+      overview: topRated.overview,
+    }));
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+export const upcomingMovies = async function () {
+  try {
+    const data = await getJSON(`
+      ${API_URL}${TV_OR_MOVIE}/top_rated?language=en-US&page=1`);
+    console.log("top rated", data);
+
+    state.upcomingMovie.results = data.results.map((upcomingMovie) => ({
+      id: upcomingMovie.id,
+      title: upcomingMovie.title,
+      image: upcomingMovie.poster_path,
+      overview: upcomingMovie.overview,
     }));
   } catch (err) {
     console.log(err);

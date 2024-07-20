@@ -21,7 +21,7 @@ class MovieView extends View {
       <img class="bg-center max-h-svh transition ease-in-out delay-500" src="${API_IMAGE}${this._data.image}" alt="${this._data.title}" />
       <p class="mt-2.5 ml-4 mr-4 text-lg tracking-wide leading-relaxed text-balance">${this._data.overview}</p>
       <p class="ml-4 mt-4 text-lg tracking-wider">${this._data.releaseDate}</p>
-      <p class="ml-4 pb-4 text-lg tracking-wider">${this._data.runtime} minutes</p>
+      <p class="ml-4 mb-12 pb-4 text-lg tracking-wider">${this._data.runtime} minutes</p>
     </section>
     `;
   }

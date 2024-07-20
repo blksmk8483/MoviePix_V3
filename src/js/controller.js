@@ -3,6 +3,9 @@ import movieView from "./views/movieView.js";
 import searchView from "./views/searchView.js";
 import resultsView from "./views/resultsView.js";
 import initialView from "./views/initialView.js";
+import nowPlayingView from "./views/nowPlayingView.js";
+import topRatedView from "./views/topRatedView.js";
+import upcomingView from "./views/upcomingView.js";
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
@@ -16,8 +19,16 @@ export const controlStartingPage = async function () {
   try {
     model.state.view = "initial";
     initialView.renderSpinner();
-    await model.popularMovies();
+    await Promise.all([
+      model.popularMovies(),
+      model.nowPlayingMovies(),
+      model.topRatedMovies(),
+      model.upcomingMovies(),
+    ]);
     initialView.render(model.state.popularMovie);
+    nowPlayingView.render(model.state.nowPlayingMovie);
+    topRatedView.render(model.state.topRatedMovie);
+    upcomingView.render(model.state.upcomingMovie);
   } catch (err) {
     console.log(err);
   }

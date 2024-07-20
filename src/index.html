@@ -16,6 +16,8 @@
     <link rel="apple-touch-icon.png" href="img/apple-touch-icon.png" />
     <link rel="manifest" href="manifest.webmanifest" />
 
+    <!-- <script src="path/to/dist/feather.js"></script> -->
+    <script src="https://unpkg.com/feather-icons"></script>
     <script type="module" src="js/controller.js"></script>
 
     <title>MoviePix &mdash; Find your movie!</title>
@@ -37,12 +39,36 @@
         class="search__field mb-2 bg-slate-700 p-0.5 h-9 rounded border-black w-96 hover:bg-slate-700 focus:bg-slate-700 focus:placeholder:opacity-0 text-white"
         placeholder="&#x1F50E; Find movies, shows, and more"
       />
-      <button class="btn search__btn container hidden lg:visible">
+      <button class="btn search__btn container hidden">
         <span class="bg-slate-800">Search</span>
       </button>
     </form>
     <hr class="h-px bg-slate-800 dark:bg-white w-full" />
 
+    <!-- Now Playing -->
+    <section
+      class="now-playing-container container bg-slate-800 mt-1.5 mx-auto"
+    >
+      <span class="text-white ml-2 text-xs tracking-wide"
+        ><span class="text-lg">N</span>OW </span
+      ><span class="text-lg text-white"> P</span
+      ><span class="text-white text-xs">LAYING:</span>
+      <ul
+        class="nowPlaying flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+      ></ul>
+    </section>
+
+    <!-- Upcoming -->
+    <section class="upcoming-container container bg-slate-800 mt-1.5 mx-auto">
+      <span class="text-white ml-2 text-xs tracking-wide"
+        ><span class="text-lg">U</span>PCOMING:</span
+      >
+      <ul
+        class="upcoming flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+      ></ul>
+    </section>
+
+    <!-- Popular -->
     <section
       class="popular-view-container container bg-slate-800 mt-1.5 mx-auto"
     >
@@ -57,44 +83,23 @@
       ></ul> -->
     </section>
 
+    <!-- Top Rated -->
     <section class="top-rated-container container bg-slate-800 mt-1.5 mx-auto">
       <span class="text-white ml-2 text-xs tracking-wide"
         ><span class="text-lg">T</span>OP </span
       ><span class="text-lg text-white"> R</span
       ><span class="text-white text-xs">ATED:</span>
-
       <ul
         class="top-rated flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
       ></ul>
     </section>
 
-    <section
-      class="now-playing-container container bg-slate-800 mt-1.5 mx-auto"
-    >
-      <span class="text-white ml-2 text-xs tracking-wide"
-        ><span class="text-lg">N</span>OW </span
-      ><span class="text-lg text-white"> P</span
-      ><span class="text-white text-xs">LAYING:</span>
-
-      <ul
-        class="top-playing flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
-      ></ul>
-    </section>
-
-    <section class="upcoming-container container bg-slate-800 mt-1.5 mx-auto">
-      <span class="text-white ml-2 text-xs tracking-wide"
-        ><span class="text-lg">U</span>PCOMING:</span
-      >
-
-      <ul
-        class="upcoming flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
-      ></ul>
-    </section>
-
+    <!-- Selected Movie -->
     <section class="movie-view-container hidden">
       <section class="movieView transition ease-in delay-150"></section>
     </section>
 
+    <!-- Search Results -->
     <section
       class="results-view-container container bg-slate-800 mt-1.5 mx-auto"
     >
@@ -103,6 +108,40 @@
       ></ul>
     </section>
 
-    <section class="pagination"></section>
+    <!-- I am keeping this here now. This worked I just liked the scroll method better. -->
+    <!-- <section class="pagination"></section> -->
+
+    <!-- Footer / Links -->
+    <hr class="h-px bg-slate-800 dark:bg-white w-full" />
+
+    <footer class="container flex flex-row justify-evenly mb-6 mt-4">
+      <div>
+        <a href="https://knighttechdesigns.com/">
+          <i
+            class="text-white hover:bg-white hover:rounded-xl size-10"
+            data-feather="briefcase"
+          ></i>
+        </a>
+      </div>
+      <div>
+        <a href="https://github.com/blksmk8483">
+          <i class="text-white size-10" data-feather="github"></i>
+        </a>
+      </div>
+      <div>
+        <a href="https://linkedin.com/in/brandonknight8483">
+          <i class="text-white size-10" data-feather="linkedin"></i>
+        </a>
+      </div>
+      <div>
+        <a href="mailto:brandonknightwork@gmail.com">
+          <i class="text-white size-10" data-feather="mail"></i>
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      feather.replace();
+    </script>
   </body>
 </html>
