@@ -32,9 +32,15 @@ export const controlMovie = async function () {
     model.state.view = "movie"; // Set view state to movie
 
     // Hide the initial list and show the movie view
-    document.querySelector(".initial-view-container").classList.add("hidden");
+    document.querySelector(".popular-view-container").classList.add("hidden");
     document.querySelector(".results-view-container").classList.add("hidden");
     document.querySelector(".movie-view-container").classList.remove("hidden");
+
+    if ((model.state.view = "movie")) {
+      document.querySelector(".top-rated-container").classList.add("hidden");
+      document.querySelector(".now-playing-container").classList.add("hidden");
+      document.querySelector(".upcoming-container").classList.add("hidden");
+    }
 
     movieView.renderSpinner();
 
@@ -66,8 +72,13 @@ const controlBackToInitial = function () {
     } else {
       // Otherwise, go back to initial popular movies
       document
-        .querySelector(".initial-view-container")
+        .querySelector(".popular-view-container")
         .classList.remove("hidden");
+      document.querySelector(".top-rated-container").classList.remove("hidden");
+      document
+        .querySelector(".now-playing-container")
+        .classList.remove("hidden");
+      document.querySelector(".upcoming-container").classList.remove("hidden");
     }
 
     model.state.view = model.state.search.query ? "search" : "initial";
@@ -100,7 +111,10 @@ const controlSearchResults = async function () {
     document
       .querySelector(".results-view-container")
       .classList.remove("hidden");
-    document.querySelector(".initial-view-container").classList.add("hidden");
+    document.querySelector(".popular-view-container").classList.add("hidden");
+    document.querySelector(".top-rated-container").classList.add("hidden");
+    document.querySelector(".now-playing-container").classList.add("hidden");
+    document.querySelector(".upcoming-container").classList.add("hidden");
 
     // 6) Clear the previous selection away
     movieView._clear();
