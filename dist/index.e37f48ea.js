@@ -5899,7 +5899,7 @@ class MovieView extends (0, _viewDefault.default) {
     <section class="bg-slate-800 text-white">
       <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
       <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
-      <img class="bg-center max-h-svh" src="${0, _config.API_IMAGE}${this._data.image}" alt="${this._data.title}" />
+      <img class="bg-center max-h-svh transition ease-in-out delay-500" src="${0, _config.API_IMAGE}${this._data.image}" alt="${this._data.title}" />
       <p class="mt-2.5 ml-4 mr-4 text-lg tracking-wide leading-relaxed">${this._data.overview}</p>
       <p class="ml-4 mt-4 text-lg tracking-wider">${this._data.releaseDate}</p>
       <p class="ml-4 pb-4 text-lg tracking-wider">${this._data.runtime} minutes</p>
@@ -6085,7 +6085,7 @@ class ResultsView extends (0, _viewDefault.default) {
 }
 exports.default = new ResultsView();
 
-},{"../config":"k5Hzs","./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/movieChairs_HoldTheButter.webp":"81N47"}],"81N47":[function(require,module,exports) {
+},{"../config":"k5Hzs","./View":"5cUXS","../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"81N47":[function(require,module,exports) {
 module.exports = require("bfe064a6fee910d9").getBundleURL("hWUTQ") + "movieChairs_HoldTheButter.6331ab84.webp" + "?" + Date.now();
 
 },{"bfe064a6fee910d9":"lgJ39"}],"cMmmU":[function(require,module,exports) {
@@ -6108,10 +6108,10 @@ class InitialView extends (0, _viewDefault.default) {
     _generateMarkupOMG(popularMovie) {
         const isImage = popularMovie.image ? `${0, _config.API_IMAGE}${popularMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-1.5 p-0 bg-slate-800 text-white">
-      <a href="#${popularMovie.id}">
-        <img class="m-0 bg-cover" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-lg content-center font-medium tracking-wide">${popularMovie.title}</h2>
+    <li class="m-1.5 p-0 bg-slate-800 text-white snap-always snap-center">
+      <a  href="#${popularMovie.id}">
+        <img class="m-0 max-w-24 rounded-md" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
+        <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${popularMovie.title}</h2>
       </a>
     </li>
     `;
@@ -6119,7 +6119,7 @@ class InitialView extends (0, _viewDefault.default) {
 }
 exports.default = new InitialView();
 
-},{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/movieChairs_HoldTheButter.webp":"81N47"}],"dXNgZ":[function(require,module,exports) {
+},{"./View":"5cUXS","../config":"k5Hzs","../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *

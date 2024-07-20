@@ -20,10 +20,10 @@ class InitialView extends View {
       : noImage;
 
     return `
-    <li class="m-1.5 p-0 bg-slate-800 text-white">
-      <a href="#${popularMovie.id}">
-        <img class="m-0 bg-cover" src="${API_IMAGE}${isImage}" alt="${popularMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-lg content-center font-medium tracking-wide">${popularMovie.title}</h2>
+    <li class="m-1.5 p-0 bg-slate-800 text-white snap-always snap-center">
+      <a  href="#${popularMovie.id}">
+        <img class="m-0 max-w-24 rounded-md" src="${API_IMAGE}${isImage}" alt="${popularMovie.title}" />
+        <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${popularMovie.title}</h2>
       </a>
     </li>
     `;
