@@ -6152,6 +6152,7 @@ class ResultsView extends (0, _viewDefault.default) {
         <img
           class="m-0 bg-contain rounded-t-md"
           src="${isImage}"
+          loading="lazy"
           alt="${result.title}"
         />
         <section class="my-0 ml-1.5 content-center text-white text-base tracking-wide">
