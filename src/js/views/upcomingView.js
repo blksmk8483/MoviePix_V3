@@ -20,9 +20,9 @@ class UpcomingView extends View {
       : noImage;
 
     return `
-    <li class="m-1.5 p-0 bg-slate-800 text-white snap-always snap-center">
+    <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${upcomingMovie.id}">
-        <img class="m-0 max-w-24 rounded-md" src="${API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
+        <img class="m-0 max-w-28 rounded-md" src="${API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${upcomingMovie.title}</h2>
       </a>
     </li>
