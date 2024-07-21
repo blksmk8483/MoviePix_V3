@@ -2079,7 +2079,7 @@ const nowPlayingMovies = async function() {
     try {
         const data = await (0, _helpersJs.getJSON)(`
       ${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/now_playing?language=en-US&page=1`);
-        console.log(data);
+        // console.log(data);
         state.nowPlayingMovie.results = data.results.map((nowPlaying)=>({
                 id: nowPlaying.id,
                 title: nowPlaying.original_title,
@@ -2095,7 +2095,7 @@ const topRatedMovies = async function() {
     try {
         const data = await (0, _helpersJs.getJSON)(`
       ${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/top_rated?language=en-US&page=1`);
-        console.log("top rated", data);
+        // console.log("top rated", data);
         state.topRatedMovie.results = data.results.map((topRated)=>({
                 id: topRated.id,
                 title: topRated.title,
@@ -2111,7 +2111,7 @@ const upcomingMovies = async function() {
     try {
         const data = await (0, _helpersJs.getJSON)(`
       ${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/top_rated?language=en-US&page=1`);
-        console.log("top rated", data);
+        // console.log("top rated", data);
         state.upcomingMovie.results = data.results.map((upcomingMovie)=>({
                 id: upcomingMovie.id,
                 title: upcomingMovie.title,
@@ -5985,7 +5985,7 @@ class MovieView extends (0, _viewDefault.default) {
     <section class="bg-slate-800 text-white">
       <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
       <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
-      <img class="bg-center max-h-svh transition ease-in-out delay-500" src="${0, _config.API_IMAGE}${this._data.image}" alt="${this._data.title}" />
+      <img class="bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72" src="${0, _config.API_IMAGE}${this._data.image}" alt="${this._data.title}" />
       <p class="mt-2.5 ml-4 mr-4 text-lg tracking-wide leading-relaxed text-balance">${this._data.overview}</p>
       <p class="ml-4 mt-4 text-lg tracking-wider">${this._data.releaseDate}</p>
       <p class="ml-4 mb-12 pb-4 text-lg tracking-wider">${this._data.runtime} minutes</p>
