@@ -480,10 +480,6 @@ img, video {
   max-width: 7rem;
 }
 
-.max-w-full {
-  max-width: 100%;
-}
-
 .snap-x {
   scroll-snap-type: x var(--tw-scroll-snap-strictness);
 }

@@ -5998,47 +5998,58 @@ class MovieView extends (0, _viewDefault.default) {
         const limitedReviews = this._data.reviews.slice(0, 5);
         const additionalReviews = this._data.reviews.slice(5);
         return `
-      <button class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center">Back</button>
-      <section class="bg-slate-800 text-white">
-        <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
-        <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
-      
-        <div class="xl:grid xl:grid-cols-3 xl:mx-14 xl:my-8 xl:gap-0.5">
-          <img
-            class="bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
-            src="${0, _config.API_IMAGE}${this._data.image}"
-            alt="${this._data.title}"
-          />
-       
-          <div class="col-span-2">
-            <p class="mt-2.5 ml-4 mr-4 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
-              ${this._data.overview}
-            </p>
-            <p class="ml-4 mt-4 text-lg tracking-wider">
-              ${this._data.releaseDate}
-            </p>
-            <p class="ml-4 mb-12 pb-4 text-lg tracking-wider">
-              ${this._data.runtime} minutes
-            </p>
-            <div class="videos ml-4 mb-4 container max-w-full">
-              <h3 class="text-lg tracking-wider">Videos:</h3>
-              <ul class="">
-              <li class=" flex snap-always snap-center">
-              ${this._data.videos.map((video)=>`<iframe class="mt-2 mb-2 mx-0.5 w-full aspect-video flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory" src="https://www.youtube.com/embed/${video.key}" frameborder="0" allowfullscreen></iframe>`).join("")}
-                </li>
-                </ul>
-            </div>
-            
-      <div class="reviews">
-              <p class="ml-4 mb-2 text-lg tracking-wider">REVIEWS:</p>
+        <button class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center">Back</button>
+    <section class="bg-slate-800 text-white">
+      <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
+      <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
+    
+      <div class="xl:grid xl:grid-cols-3 xl:mx-14 xl:my-8 xl:gap-0.5">
+        <img
+          class="bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
+          src="${0, _config.API_IMAGE}${this._data.image}"
+          alt="${this._data.title}"
+        />
+     
+        <div class="col-span-2">
+          <p class="mt-2.5 mx-4 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
+            ${this._data.overview}
+          </p>
+          <p class="ml-4 mt-4 text-lg tracking-wider">
+            ${this._data.releaseDate}
+          </p>
+          <p class="ml-4 mb-12 pb-4 text-lg tracking-wider">
+            ${this._data.runtime} minutes
+          </p>
+
+          <section class="videos ml-4 mb-4 ">
+            <h3 class="text-lg tracking-wider">Videos:</h3>
+               <ul class="container">
+                  <li
+                    class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+                  >
+                    ${this._data.videos.map((video)=>`<iframe
+                      class="mt-2 mb-2 mx-0.5 aspect-video snap-always snap-center"
+                      src="https://www.youtube.com/embed/${video.key}"
+                      frameborder="0"
+                      allowfullscreen
+                    ></iframe
+                    >`).join("")}
+                  </li>
+    </ul>
+          </section>
+          
+          <div class="overscroll-none ">
+            <div class="reviews">
+              <p class="ml-4 mb-2 text-lg tracking-wider">Reviews:</p>
               ${this._data.reviews.map((review, index)=>`
-                    <p class="review ${index > 0 ? "hidden" : ""} ml-4 mb-4 text-base tracking-wide">${review.author}: ${review.content}</p>
+                    <p class="review ${index > 0 ? "hidden" : ""} ml-4 mb-4 text-lg tracking-wide leading-relaxed text-balance">${review.author}: ${review.content}</p>
                   `).join("")}
               <button class="show-more-btn ml-4 mb-4 text-blue-500 hover:underline">Show More</button>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
     `;
     }
     addHandlerBack(handler) {
