@@ -6147,10 +6147,10 @@ class ResultsView extends (0, _viewDefault.default) {
         const isImage = result.image ? `${0, _config.API_IMAGE}${result.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         const releaseDate = isNaN(result.releaseDate) ? "" : result.releaseDate;
         return `
-     <li class="m-1.5 p-0 bg-slate-700">
+     <li class="m-1.5 p-0 bg-slate-700 rounded-md">
       <a class="" href="#${result.id}">
         <img
-          class="m-0 bg-contain"
+          class="m-0 bg-contain rounded-t-md"
           src="${isImage}"
           alt="${result.title}"
         />
@@ -6197,7 +6197,7 @@ class InitialView extends (0, _viewDefault.default) {
     <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${popularMovie.id}">
         <img class="m-0 max-w-28 rounded-md" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
-        
+        <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${popularMovie.title}</h2>
       </a>
     </li>
     `;
