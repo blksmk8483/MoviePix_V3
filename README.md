@@ -2,7 +2,7 @@
 
 ## Description
 
-Search for your favorite movies, shows, and watch movie trailers, and read reviews. See whats popular now, whats upcoming and more...
+I want to be a better developer using Javascript and I love movies! This was a fun project to practice my vanilla Javascript skills. This app shows you the top movies currently playing, upcoming, popular, and top rated. You can also search for any movie and get all the details, trailers, and reviews. I think in the future, if I come back to it or expand it I will redo this in React.
 
 ## Homepage
 
