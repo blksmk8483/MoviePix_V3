@@ -82,7 +82,7 @@ export const loadSearchResults = async function (query, page = 1) {
     const data = await getJSON(
       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
     );
-    console.log("Search:", data);
+    // console.log("Search:", data);
     state.search.results.push(
       ...data.results.map((movie) => ({
         id: movie.id,
@@ -132,7 +132,7 @@ export const popularMovies = async function () {
   try {
     const data = await getJSON(`
       ${API_URL}${TV_OR_MOVIE}/popular?language=en-US&page=1`);
-    console.log("popular", data);
+    // console.log("popular", data);
     state.popularMovie.results = data.results.map((popular) => ({
       id: popular.id,
       title: popular.title,

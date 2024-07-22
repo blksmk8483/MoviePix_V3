@@ -28,10 +28,10 @@ class ResultsView extends View {
 
     const releaseDate = isNaN(result.releaseDate) ? "" : result.releaseDate;
     return `
-     <li class="m-1.5 p-0 bg-slate-700 rounded-md">
+     <li class="m-1.5 p-0 bg-slate-700 rounded-md hover:shadow-white hover:border hover:shadow-md">
       <a class="" href="#${result.id}">
         <img
-          class="m-0 bg-contain rounded-t-md"
+          class="m-0 bg-contain rounded-t-md "
           src="${isImage}"
           loading="lazy"
           alt="${result.title}"

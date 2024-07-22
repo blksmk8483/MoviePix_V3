@@ -2043,7 +2043,7 @@ const loadSearchResults = async function(query, page = 1) {
             state.search.nextPage = 1; // Reset nextPage to 1
         }
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${page}`);
-        console.log("Search:", data);
+        // console.log("Search:", data);
         state.search.results.push(...data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
@@ -2080,7 +2080,7 @@ const popularMovies = async function() {
     try {
         const data = await (0, _helpersJs.getJSON)(`
       ${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/popular?language=en-US&page=1`);
-        console.log("popular", data);
+        // console.log("popular", data);
         state.popularMovie.results = data.results.map((popular)=>({
                 id: popular.id,
                 title: popular.title,
@@ -5981,133 +5981,6 @@ const getJSON = async function(url) {
 });
 
 },{}],"e6B94":[function(require,module,exports) {
-// import View from "./View";
-// import { API_IMAGE } from "../config";
-// import noImage from "../../img/spilledPopcornHoldTheButter.webp";
-// class MovieView extends View {
-//   _parentElement = document.querySelector(".movieView");
-//   _errorMessage = "Could not find that movie. <br> Please try another one.";
-//   _message = "";
-//   addHandlerRender(handler) {
-//     ["hashchange", "load"].forEach((ev) =>
-//       window.addEventListener(ev, handler)
-//     );
-//   }
-//   _generateMarkup() {
-//     const firstReview = this._data.reviews.slice(0, 1);
-//     const limitedReviews = this._data.reviews.slice(0, 5);
-//     const additionalReviews = this._data.reviews.slice(5);
-//     return `
-//         <button class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center">Back</button>
-//     <section class="bg-slate-800 text-white">
-//       <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${
-//         this._data.title
-//       }</h2>
-//       <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${
-//         this._data.tagline
-//       }</p>
-//       <div class="xl:grid xl:grid-cols-3 xl:mx-14 xl:my-8 xl:gap-0.5">
-//         <img
-//           class="bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
-//           src="${API_IMAGE}${this._data.image}"
-//           alt="${this._data.title}"
-//         />
-//         <div class="col-span-2">
-//           <p class="mt-2.5 mx-4 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
-//             ${this._data.overview}
-//           </p>
-//           <p class="ml-4 mt-4 text-lg tracking-wider">
-//             ${this._data.releaseDate}
-//           </p>
-//           <p class="ml-4 mb-4 pb-4 text-lg tracking-wider">
-//             ${this._data.runtime} minutes
-//           </p>
-//           <section class="videos ml-4 mb-4 ">
-//             <h3 class="text-lg tracking-wider">Videos:</h3>
-//                <ul class="container">
-//                   <li
-//                     class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
-//                   >
-//                     ${this._data.videos
-//                       .map(
-//                         (video) => `<iframe
-//                       class="mt-2 mb-2 mx-0.5 aspect-video snap-always snap-center"
-//                       src="https://www.youtube.com/embed/${video.key}"
-//                       frameborder="0"
-//                       allowfullscreen
-//                     ></iframe
-//                     >`
-//                       )
-//                       .join("")}
-//                   </li>
-//     </ul>
-//           </section>
-//           ${this._generateMarkupReview()}
-//         </div>
-//       </div>
-//     </section>
-//     `;
-//   }
-//   _generateMarkupReview() {
-//     return `
-//      <div class="overscroll-none ">
-//             <div class="reviews">
-//               <p class="ml-4 mb-2 text-lg tracking-wider">Reviews:</p>
-//               ${this._data.reviews
-//                 .map(
-//                   (review, index) => `
-//                     <section class="review ${
-//                       index > 0 ? "hidden" : ""
-//                     } mx-4 mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-balance bg-slate-700 rounded">
-//                     <section class="flex gap-x-2.5 items-center ">
-//                     <img
-//           class="bg-center h-8 w-8 rounded-full"
-//           src="${API_IMAGE}${review.authorAvatar}"
-//           alt="${review.author}"
-//         />
-//                             <h2>${review.author}:</h2>
-//                                 <p> <sup>${
-//                                   review.authorRating
-//                                 } </sup>&frasl;<sub>10</sub>  &#x2b50;</p>
-//                             </section>
-//                             <p class="leading-snug mt-3">${review.content}</p>
-//                     </section>
-//                   `
-//                 )
-//                 .join("")}
-//               <button class="show-more-btn ml-4 mb-4 text-blue-500 hover:underline">Show More</button>
-//             </div>
-//           </div>
-//           `;
-//   }
-//   addHandlerBack(handler) {
-//     this._parentElement.addEventListener("click", function (e) {
-//       const btn = e.target.closest(".back-button");
-//       if (!btn) return;
-//       handler();
-//     });
-//   }
-//   addHandlerShowMore() {
-//     this._parentElement.addEventListener("click", function (e) {
-//       const btn = e.target.closest(".show-more-btn");
-//       if (!btn) return;
-//       const hiddenReviews = document.querySelectorAll(".review.hidden");
-//       const visibleReviews = document.querySelectorAll(".review:not(.hidden)");
-//       if (btn.textContent === "Show More") {
-//         hiddenReviews.forEach((review) => {
-//           review.classList.remove("hidden");
-//         });
-//         btn.textContent = "Show Less";
-//       } else {
-//         visibleReviews.forEach((review, index) => {
-//           if (index > 0) review.classList.add("hidden");
-//         });
-//         btn.textContent = "Show More";
-//       }
-//     });
-//   }
-// }
-// export default new MovieView();
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
@@ -6128,30 +6001,30 @@ class MovieView extends (0, _viewDefault.default) {
     _generateMarkup() {
         return `
       <button class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center">Back</button>
-      <section class="bg-slate-800 text-white">
-        <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
-        <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
+      <section class="bg-slate-800 text-white mx-1">
+        <h2 class=" pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
+        <p class=" mt-0.5  pb-1 text-base tracking-wider">${this._data.tagline}</p>
       
         <div class="xl:grid xl:grid-cols-3 xl:mx-14 xl:my-8 xl:gap-0.5">
           <img
-            class="bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
+            class="mx-0 bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
             src="${0, _config.API_IMAGE}${this._data.image}"
             alt="${this._data.title}"
           />
        
           <div class="col-span-2">
-            <p class="mt-2.5 mx-4 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
+            <p class="mt-2.5 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
               ${this._data.overview}
             </p>
-            <p class="ml-4 mt-4 text-lg tracking-wider">
+            <p class="mt-4 text-lg tracking-wider">
               ${this._data.releaseDate}
             </p>
-            <p class="ml-4 mb-4 pb-4 text-lg tracking-wider">
+            <p class="mb-4 pb-4 text-lg tracking-wider">
               ${this._data.runtime} minutes
             </p>
 
-            <section class="videos ml-4 mb-4 ">
-              <h3 class="text-lg tracking-wider">Videos:</h3>
+            <section class="videos mb-4 ">
+              <h3 class="text-lg tracking-wider">Trailers:</h3>
                  <ul class="container">
                     <li
                       class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
@@ -6175,29 +6048,31 @@ class MovieView extends (0, _viewDefault.default) {
     }
     _generateMarkupReview() {
         return `
-      <div class="overscroll-none ">
-        <div class="reviews">
-          <p class="ml-4 mb-2 text-lg tracking-wider">Reviews:</p>
+      <div class="overscroll-none mb-4">
+        <div class="reviews h-72 flex flex-col gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content">
+          <p class="mb-2 text-lg tracking-wider">Reviews:</p>
           ${this._data.reviews.map((review, index)=>{
             const authorAvatar = review.authorAvatar ? `${0, _config.API_IMAGE}${review.authorAvatar}` : (0, _spilledPopcornHoldTheButterWebpDefault.default);
             const authorRating = review.authorRating ? `<p> <sup>${review.authorRating} </sup>&frasl;<sub>10</sub>  &#x2b50;</p>` : "";
             return `
-                <section class="review ${index > 0 ? "hidden" : ""} mx-4 mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-balance bg-slate-700 rounded">
-                  <section class="flex gap-x-2.5 items-center ">      
-                    <img
+                <section class="review ${index > 0 ? "hidden" : ""} mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-balance bg-slate-700 rounded">
+                  <section class="flex gap-x-2.5 place-items-center justify-between">      
+                  <aside class="flex gap-x-1.5">  
+                  <img
                       class="bg-center h-8 w-8 rounded-full"
                       src="${authorAvatar}"
                       alt="${review.author}"
                     />
-                    <h2>${review.author}:</h2>
+                    <h2>  ${review.author}:</h2>
+                    </aside>
                     ${authorRating}
                   </section>
                   <p class="leading-snug mt-3">${review.content}</p>
                 </section>
               `;
         }).join("")}
-          <button class="show-more-btn ml-4 mb-4 text-blue-500 hover:underline">Show More</button>
-        </div>
+            </div>
+            <button class="show-more-btn mb-4 mt-1 text-white hover:underline">Show More</button>
       </div>
     `;
     }
@@ -6378,10 +6253,10 @@ class ResultsView extends (0, _viewDefault.default) {
         const isImage = result.image ? `${0, _config.API_IMAGE}${result.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         const releaseDate = isNaN(result.releaseDate) ? "" : result.releaseDate;
         return `
-     <li class="m-1.5 p-0 bg-slate-700 rounded-md">
+     <li class="m-1.5 p-0 bg-slate-700 rounded-md hover:shadow-white hover:border hover:shadow-md">
       <a class="" href="#${result.id}">
         <img
-          class="m-0 bg-contain rounded-t-md"
+          class="m-0 bg-contain rounded-t-md "
           src="${isImage}"
           loading="lazy"
           alt="${result.title}"
@@ -6428,7 +6303,7 @@ class InitialView extends (0, _viewDefault.default) {
         return `
     <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${popularMovie.id}">
-        <img class="m-0 max-w-28 rounded-md" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
+        <img class="m-0 max-w-28 rounded-md hover:shadow-white hover:border hover:shadow-md" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${popularMovie.title}</h2>
       </a>
     </li>
@@ -6459,7 +6334,7 @@ class NowPlayingView extends (0, _viewDefault.default) {
         return `
     <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${nowPlayingMovie.id}">
-        <img class="m-0 max-w-28 rounded-md" src="${0, _config.API_IMAGE}${isImage}" alt="${nowPlayingMovie.title}" />
+        <img class="m-0 max-w-28 rounded-md hover:shadow-white hover:border hover:shadow-md" src="${0, _config.API_IMAGE}${isImage}" alt="${nowPlayingMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${nowPlayingMovie.title}</h2>
       </a>
     </li>
@@ -6490,7 +6365,7 @@ class TopRatedView extends (0, _viewDefault.default) {
         return `
     <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${topRatedMovie.id}">
-        <img class="m-0 max-w-28 rounded-md" src="${0, _config.API_IMAGE}${isImage}" alt="${topRatedMovie.title}" />
+        <img class="m-0 max-w-28 rounded-md hover:shadow-white hover:border hover:shadow-md" src="${0, _config.API_IMAGE}${isImage}" alt="${topRatedMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${topRatedMovie.title}</h2>
       </a>
     </li>
@@ -6521,7 +6396,7 @@ class UpcomingView extends (0, _viewDefault.default) {
         return `
     <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${upcomingMovie.id}">
-        <img class="m-0 max-w-28 rounded-md" src="${0, _config.API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
+        <img class="m-0 max-w-28 rounded-md hover:shadow-white hover:border hover:shadow-md" src="${0, _config.API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${upcomingMovie.title}</h2>
       </a>
     </li>
