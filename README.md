@@ -2,26 +2,25 @@
 
 ## Description
 
-Search for your favorite movies, shows, and more...
-
-## Built With
-
-<img src="./Assets/images.png" width="50" height="50" /> \_ HTML
-<img src="./Assets/taiwind.webp" width="50" height="50" /> \_ Tailwind
-<img src="./Assets/Unofficial_JavaScript_logo_2.svg.png" width="50" height="50" /> \_ JavaScript
-
-<img src="./Assets/home-og.png" width="50" height="50" /> \_ Parcel
-<img src="./Assets/gVZIvphd_400x400.jpg" width="50" height="50" /> \_ TMDB Restful API - [click here](https://developer.themoviedb.org/v4/docs/getting-started)
-
-### Architecture
-
-<img src="./Assets/MVC-design-pattern.webp" width="250" /> \_ MVC pattern
+Search for your favorite movies, shows, and watch movie trailers, and read reviews. See whats popular now, whats upcoming and more...
 
 ## Homepage
 
 Click [here](https://moviepix.netlify.app/) to check it out!
 
-<img src="./Assets/MoviePix.gif" width="auto" height="auto"/>
+<img src="./Assets/MoviePixUpdate.gif" width="auto" height="auto"/>
+
+## Built With
+
+<img src="./Assets/images.png" width="50" height="50"/>
+<img src="./Assets/taiwind.webp" width="50" height="50" />
+<img src="./Assets/Unofficial_JavaScript_logo_2.svg.png" width="50" height="50" />
+<img src="./Assets/home-og.png" width="50" height="50" />
+<img src="./Assets/gVZIvphd_400x400.jpg" width="50" height="50" />
+
+### Architecture
+
+<img src="./Assets/MVC-design-pattern.webp" width="250" />
 
 ## Contact
 
