@@ -2043,7 +2043,7 @@ const loadSearchResults = async function(query, page = 1) {
             state.search.nextPage = 1; // Reset nextPage to 1
         }
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}search/movie?query=${query}&include_adult=false&language=${(0, _configJs.USER_LANGUAGE)}&page=${page}`);
-        console.log("Search:", data);
+        // console.log("Search:", data);
         state.search.results.push(...data.results.map((movie)=>({
                 id: movie.id,
                 title: movie.original_title,
@@ -2080,7 +2080,7 @@ const popularMovies = async function() {
     try {
         const data = await (0, _helpersJs.getJSON)(`
       ${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/popular?language=en-US&page=1`);
-        console.log("popular", data);
+        // console.log("popular", data);
         state.popularMovie.results = data.results.map((popular)=>({
                 id: popular.id,
                 title: popular.title,
