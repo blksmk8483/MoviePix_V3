@@ -2013,6 +2013,9 @@ const loadMovie = async function(id) {
             homepage: movie.homepage,
             reviews: movie.reviews.results.map((result)=>({
                     author: result.author,
+                    authorAvatar: result.author_details.avatar_path,
+                    authorRating: result.author_details.rating,
+                    authorURL: result.author_details.url,
                     content: result.content
                 })),
             videos: movie.videos.results.map((video)=>({
@@ -5978,11 +5981,140 @@ const getJSON = async function(url) {
 });
 
 },{}],"e6B94":[function(require,module,exports) {
+// import View from "./View";
+// import { API_IMAGE } from "../config";
+// import noImage from "../../img/spilledPopcornHoldTheButter.webp";
+// class MovieView extends View {
+//   _parentElement = document.querySelector(".movieView");
+//   _errorMessage = "Could not find that movie. <br> Please try another one.";
+//   _message = "";
+//   addHandlerRender(handler) {
+//     ["hashchange", "load"].forEach((ev) =>
+//       window.addEventListener(ev, handler)
+//     );
+//   }
+//   _generateMarkup() {
+//     const firstReview = this._data.reviews.slice(0, 1);
+//     const limitedReviews = this._data.reviews.slice(0, 5);
+//     const additionalReviews = this._data.reviews.slice(5);
+//     return `
+//         <button class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center">Back</button>
+//     <section class="bg-slate-800 text-white">
+//       <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${
+//         this._data.title
+//       }</h2>
+//       <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${
+//         this._data.tagline
+//       }</p>
+//       <div class="xl:grid xl:grid-cols-3 xl:mx-14 xl:my-8 xl:gap-0.5">
+//         <img
+//           class="bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
+//           src="${API_IMAGE}${this._data.image}"
+//           alt="${this._data.title}"
+//         />
+//         <div class="col-span-2">
+//           <p class="mt-2.5 mx-4 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
+//             ${this._data.overview}
+//           </p>
+//           <p class="ml-4 mt-4 text-lg tracking-wider">
+//             ${this._data.releaseDate}
+//           </p>
+//           <p class="ml-4 mb-4 pb-4 text-lg tracking-wider">
+//             ${this._data.runtime} minutes
+//           </p>
+//           <section class="videos ml-4 mb-4 ">
+//             <h3 class="text-lg tracking-wider">Videos:</h3>
+//                <ul class="container">
+//                   <li
+//                     class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+//                   >
+//                     ${this._data.videos
+//                       .map(
+//                         (video) => `<iframe
+//                       class="mt-2 mb-2 mx-0.5 aspect-video snap-always snap-center"
+//                       src="https://www.youtube.com/embed/${video.key}"
+//                       frameborder="0"
+//                       allowfullscreen
+//                     ></iframe
+//                     >`
+//                       )
+//                       .join("")}
+//                   </li>
+//     </ul>
+//           </section>
+//           ${this._generateMarkupReview()}
+//         </div>
+//       </div>
+//     </section>
+//     `;
+//   }
+//   _generateMarkupReview() {
+//     return `
+//      <div class="overscroll-none ">
+//             <div class="reviews">
+//               <p class="ml-4 mb-2 text-lg tracking-wider">Reviews:</p>
+//               ${this._data.reviews
+//                 .map(
+//                   (review, index) => `
+//                     <section class="review ${
+//                       index > 0 ? "hidden" : ""
+//                     } mx-4 mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-balance bg-slate-700 rounded">
+//                     <section class="flex gap-x-2.5 items-center ">
+//                     <img
+//           class="bg-center h-8 w-8 rounded-full"
+//           src="${API_IMAGE}${review.authorAvatar}"
+//           alt="${review.author}"
+//         />
+//                             <h2>${review.author}:</h2>
+//                                 <p> <sup>${
+//                                   review.authorRating
+//                                 } </sup>&frasl;<sub>10</sub>  &#x2b50;</p>
+//                             </section>
+//                             <p class="leading-snug mt-3">${review.content}</p>
+//                     </section>
+//                   `
+//                 )
+//                 .join("")}
+//               <button class="show-more-btn ml-4 mb-4 text-blue-500 hover:underline">Show More</button>
+//             </div>
+//           </div>
+//           `;
+//   }
+//   addHandlerBack(handler) {
+//     this._parentElement.addEventListener("click", function (e) {
+//       const btn = e.target.closest(".back-button");
+//       if (!btn) return;
+//       handler();
+//     });
+//   }
+//   addHandlerShowMore() {
+//     this._parentElement.addEventListener("click", function (e) {
+//       const btn = e.target.closest(".show-more-btn");
+//       if (!btn) return;
+//       const hiddenReviews = document.querySelectorAll(".review.hidden");
+//       const visibleReviews = document.querySelectorAll(".review:not(.hidden)");
+//       if (btn.textContent === "Show More") {
+//         hiddenReviews.forEach((review) => {
+//           review.classList.remove("hidden");
+//         });
+//         btn.textContent = "Show Less";
+//       } else {
+//         visibleReviews.forEach((review, index) => {
+//           if (index > 0) review.classList.add("hidden");
+//         });
+//         btn.textContent = "Show More";
+//       }
+//     });
+//   }
+// }
+// export default new MovieView();
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 var _config = require("../config");
+var _spilledPopcornHoldTheButterWebp = require("../../img/spilledPopcornHoldTheButter.webp");
+var _spilledPopcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_spilledPopcornHoldTheButterWebp);
 class MovieView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".movieView");
     _errorMessage = "Could not find that movie. <br> Please try another one.";
@@ -5994,62 +6126,79 @@ class MovieView extends (0, _viewDefault.default) {
         ].forEach((ev)=>window.addEventListener(ev, handler));
     }
     _generateMarkup() {
-        const firstReview = this._data.reviews.slice(0, 1);
-        const limitedReviews = this._data.reviews.slice(0, 5);
-        const additionalReviews = this._data.reviews.slice(5);
         return `
-        <button class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center">Back</button>
-    <section class="bg-slate-800 text-white">
-      <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
-      <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
-    
-      <div class="xl:grid xl:grid-cols-3 xl:mx-14 xl:my-8 xl:gap-0.5">
-        <img
-          class="bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
-          src="${0, _config.API_IMAGE}${this._data.image}"
-          alt="${this._data.title}"
-        />
-     
-        <div class="col-span-2">
-          <p class="mt-2.5 mx-4 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
-            ${this._data.overview}
-          </p>
-          <p class="ml-4 mt-4 text-lg tracking-wider">
-            ${this._data.releaseDate}
-          </p>
-          <p class="ml-4 mb-12 pb-4 text-lg tracking-wider">
-            ${this._data.runtime} minutes
-          </p>
+      <button class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center">Back</button>
+      <section class="bg-slate-800 text-white">
+        <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
+        <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
+      
+        <div class="xl:grid xl:grid-cols-3 xl:mx-14 xl:my-8 xl:gap-0.5">
+          <img
+            class="bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
+            src="${0, _config.API_IMAGE}${this._data.image}"
+            alt="${this._data.title}"
+          />
+       
+          <div class="col-span-2">
+            <p class="mt-2.5 mx-4 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
+              ${this._data.overview}
+            </p>
+            <p class="ml-4 mt-4 text-lg tracking-wider">
+              ${this._data.releaseDate}
+            </p>
+            <p class="ml-4 mb-4 pb-4 text-lg tracking-wider">
+              ${this._data.runtime} minutes
+            </p>
 
-          <section class="videos ml-4 mb-4 ">
-            <h3 class="text-lg tracking-wider">Videos:</h3>
-               <ul class="container">
-                  <li
-                    class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
-                  >
-                    ${this._data.videos.map((video)=>`<iframe
-                      class="mt-2 mb-2 mx-0.5 aspect-video snap-always snap-center"
-                      src="https://www.youtube.com/embed/${video.key}"
-                      frameborder="0"
-                      allowfullscreen
-                    ></iframe
-                    >`).join("")}
-                  </li>
-    </ul>
-          </section>
-          
-          <div class="overscroll-none ">
-            <div class="reviews">
-              <p class="ml-4 mb-2 text-lg tracking-wider">Reviews:</p>
-              ${this._data.reviews.map((review, index)=>`
-                    <p class="review ${index > 0 ? "hidden" : ""} ml-4 mb-4 text-lg tracking-wide leading-relaxed text-balance">${review.author}: ${review.content}</p>
-                  `).join("")}
-              <button class="show-more-btn ml-4 mb-4 text-blue-500 hover:underline">Show More</button>
-            </div>
+            <section class="videos ml-4 mb-4 ">
+              <h3 class="text-lg tracking-wider">Videos:</h3>
+                 <ul class="container">
+                    <li
+                      class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+                    >
+                      ${this._data.videos.map((video)=>`<iframe
+                        class="mt-2 mb-2 mx-0.5 aspect-video snap-always snap-center"
+                        src="https://www.youtube.com/embed/${video.key}"
+                        frameborder="0"
+                        allowfullscreen
+                      ></iframe
+                      >`).join("")}
+                    </li>
+  </ul>
+            </section>
+            ${this._generateMarkupReview()}
+           
           </div>
         </div>
+      </section>
+      `;
+    }
+    _generateMarkupReview() {
+        return `
+      <div class="overscroll-none ">
+        <div class="reviews">
+          <p class="ml-4 mb-2 text-lg tracking-wider">Reviews:</p>
+          ${this._data.reviews.map((review, index)=>{
+            const authorAvatar = review.authorAvatar ? `${0, _config.API_IMAGE}${review.authorAvatar}` : (0, _spilledPopcornHoldTheButterWebpDefault.default);
+            const authorRating = review.authorRating ? `<p> <sup>${review.authorRating} </sup>&frasl;<sub>10</sub>  &#x2b50;</p>` : "";
+            return `
+                <section class="review ${index > 0 ? "hidden" : ""} mx-4 mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-balance bg-slate-700 rounded">
+                  <section class="flex gap-x-2.5 items-center ">      
+                    <img
+                      class="bg-center h-8 w-8 rounded-full"
+                      src="${authorAvatar}"
+                      alt="${review.author}"
+                    />
+                    <h2>${review.author}:</h2>
+                    ${authorRating}
+                  </section>
+                  <p class="leading-snug mt-3">${review.content}</p>
+                </section>
+              `;
+        }).join("")}
+          <button class="show-more-btn ml-4 mb-4 text-blue-500 hover:underline">Show More</button>
+        </div>
       </div>
-    </section>
     `;
     }
     addHandlerBack(handler) {
@@ -6079,66 +6228,9 @@ class MovieView extends (0, _viewDefault.default) {
         });
     }
 }
-exports.default = new MovieView(); //   _generateMarkup() {
- //     return `
- //       <button class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center">Back</button>
- //       <section class="bg-slate-800 text-white">
- //         <h2 class="ml-3 mr-2 pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
- //         <p class="ml-3 mt-0.5 mr-2 pb-1 text-base tracking-wider">${this._data.tagline}</p>
- //         <div class="xl:grid xl:grid-cols-3 xl:mx-14 xl:my-8 xl:gap-0.5">
- //           <img
- //             class="bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
- //             src="${API_IMAGE}${this._data.image}"
- //             alt="${this._data.title}"
- //           />
- //           <div class="col-span-2">
- //             <p class="mt-2.5 ml-4 mr-4 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
- //               ${this._data.overview}
- //             </p>
- //             <p class="ml-4 mt-4 text-lg tracking-wider">
- //               ${this._data.releaseDate}
- //             </p>
- //             <p class="ml-4 mb-12 pb-4 text-lg tracking-wider">
- //               ${this._data.runtime} minutes
- //             </p>
- //             <div class="reviews">
- //               <p class="ml-4 mb-2 text-lg tracking-wider">REVIEWS:</p>
- //               ${this._data.reviews
- //                 .map(
- //                   (review, index) => `
- //                     <p class="review ${index > 0 ? 'hidden' : ''} ml-4 mb-4 text-base tracking-wide">${review.author}: ${review.content}</p>
- //                   `
- //                 )
- //                 .join('')}
- //               <button class="show-more-btn ml-4 mb-4 text-blue-500 hover:underline">Show More</button>
- //             </div>
- //           </div>
- //         </div>
- //       </section>
- //     `;
- //   }
- //   addHandlerShowMore() {
- //     this._parentElement.addEventListener("click", function (e) {
- //       const btn = e.target.closest(".show-more-btn");
- //       if (!btn) return;
- //       const hiddenReviews = document.querySelectorAll(".review.hidden");
- //       const visibleReviews = document.querySelectorAll(".review:not(.hidden)");
- //       if (btn.textContent === "Show More") {
- //         hiddenReviews.forEach(review => {
- //           review.classList.remove("hidden");
- //         });
- //         btn.textContent = "Show Less";
- //       } else {
- //         visibleReviews.forEach((review, index) => {
- //           if (index > 0) review.classList.add("hidden");
- //         });
- //         btn.textContent = "Show More";
- //       }
- //     });
- //   }
- // }
+exports.default = new MovieView();
 
-},{"./View":"5cUXS","../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
+},{"./View":"5cUXS","../config":"k5Hzs","../../img/spilledPopcornHoldTheButter.webp":"2gXYm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _popcornHoldTheButterWebp = require("url:../../img/popcornHoldTheButter.webp");
@@ -6232,7 +6324,10 @@ exports.getOrigin = getOrigin;
 },{}],"7D8xA":[function(require,module,exports) {
 module.exports = require("f5d79527d85a4b79").getBundleURL("hWUTQ") + "spilledPopcornHoldTheButter.bd11449b.webp" + "?" + Date.now();
 
-},{"f5d79527d85a4b79":"lgJ39"}],"9OQAM":[function(require,module,exports) {
+},{"f5d79527d85a4b79":"lgJ39"}],"2gXYm":[function(require,module,exports) {
+module.exports = require("426b48c73a28a144").getBundleURL("hWUTQ") + "spilledPopcornHoldTheButter.0ebb1aaf.webp" + "?" + Date.now();
+
+},{"426b48c73a28a144":"lgJ39"}],"9OQAM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class SearchView {
