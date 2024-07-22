@@ -155,6 +155,7 @@ const init = function () {
   movieView.addHandlerBack(controlBackToInitial);
   searchView.addHandlerSearch(controlSearchResults);
   resultsView.addScrollHandler(controlLoadMoreResults);
+  movieView.addHandlerShowMore();
 
   // Handle back/forward navigation
   window.addEventListener("hashchange", function () {

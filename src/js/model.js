@@ -32,9 +32,9 @@ export const loadMovie = async function (id) {
     if (state.movie.id === id) return; // Avoid reloading the same movie
 
     const data = await getJSON(
-      `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}`
+      `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}&append_to_response=videos,images,reviews`
     );
-    // console.log("LOAD MOVIE", data);
+    console.log("LOAD MOVIE", data);
     const movie = data;
     state.movie = {
       id: movie.id,
@@ -46,6 +46,20 @@ export const loadMovie = async function (id) {
       genres: movie.genres,
       tagline: movie.tagline,
       homepage: movie.homepage,
+      reviews: movie.reviews.results.map((result) => ({
+        author: result.author,
+        authorAvatar: result.author_details.avatar_path,
+        authorRating: result.author_details.rating,
+        authorURL: result.author_details.url,
+        content: result.content,
+      })),
+      videos: movie.videos.results.map((video) => ({
+        id: video.id,
+        key: video.key,
+        name: video.name,
+        site: video.site,
+        type: video.type,
+      })),
     };
   } catch (err) {
     // Temporary error handling
@@ -68,7 +82,7 @@ export const loadSearchResults = async function (query, page = 1) {
     const data = await getJSON(
       `${API_URL}search/movie?query=${query}&include_adult=false&language=${USER_LANGUAGE}&page=${page}`
     );
-
+    console.log("Search:", data);
     state.search.results.push(
       ...data.results.map((movie) => ({
         id: movie.id,
@@ -118,7 +132,7 @@ export const popularMovies = async function () {
   try {
     const data = await getJSON(`
       ${API_URL}${TV_OR_MOVIE}/popular?language=en-US&page=1`);
-
+    console.log("popular", data);
     state.popularMovie.results = data.results.map((popular) => ({
       id: popular.id,
       title: popular.title,
@@ -135,7 +149,7 @@ export const nowPlayingMovies = async function () {
   try {
     const data = await getJSON(`
       ${API_URL}${TV_OR_MOVIE}/now_playing?language=en-US&page=1`);
-    console.log(data);
+    // console.log(data);
     state.nowPlayingMovie.results = data.results.map((nowPlaying) => ({
       id: nowPlaying.id,
       title: nowPlaying.original_title,
@@ -152,7 +166,7 @@ export const topRatedMovies = async function () {
   try {
     const data = await getJSON(`
       ${API_URL}${TV_OR_MOVIE}/top_rated?language=en-US&page=1`);
-    console.log("top rated", data);
+    // console.log("top rated", data);
 
     state.topRatedMovie.results = data.results.map((topRated) => ({
       id: topRated.id,
@@ -170,7 +184,7 @@ export const upcomingMovies = async function () {
   try {
     const data = await getJSON(`
       ${API_URL}${TV_OR_MOVIE}/top_rated?language=en-US&page=1`);
-    console.log("top rated", data);
+    // console.log("top rated", data);
 
     state.upcomingMovie.results = data.results.map((upcomingMovie) => ({
       id: upcomingMovie.id,

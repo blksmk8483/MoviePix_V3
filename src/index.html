@@ -43,7 +43,7 @@
         <span class="bg-slate-800">Search</span>
       </button>
     </form>
-    <hr class="h-px bg-slate-800 dark:bg-white w-full" />
+    <hr class="h-px bg-slate-800 dark:bg-white w-screen" />
 
     <!-- Now Playing -->
     <section
@@ -95,8 +95,10 @@
     </section>
 
     <!-- Selected Movie -->
-    <section class="movie-view-container hidden">
-      <section class="movieView transition ease-in delay-150"></section>
+    <section class="movie-view-container hidden container mx-auto">
+      <section
+        class="movieView transition ease-in delay-150 container overscroll-none overscroll-x-none"
+      ></section>
     </section>
 
     <!-- Search Results -->
@@ -117,6 +119,7 @@
     <footer class="container">
       <section class="flex flex-row justify-evenly mb-4 mt-4">
         <div>
+          <!-- <p class="hidden hover:inline">PORTFOLIO</p> -->
           <a target="_blank" href="https://knighttechdesigns.com/">
             <i
               class="text-white hover:bg-white hover:rounded-xl size-10"
