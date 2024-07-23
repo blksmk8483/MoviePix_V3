@@ -934,6 +934,10 @@ img, video {
 }
 
 @media (width >= 768px) {
+  .md\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
   .md\:mx-2 {
     margin-left: .5rem;
     margin-right: .5rem;
