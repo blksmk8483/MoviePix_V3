@@ -6000,62 +6000,79 @@ class MovieView extends (0, _viewDefault.default) {
     }
     _generateMarkup() {
         return `
-      <button class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center">Back</button>
-      <section class="bg-slate-800 text-white mx-1">
-        <h2 class=" pt-2.5 text-3xl font-medium tracking-wide">${this._data.title}</h2>
-        <p class=" mt-0.5  pb-1 text-base tracking-wider">${this._data.tagline}</p>
-      
-        <div class="xl:grid xl:grid-cols-3 xl:mx-14 xl:my-8 xl:gap-0.5">
-          <img
-            class="mx-0 bg-center max-h-svh transition ease-in-out delay-500 md:max-w-72 xl:max-w-80"
-            src="${0, _config.API_IMAGE}${this._data.image}"
-            alt="${this._data.title}"
-          />
-       
-          <div class="col-span-2">
-            <p class="mt-2.5 text-lg tracking-wide leading-relaxed text-balance xl:mt-0">
-              ${this._data.overview}
-            </p>
-            <p class="mt-4 text-lg tracking-wider">
-              ${this._data.releaseDate}
-            </p>
-            <p class="mb-4 pb-4 text-lg tracking-wider">
-              ${this._data.runtime} minutes
-            </p>
+        <button
+          class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center xl:mx-8"
+        >
+          Back
+        </button>
+        <section class="bg-slate-800 text-white">
+          <h2
+            class="mx-1 pt-2.5 text-3xl font-medium tracking-wide md:mx-2 xl:mx-8"
+          >
+            ${this._data.title}
+          </h2>
+          <q class="mx-1 mt-0.5 pb-1 text-base tracking-wider md:mx-2 xl:mx-8"
+            >${this._data.tagline}</q
+          >
 
-            <section class="videos mb-4 ">
-              <h3 class="text-lg tracking-wider">Trailers:</h3>
-                 <ul class="container">
-                    <li
-                      class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
-                    >
-                      ${this._data.videos.map((video)=>`<iframe
-                        class="mt-2 mb-2 mx-0.5 aspect-video snap-always snap-center"
-                        src="https://www.youtube.com/embed/${video.key}"
-                        frameborder="0"
-                        allowfullscreen
-                      ></iframe
-                      >`).join("")}
-                    </li>
-  </ul>
-            </section>
-            ${this._generateMarkupReview()}
-           
+          <div
+            class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8"
+          >
+            <img
+              class="mx-0 object-cover max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
+              src="${0, _config.API_IMAGE}${this._data.image}"
+              alt="${this._data.title}"
+            />
+
+            <div class="col-span-2 sm:col-span-1">
+              <p
+                class="mx-1 mt-2.5 text-lg tracking-wide leading-relaxed text-balance sm:mt-0"
+              >
+                ${this._data.overview}
+              </p>
+              <p class="mx-1 mt-4 text-lg tracking-wider">
+                ${this._data.releaseDate}
+              </p>
+              <p class="mx-1 mb-4 pb-4 text-lg tracking-wider">
+                ${this._data.runtime} minutes
+              </p>
+    
+              <section class="videos mb-4 mx-1">
+                <h3 class="text-lg tracking-wider">Trailers:</h3>
+                <ul class="container">
+                  <li
+                    class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+                  >
+                    ${this._data.videos.map((video)=>`<iframe
+                      class="mt-2 mb-2 mx-0.5 aspect-video snap-always snap-center"
+                      src="https://www.youtube.com/embed/${video.key}"
+                      frameborder="0"
+                      allowfullscreen
+                    ></iframe
+                    >`).join("")}
+                  </li>
+                </ul>
+              </section>
+              ${this._generateMarkupReview()}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       `;
     }
     _generateMarkupReview() {
         return `
-      <div class="overscroll-none mb-4">
+      <div class="overscroll-none mb-4 mx-1">
+      <section class="flex justify-between">  
+        <p class="mb-2 text-lg tracking-wider">Reviews:</p> 
+          <button class="show-more-btn mb-4 mt-1 text-white hover:underline">Show More</button>
+          </section>
         <div class="reviews h-72 flex flex-col gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content">
-          <p class="mb-2 text-lg tracking-wider">Reviews:</p>
+          
           ${this._data.reviews.map((review, index)=>{
             const authorAvatar = review.authorAvatar ? `${0, _config.API_IMAGE}${review.authorAvatar}` : (0, _spilledPopcornHoldTheButterWebpDefault.default);
             const authorRating = review.authorRating ? `<p> <sup>${review.authorRating} </sup>&frasl;<sub>10</sub>  &#x2b50;</p>` : "";
             return `
-                <section class="review ${index > 0 ? "hidden" : ""} mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-balance bg-slate-700 rounded">
+                <section class="review ${index > 0 ? "hidden" : ""} mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-pretty bg-slate-700 rounded">
                   <section class="flex gap-x-2.5 place-items-center justify-between">      
                   <aside class="flex gap-x-1.5">  
                   <img
@@ -6067,12 +6084,12 @@ class MovieView extends (0, _viewDefault.default) {
                     </aside>
                     ${authorRating}
                   </section>
-                  <p class="leading-snug mt-3">${review.content}</p>
+                  <p class="leading-snug mt-3 text-pretty">${review.content}</p>
                 </section>
               `;
         }).join("")}
             </div>
-            <button class="show-more-btn mb-4 mt-1 text-white hover:underline">Show More</button>
+            
       </div>
     `;
     }
@@ -6092,6 +6109,7 @@ class MovieView extends (0, _viewDefault.default) {
             if (btn.textContent === "Show More") {
                 hiddenReviews.forEach((review)=>{
                     review.classList.remove("hidden");
+                    document.querySelector(".reviews").setAttribute("style", "height: 22rem;");
                 });
                 btn.textContent = "Show Less";
             } else {
@@ -6099,6 +6117,7 @@ class MovieView extends (0, _viewDefault.default) {
                     if (index > 0) review.classList.add("hidden");
                 });
                 btn.textContent = "Show More";
+                document.querySelector(".reviews").setAttribute("style", "height: 18rem;");
             }
         });
     }
