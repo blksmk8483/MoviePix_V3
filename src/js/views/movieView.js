@@ -39,7 +39,7 @@ class MovieView extends View {
               alt="${this._data.title}"
             />
 
-            <div class="col-span-2 sm:col-span-1">
+            <div class="col-span-2 sm:col-span-1 md:col-span-2">
               <p
                 class="mx-1 mt-2.5 text-lg tracking-wide leading-relaxed text-balance sm:mt-0"
               >
