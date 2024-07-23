@@ -6007,11 +6007,11 @@ class MovieView extends (0, _viewDefault.default) {
         </button>
         <section class="bg-slate-800 text-white">
           <h2
-            class="mx-1 pt-2.5 text-3xl font-medium tracking-wide md:mx-2 xl:mx-8"
+            class="mx-2 pt-2.5 text-3xl font-medium tracking-wide md:mx-2 xl:mx-8"
           >
             ${this._data.title}
           </h2>
-          <q class="mx-1 mt-0.5 pb-1 text-base tracking-wider md:mx-2 xl:mx-8"
+          <q class="mx-2 mt-0.5 pb-1 text-base tracking-wider md:mx-2 xl:mx-8"
             >${this._data.tagline}</q
           >
 
@@ -6026,18 +6026,18 @@ class MovieView extends (0, _viewDefault.default) {
 
             <div class="col-span-2 sm:col-span-1 md:col-span-2">
               <p
-                class="mx-1 mt-2.5 text-lg tracking-wide leading-relaxed text-balance sm:mt-0"
+                class="mx-2 mt-2.5 text-lg tracking-wide leading-relaxed text-balance sm:mt-0"
               >
                 ${this._data.overview}
               </p>
-              <p class="mx-1 mt-4 text-lg tracking-wider">
+              <p class="mx-2 mt-4 text-lg tracking-wider">
                 ${this._data.releaseDate}
               </p>
-              <p class="mx-1 mb-4 pb-4 text-lg tracking-wider">
+              <p class="mx-2 mb-4 pb-4 text-lg tracking-wider">
                 ${this._data.runtime} minutes
               </p>
     
-              <section class="videos mb-4 mx-1">
+              <section class="videos mb-4 mx-2">
                 <h3 class="text-lg tracking-wider">Trailers:</h3>
                 <ul class="container">
                   <li
@@ -6061,7 +6061,7 @@ class MovieView extends (0, _viewDefault.default) {
     }
     _generateMarkupReview() {
         return `
-      <div class="overscroll-none mb-4 mx-1">
+      <div class="overscroll-none mb-4 mx-2">
       <section class="flex justify-between">  
         <p class="mb-2 text-lg tracking-wider">Reviews:</p> 
           <button class="show-more-btn mb-4 mt-1 text-white hover:underline">Show More</button>
@@ -6322,7 +6322,7 @@ class InitialView extends (0, _viewDefault.default) {
         return `
     <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${popularMovie.id}">
-        <img class="m-0 max-w-28 rounded-md hover:shadow-white hover:border hover:shadow-md" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
+        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${popularMovie.title}</h2>
       </a>
     </li>
@@ -6353,7 +6353,7 @@ class NowPlayingView extends (0, _viewDefault.default) {
         return `
     <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${nowPlayingMovie.id}">
-        <img class="m-0 max-w-28 rounded-md hover:shadow-white hover:border hover:shadow-md" src="${0, _config.API_IMAGE}${isImage}" alt="${nowPlayingMovie.title}" />
+        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${nowPlayingMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${nowPlayingMovie.title}</h2>
       </a>
     </li>
@@ -6384,7 +6384,7 @@ class TopRatedView extends (0, _viewDefault.default) {
         return `
     <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${topRatedMovie.id}">
-        <img class="m-0 max-w-28 rounded-md hover:shadow-white hover:border hover:shadow-md" src="${0, _config.API_IMAGE}${isImage}" alt="${topRatedMovie.title}" />
+        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${topRatedMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${topRatedMovie.title}</h2>
       </a>
     </li>
@@ -6415,7 +6415,7 @@ class UpcomingView extends (0, _viewDefault.default) {
         return `
     <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
       <a  href="#${upcomingMovie.id}">
-        <img class="m-0 max-w-28 rounded-md hover:shadow-white hover:border hover:shadow-md" src="${0, _config.API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
+        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${upcomingMovie.title}</h2>
       </a>
     </li>

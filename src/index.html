@@ -47,7 +47,7 @@
     </form>
     <hr class="h-px bg-slate-800 dark:bg-white w-screen" />
 
-    <main class="mx-2">
+    <main>
       <!-- Now Playing -->
       <section
         class="now-playing-container container bg-slate-800 mt-1.5 mx-auto"
@@ -57,7 +57,7 @@
         ><span class="text-lg text-white"> P</span
         ><span class="text-white text-xs">LAYING:</span>
         <ul
-          class="nowPlaying flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+          class="nowPlaying flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content ml-2"
         ></ul>
       </section>
 
@@ -67,7 +67,7 @@
           ><span class="text-lg">U</span>PCOMING:</span
         >
         <ul
-          class="upcoming flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+          class="upcoming flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content ml-2"
         ></ul>
       </section>
 
@@ -79,7 +79,7 @@
           ><span class="text-lg">P</span>OPULAR:</span
         >
         <ul
-          class="initialResults flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+          class="initialResults flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content ml-2"
         ></ul>
         <!-- <ul
         class="initialResults grid grid-cols-2 gap-x-0.5 gap-y-4 ml-1.5 mr-1.5 2xl:grid-cols-5 2xl:gap-x-8 2xl:gap-y-12 xl:gap-x-14 xl:gap-y-11 xl:grid-cols-5 xl:ml-2 xl:mr-2 lg:grid-cols-4 lg:gap-x-10 lg:gap-y-10 lg:ml-2 lg:mr-2 md:grid-cols-4 md:gap-x-8 md:gap-y-2 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-2"
@@ -95,7 +95,7 @@
         ><span class="text-lg text-white"> R</span
         ><span class="text-white text-xs">ATED:</span>
         <ul
-          class="top-rated flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+          class="top-rated flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content ml-2"
         ></ul>
       </section>
 
@@ -121,49 +121,66 @@
     <!-- Footer / Links -->
     <hr class="h-px bg-slate-800 dark:bg-white w-full" />
 
-    <footer class="container mx-auto max-w-72">
-      <section class="flex flex-row justify-evenly mb-4 mt-4">
+    <footer class="container mx-auto w-64 sm:max-w-80">
+      <section class="flex flex-row justify-between mb-4 mt-4 mr-10">
         <div>
-          <!-- <p class="hidden hover:inline">PORTFOLIO</p> -->
-          <a target="_blank" href="https://knighttechdesigns.com/">
+          <a
+            target="_blank"
+            href="https://knighttechdesigns.com/"
+            class="overflow-hidden relative"
+          >
             <i
-              class="text-white size-10 hover:size-11 hover:text-purple-500 hover:animate-bounce"
+              class="text-white size-10 hover:size-11 hover:text-purple-500 hover:animate-bounce absolute overflow-hidden"
               data-feather="briefcase"
             ></i>
           </a>
         </div>
         <div>
-          <a target="_blank" href="https://github.com/blksmk8483">
+          <a
+            target="_blank"
+            href="https://github.com/blksmk8483"
+            class="overflow-hidden relative"
+          >
             <i
-              class="text-white size-10 hover:size-11 hover:text-green-500 hover:animate-bounce"
+              class="text-white size-10 hover:size-11 hover:text-green-500 hover:animate-bounce absolute overflow-hidden"
               data-feather="github"
             ></i>
           </a>
         </div>
         <div>
-          <a target="_blank" href="https://linkedin.com/in/brandonknight8483">
+          <a
+            target="_blank"
+            href="https://linkedin.com/in/brandonknight8483"
+            class="overflow-hidden relative"
+          >
             <i
-              class="text-white size-10 hover:size-11 hover:text-blue-500 hover:animate-bounce"
+              class="text-white size-10 hover:size-11 hover:text-blue-500 hover:animate-bounce absolute overflow-hidden"
               data-feather="linkedin"
             ></i>
           </a>
         </div>
         <div>
-          <a target="_blank" href="mailto:brandonknightwork@gmail.com">
+          <a
+            target="_blank"
+            href="mailto:brandonknightwork@gmail.com"
+            class="overflow-hidden relative"
+          >
             <i
-              class="text-white size-10 hover:drop-shadow-2xl hover:text-orange-500 hover:animate-bounce"
+              class="text-white size-10 hover:drop-shadow-2xl hover:text-orange-500 hover:animate-bounce absolute overflow-hidden"
               data-feather="mail"
             ></i>
           </a>
         </div>
       </section>
 
-      <a
-        class="flex flex-row justify-evenly mb-2 mx-auto text-white hover:text-yellow-300"
-        href="https://knighttechdesigns.com/"
-      >
-        &copy; Copyright by Brandon Knight</a
-      >
+      <section class="flex content-center">
+        <a
+          class="flex-row justify-center mt-8 mb-2 mx-auto text-white hover:text-yellow-300"
+          href="https://knighttechdesigns.com/"
+        >
+          &copy; Copyright by Brandon Knight</a
+        >
+      </section>
     </footer>
 
     <script>
