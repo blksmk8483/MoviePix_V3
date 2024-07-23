@@ -6066,7 +6066,7 @@ class MovieView extends (0, _viewDefault.default) {
         <p class="mb-2 text-lg tracking-wider">Reviews:</p> 
           <button class="show-more-btn mb-4 mt-1 text-white hover:underline">Show More</button>
           </section>
-        <div class="reviews h-72 flex flex-col gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content">
+        <div class="reviews h-72 flex flex-col gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content mb-6">
           
           ${this._data.reviews.map((review, index)=>{
             const authorAvatar = review.authorAvatar ? `${0, _config.API_IMAGE}${review.authorAvatar}` : (0, _spilledPopcornHoldTheButterWebpDefault.default);
