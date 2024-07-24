@@ -52,6 +52,8 @@ class MovieView extends View {
                 ${this._data.runtime} minutes
               </p>
     
+             
+
               <section class="videos mb-4 mx-2">
                 <h3 class="text-lg tracking-wider">Trailers:</h3>
                 <ul class="container">
@@ -72,10 +74,38 @@ class MovieView extends View {
                   </li>
                 </ul>
               </section>
+
+              <section class="actor-container mb-4 mx-2">
+                    <ul class="container">
+                    <li class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content">
+                    ${this._data.credits
+                      .map((result) => {
+                        return `
+                        <section class="flex flex-col">
+                        <img
+              class="mx-1 my-2 rounded-full max-w-96 max-h-32 hover:shadow-lg hover:shadow-slate-600 hover:scale-105   hover:border hover:border-slate-800"
+              src="${API_IMAGE}${result.actorImg}"
+              alt="${this._data.actorName}"
+            />
+            
+                        <p class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${result.actorName}</p>
+                        <p class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${result.characterName}</p>
+                        
+                        </section>
+                        
+                        
+                        `;
+                      })
+                      .join("")}
+                    </li>
+                    </ul>
+        </section>
+
               ${this._generateMarkupReview()}
             </div>
           </div>
         </section>
+       
       `;
   }
 

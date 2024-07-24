@@ -32,7 +32,7 @@ export const loadMovie = async function (id) {
     if (state.movie.id === id) return; // Avoid reloading the same movie
 
     const data = await getJSON(
-      `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}&append_to_response=videos,images,reviews`
+      `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}&append_to_response=videos,images,reviews,credits`
     );
     console.log("LOAD MOVIE", data);
     const movie = data;
@@ -46,6 +46,11 @@ export const loadMovie = async function (id) {
       genres: movie.genres,
       tagline: movie.tagline,
       homepage: movie.homepage,
+      credits: movie.credits.cast.map((result) => ({
+        actorName: result.original_name,
+        characterName: result.character,
+        actorImg: result.profile_path,
+      })),
       reviews: movie.reviews.results.map((result) => ({
         author: result.author,
         authorAvatar: result.author_details.avatar_path,
