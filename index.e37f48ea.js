@@ -1998,7 +1998,7 @@ const loadMovie = async function(id) {
     try {
         // Check if the movie ID is the same as the one in the state
         if (state.movie.id === id) return; // Avoid reloading the same movie
-        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}&append_to_response=videos,images,reviews`);
+        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}&append_to_response=videos,images,reviews,credits`);
         console.log("LOAD MOVIE", data);
         const movie = data;
         state.movie = {
@@ -2011,6 +2011,11 @@ const loadMovie = async function(id) {
             genres: movie.genres,
             tagline: movie.tagline,
             homepage: movie.homepage,
+            credits: movie.credits.cast.map((result)=>({
+                    actorName: result.original_name,
+                    characterName: result.character,
+                    actorImg: result.profile_path
+                })),
             reviews: movie.reviews.results.map((result)=>({
                     author: result.author,
                     authorAvatar: result.author_details.avatar_path,
@@ -6037,6 +6042,8 @@ class MovieView extends (0, _viewDefault.default) {
                 ${this._data.runtime} minutes
               </p>
     
+             
+
               <section class="videos mb-4 mx-2">
                 <h3 class="text-lg tracking-wider">Trailers:</h3>
                 <ul class="container">
@@ -6053,10 +6060,36 @@ class MovieView extends (0, _viewDefault.default) {
                   </li>
                 </ul>
               </section>
+
+              <section class="actor-container mb-4 mx-2">
+                    <ul class="container">
+                    <li class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content">
+                    ${this._data.credits.map((result)=>{
+            return `
+                        <section class="flex flex-col">
+                        <img
+              class="mx-1 my-2 rounded-full max-w-96 max-h-32 hover:shadow-lg hover:shadow-slate-600 hover:scale-105   hover:border hover:border-slate-800"
+              src="${0, _config.API_IMAGE}${result.actorImg}"
+              alt="${this._data.actorName}"
+            />
+            
+                        <p class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${result.actorName}</p>
+                        <p class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${result.characterName}</p>
+                        
+                        </section>
+                        
+                        
+                        `;
+        }).join("")}
+                    </li>
+                    </ul>
+        </section>
+
               ${this._generateMarkupReview()}
             </div>
           </div>
         </section>
+       
       `;
     }
     _generateMarkupReview() {
