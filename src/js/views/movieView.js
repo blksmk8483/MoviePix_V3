@@ -88,8 +88,8 @@ class MovieView extends View {
               alt="${this._data.actorName}"
             />
             
-                        <p class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${result.actorName}</p>
-                        <p class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${result.characterName}</p>
+                        <p class="my-0 ml-1 pt-1 text-xs font-thin tracking-tight">${result.actorName}</p>
+                        <p class="my-0 ml-1 pt-1 text-xs font-thin tracking-tight">${result.characterName}</p>
                         
                         </section>
                         
