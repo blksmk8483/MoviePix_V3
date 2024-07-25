@@ -515,8 +515,8 @@ img, video {
   max-width: 7rem;
 }
 
-.max-w-96 {
-  max-width: 24rem;
+.max-w-32 {
+  max-width: 8rem;
 }
 
 .snap-x {
@@ -807,6 +807,10 @@ img, video {
   line-height: 1.375;
 }
 
+.tracking-tight {
+  letter-spacing: -.025em;
+}
+
 .tracking-wide {
   letter-spacing: .025em;
 }
@@ -817,14 +821,6 @@ img, video {
 
 .tracking-widest {
   letter-spacing: .1em;
-}
-
-.tracking-tighter {
-  letter-spacing: -.05em;
-}
-
-.tracking-tight {
-  letter-spacing: -.025em;
 }
 
 .text-slate-700 {
