@@ -5993,6 +5993,8 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 var _config = require("../config");
 var _spilledPopcornHoldTheButterWebp = require("../../img/spilledPopcornHoldTheButter.webp");
 var _spilledPopcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_spilledPopcornHoldTheButterWebp);
+var _silhoutteV8Webp = require("../../img/SilhoutteV8.webp");
+var _silhoutteV8WebpDefault = parcelHelpers.interopDefault(_silhoutteV8Webp);
 class MovieView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".movieView");
     _errorMessage = "Could not find that movie. <br> Please try another one.";
@@ -6065,11 +6067,12 @@ class MovieView extends (0, _viewDefault.default) {
                     <ul class="container">
                     <li class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content">
                     ${this._data.credits.map((result)=>{
+            const isActorImage = result.actorImg ? `${0, _config.API_IMAGE}${result.actorImg}` : (0, _silhoutteV8WebpDefault.default);
             return `
                         <section class="flex flex-col">
                         <img
-              class="mx-1 my-2 rounded-full max-w-96 max-h-32 hover:shadow-lg hover:shadow-slate-600 hover:scale-105   hover:border hover:border-slate-800"
-              src="${0, _config.API_IMAGE}${result.actorImg}"
+              class="mx-1 my-2 rounded-full max-w-32 max-h-32 hover:shadow-lg hover:shadow-slate-600 hover:scale-105   hover:border hover:border-slate-800"
+              src="${isActorImage}"
               alt="${this._data.actorName}"
             />
             
@@ -6157,7 +6160,7 @@ class MovieView extends (0, _viewDefault.default) {
 }
 exports.default = new MovieView();
 
-},{"./View":"5cUXS","../config":"k5Hzs","../../img/spilledPopcornHoldTheButter.webp":"2gXYm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
+},{"./View":"5cUXS","../config":"k5Hzs","../../img/spilledPopcornHoldTheButter.webp":"2gXYm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/SilhoutteV8.webp":"3BShS"}],"5cUXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _popcornHoldTheButterWebp = require("url:../../img/popcornHoldTheButter.webp");
@@ -6254,7 +6257,10 @@ module.exports = require("f5d79527d85a4b79").getBundleURL("hWUTQ") + "spilledPop
 },{"f5d79527d85a4b79":"lgJ39"}],"2gXYm":[function(require,module,exports) {
 module.exports = require("426b48c73a28a144").getBundleURL("hWUTQ") + "spilledPopcornHoldTheButter.0ebb1aaf.webp" + "?" + Date.now();
 
-},{"426b48c73a28a144":"lgJ39"}],"9OQAM":[function(require,module,exports) {
+},{"426b48c73a28a144":"lgJ39"}],"3BShS":[function(require,module,exports) {
+module.exports = require("c3703b74365f19d3").getBundleURL("hWUTQ") + "SilhoutteV8.c77971f0.webp" + "?" + Date.now();
+
+},{"c3703b74365f19d3":"lgJ39"}],"9OQAM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class SearchView {

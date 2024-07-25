@@ -1,6 +1,7 @@
 import View from "./View";
 import { API_IMAGE } from "../config";
 import noImage from "../../img/spilledPopcornHoldTheButter.webp";
+import noActorImage from "../../img/SilhoutteV8.webp";
 
 class MovieView extends View {
   _parentElement = document.querySelector(".movieView");
@@ -80,11 +81,14 @@ class MovieView extends View {
                     <li class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content">
                     ${this._data.credits
                       .map((result) => {
+                        const isActorImage = result.actorImg
+                          ? `${API_IMAGE}${result.actorImg}`
+                          : noActorImage;
                         return `
                         <section class="flex flex-col">
                         <img
-              class="mx-1 my-2 rounded-full max-w-96 max-h-32 hover:shadow-lg hover:shadow-slate-600 hover:scale-105   hover:border hover:border-slate-800"
-              src="${API_IMAGE}${result.actorImg}"
+              class="mx-1 my-2 rounded-full max-w-32 max-h-32 hover:shadow-lg hover:shadow-slate-600 hover:scale-105   hover:border hover:border-slate-800"
+              src="${isActorImage}"
               alt="${this._data.actorName}"
             />
             
