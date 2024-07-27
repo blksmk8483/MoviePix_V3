@@ -1998,7 +1998,7 @@ const loadMovie = async function(id) {
     try {
         // Check if the movie ID is the same as the one in the state
         if (state.movie.id === id) return; // Avoid reloading the same movie
-        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}&append_to_response=videos,images,reviews,credits`);
+        const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}&append_to_response=videos,images,reviews,credits,recommendations`);
         console.log("LOAD MOVIE", data);
         const movie = data;
         state.movie = {
@@ -2006,7 +2006,7 @@ const loadMovie = async function(id) {
             title: movie.original_title,
             overview: movie.overview,
             image: movie.poster_path,
-            runtime: movie.runtime,
+            runtime: (0, _helpersJs.timeConvert)(movie.runtime),
             releaseDate: (0, _momentDefault.default)(movie.release_date).format("YYYY"),
             genres: movie.genres,
             tagline: movie.tagline,
@@ -2029,6 +2029,10 @@ const loadMovie = async function(id) {
                     name: video.name,
                     site: video.site,
                     type: video.type
+                })),
+            recommendations: movie.recommendations.results.map((result)=>({
+                    recTitle: result.original_title,
+                    recImg: result.backdrop_path
                 }))
         };
     } catch (err) {
@@ -2200,6 +2204,7 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getJSON", ()=>getJSON);
+parcelHelpers.export(exports, "timeConvert", ()=>timeConvert);
 var _config = require("./config");
 const timeout = function(s) {
     return new Promise(function(_, reject) {
@@ -2228,6 +2233,20 @@ const getJSON = async function(url) {
     } catch (err) {
         throw err;
     }
+};
+const timeConvert = function(n) {
+    // Store the input number of minutes in a variable num
+    var num = n;
+    // Calculate the total hours by dividing the number of minutes by 60
+    var hours = num / 60;
+    // Round down the total hours to get the number of full hours
+    var rhours = Math.floor(hours);
+    // Calculate the remaining minutes after subtracting the full hours from the total hours
+    var minutes = (hours - rhours) * 60;
+    // Round the remaining minutes to the nearest whole number
+    var rminutes = Math.round(minutes);
+    // Construct and return a string representing the conversion result
+    return rhours + "h " + rminutes + "m";
 };
 
 },{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jwcsj":[function(require,module,exports) {
@@ -6014,7 +6033,7 @@ class MovieView extends (0, _viewDefault.default) {
 
       <section class="bg-slate-800 text-white ">
         <h2 class="mx-2 pt-2.5 text-3xl font-medium tracking-wide md:mx-2 xl:mx-8">
-          ${this._data.title}
+          ${this._data.title} 
         </h2>
         <q class="mx-2 mt-0.5 pb-1 text-base tracking-wider md:mx-2 xl:mx-8">${this._data.tagline}</q>
 
@@ -6034,11 +6053,12 @@ class MovieView extends (0, _viewDefault.default) {
             </p>
             <p class="mx-2 mt-4 text-lg tracking-wider">${this._data.releaseDate}</p>
             <p class="mx-2 mb-4 pb-4 text-lg tracking-wider">
-              ${this._data.runtime} minutes
+              ${this._data.runtime}
             </p>
 
             <section class="videos mb-4 mx-2">
               <ul class="container">
+              <p class="mb-2 text-lg tracking-wider">Trailers:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -6055,6 +6075,7 @@ class MovieView extends (0, _viewDefault.default) {
 
             <section class="actor-container mb-4 mx-2">
               <ul class="container">
+              <p class="mb-2 text-lg tracking-wider">Cast:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -6084,6 +6105,33 @@ class MovieView extends (0, _viewDefault.default) {
             ${this._generateMarkupReview()}
           </div>
         </div>
+
+         <section class="recommendations-container mb-4 mx-2">
+              <ul class="container">
+               <p class="mb-2 text-lg tracking-wider">Recommendations:</p>
+                <li
+                  class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+                >
+                  ${this._data.recommendations.map((result)=>{
+            const isRecImage = result.recImg ? `${0, _config.API_IMAGE}${result.recImg}` : (0, _movieChairsHoldTheButterWebpDefault.default);
+            return `
+                  <section class="flex flex-col">
+                    <img
+                      class="mx-1 my-2 bg-center max-w-64 max-h-auto rounded-md  hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:border hover:border-slate-800"
+                      src="${isRecImage}"
+                      alt="${this._data.recTitle}"
+                    />
+
+                    <p class="my-0 ml-1 pt-1 text-sm font-thin tracking-tight">
+                      ${result.recTitle}
+                    </p>
+                  
+                  </section>
+                  `;
+        }).join("")}
+                </li>
+              </ul>
+            </section>
       </section>
       `;
     }
@@ -6100,7 +6148,7 @@ class MovieView extends (0, _viewDefault.default) {
             const authorAvatar = review.authorAvatar ? `${0, _config.API_IMAGE}${review.authorAvatar}` : (0, _spilledPopcornHoldTheButterWebpDefault.default);
             const authorRating = review.authorRating ? `<p> <sup>${review.authorRating} </sup>&frasl;<sub>10</sub>  &#x2b50;</p>` : "";
             return `
-                <section class="review ${index > 0 ? "hidden" : ""} mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-pretty bg-slate-700  rounded">
+                <section class="review ${index > 0 ? "hidden" : ""} shadow-slate-300/50 shadow-md border border-slate-300 mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-pretty bg-slate-700  rounded">
                   <section class="flex gap-x-2.5 place-items-center justify-between">      
                   <aside class="flex gap-x-1.5">  
                   <img
@@ -6152,7 +6200,7 @@ class MovieView extends (0, _viewDefault.default) {
 }
 exports.default = new MovieView();
 
-},{"./View":"5cUXS","../config":"k5Hzs","../../img/spilledPopcornHoldTheButter.webp":"2gXYm","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/movieChairs_HoldTheButter.webp":"81N47"}],"5cUXS":[function(require,module,exports) {
+},{"./View":"5cUXS","../config":"k5Hzs","../../img/spilledPopcornHoldTheButter.webp":"2gXYm","../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _popcornHoldTheButterWebp = require("url:../../img/popcornHoldTheButter.webp");
