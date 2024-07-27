@@ -6055,7 +6055,7 @@ class MovieView extends (0, _viewDefault.default) {
           class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8">
           <img
             class="mx-0 object-cover mt-1    max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
-            src="${0, _config.API_IMAGE}${this._data.image}"
+            src="${0, _config.API_IMAGE}${this._data.backgroundImage}"
             alt="${this._data.title}"
           />
 
@@ -6150,7 +6150,7 @@ class MovieView extends (0, _viewDefault.default) {
     }
     _generateMarkupReview() {
         return `
-      <div class="overscroll-none mb-4 mx-2 text-white md:mx-2 xl:mx-8">
+      <div class="overscroll-none  overscroll-x-none mb-4 mx-2 text-white md:mx-2 xl:mx-8">
       <section class="flex justify-between">  
         <p class="mb-2 text-lg tracking-wider font-semibold text-slate-200">Reviews:</p> 
           <button class="show-more-btn mb-4 mt-1 text-slate-100 hover:underline">Show More</button>
@@ -6173,7 +6173,7 @@ class MovieView extends (0, _viewDefault.default) {
                     </aside>
                     ${authorRating}
                   </section>
-                  <p class="leading-snug mt-3 text-pretty text-slate-200">${review.content}</p>
+                  <p class="leading-snug mt-3 text-pretty text-slate-200 break-words">${review.content}</p>
                 </section>
               `;
         }).join("")}
