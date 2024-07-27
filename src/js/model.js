@@ -1,5 +1,5 @@
 import { API_URL, USER_LANGUAGE, TV_OR_MOVIE, RES_PER_PAGE } from "./config.js";
-import { getJSON } from "./helpers.js";
+import { getJSON, timeConvert } from "./helpers.js";
 import moment from "moment";
 
 export const state = {
@@ -32,7 +32,7 @@ export const loadMovie = async function (id) {
     if (state.movie.id === id) return; // Avoid reloading the same movie
 
     const data = await getJSON(
-      `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}&append_to_response=videos,images,reviews,credits`
+      `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}&append_to_response=videos,images,reviews,credits,recommendations`
     );
     console.log("LOAD MOVIE", data);
     const movie = data;
@@ -41,7 +41,7 @@ export const loadMovie = async function (id) {
       title: movie.original_title,
       overview: movie.overview,
       image: movie.poster_path,
-      runtime: movie.runtime,
+      runtime: timeConvert(movie.runtime),
       releaseDate: moment(movie.release_date).format("YYYY"),
       genres: movie.genres,
       tagline: movie.tagline,
@@ -64,6 +64,10 @@ export const loadMovie = async function (id) {
         name: video.name,
         site: video.site,
         type: video.type,
+      })),
+      recommendations: movie.recommendations.results.map((result) => ({
+        recTitle: result.original_title,
+        recImg: result.backdrop_path,
       })),
     };
   } catch (err) {

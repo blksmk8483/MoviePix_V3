@@ -23,7 +23,7 @@ class MovieView extends View {
 
       <section class="bg-slate-800 text-white ">
         <h2 class="mx-2 pt-2.5 text-3xl font-medium tracking-wide md:mx-2 xl:mx-8">
-          ${this._data.title}
+          ${this._data.title} 
         </h2>
         <q class="mx-2 mt-0.5 pb-1 text-base tracking-wider md:mx-2 xl:mx-8">${
           this._data.tagline
@@ -47,11 +47,12 @@ class MovieView extends View {
               this._data.releaseDate
             }</p>
             <p class="mx-2 mb-4 pb-4 text-lg tracking-wider">
-              ${this._data.runtime} minutes
+              ${this._data.runtime}
             </p>
 
             <section class="videos mb-4 mx-2">
               <ul class="container">
+              <p class="mb-2 text-lg tracking-wider">Trailers:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -72,6 +73,7 @@ class MovieView extends View {
 
             <section class="actor-container mb-4 mx-2">
               <ul class="container">
+              <p class="mb-2 text-lg tracking-wider">Cast:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -105,6 +107,37 @@ class MovieView extends View {
             ${this._generateMarkupReview()}
           </div>
         </div>
+
+         <section class="recommendations-container mb-4 mx-2">
+              <ul class="container">
+               <p class="mb-2 text-lg tracking-wider">Recommendations:</p>
+                <li
+                  class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
+                >
+                  ${this._data.recommendations
+                    .map((result) => {
+                      const isRecImage = result.recImg
+                        ? `${API_IMAGE}${result.recImg}`
+                        : noActorImage;
+                      return `
+                  <section class="flex flex-col">
+                    <img
+                      class="mx-1 my-2 bg-center max-w-64 max-h-auto rounded-md  hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:border hover:border-slate-800"
+                      src="${isRecImage}"
+                      alt="${this._data.recTitle}"
+                    />
+
+                    <p class="my-0 ml-1 pt-1 text-sm font-thin tracking-tight">
+                      ${result.recTitle}
+                    </p>
+                  
+                  </section>
+                  `;
+                    })
+                    .join("")}
+                </li>
+              </ul>
+            </section>
       </section>
       `;
   }
@@ -130,7 +163,7 @@ class MovieView extends View {
               return `
                 <section class="review ${
                   index > 0 ? "hidden" : ""
-                } mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-pretty bg-slate-700  rounded">
+                } shadow-slate-300/50 shadow-md border border-slate-300 mb-4 p-1.5 text-lg tracking-wide leading-relaxed text-pretty bg-slate-700  rounded">
                   <section class="flex gap-x-2.5 place-items-center justify-between">      
                   <aside class="flex gap-x-1.5">  
                   <img
