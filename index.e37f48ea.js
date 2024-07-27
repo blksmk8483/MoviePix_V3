@@ -6150,7 +6150,7 @@ class MovieView extends (0, _viewDefault.default) {
     }
     _generateMarkupReview() {
         return `
-      <div class="overscroll-none mb-4 mx-2 text-white md:mx-2 xl:mx-8">
+      <div class="overscroll-none  overscroll-x-none mb-4 mx-2 text-white md:mx-2 xl:mx-8">
       <section class="flex justify-between">  
         <p class="mb-2 text-lg tracking-wider font-semibold text-slate-200">Reviews:</p> 
           <button class="show-more-btn mb-4 mt-1 text-slate-100 hover:underline">Show More</button>
