@@ -6173,7 +6173,7 @@ class MovieView extends (0, _viewDefault.default) {
                     </aside>
                     ${authorRating}
                   </section>
-                  <p class="leading-snug mt-3 text-pretty text-slate-200">${review.content}</p>
+                  <p class="leading-snug mt-3 text-pretty text-slate-200 break-words">${review.content}</p>
                 </section>
               `;
         }).join("")}
