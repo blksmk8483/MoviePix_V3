@@ -34,13 +34,14 @@ export const loadMovie = async function (id) {
     const data = await getJSON(
       `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}&append_to_response=videos,images,reviews,credits,recommendations`
     );
-    console.log("LOAD MOVIE", data);
+    // console.log("LOAD MOVIE", data);
     const movie = data;
     state.movie = {
       id: movie.id,
       title: movie.original_title,
       overview: movie.overview,
       image: movie.poster_path,
+      backgroundImage: movie.backdrop_path,
       runtime: timeConvert(movie.runtime),
       releaseDate: moment(movie.release_date).format("YYYY"),
       genres: movie.genres,

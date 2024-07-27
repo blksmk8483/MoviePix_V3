@@ -14,17 +14,31 @@ class MovieView extends View {
     );
   }
 
+  // <section class=" text-white bg-center bg-cover" style="background-image: url(${API_IMAGE}${
+  //   this._data.backgroundImage
+  // });">
+
   _generateMarkup() {
     return `
       <button
-        class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center xl:mx-8">
+        class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-slate-100 border-2 w-16 hidden hover:bg-slate-200 hover:border-slate-600  md:flex md:justify-center xl:mx-8">
         Back
       </button>
 
-      <section class="bg-slate-800 text-white ">
-        <h2 class="mx-2 pt-2.5 text-3xl font-medium tracking-wide md:mx-2 xl:mx-8">
-          ${this._data.title} 
-        </h2>
+      <section class=" text-white bg-center bg-cover">
+            <section class="flex justify-between content-center mx-2 pt-2.5 font-medium tracking-wide md:mx-2 xl:mx-8">
+              <h2 class="text-3xl font-bold">
+                ${this._data.title} 
+              </h2>
+              </section>
+
+          <section class="flex text-m text-slate-400 tracking-wider mx-2 md:mx-2 xl:mx-8">
+                <p class="">(${this._data.releaseDate})</p>
+                <p class="mx-2 mb-4">
+                      ${this._data.runtime}
+                </p>
+            </section>
+
         <q class="mx-2 mt-0.5 pb-1 text-base tracking-wider md:mx-2 xl:mx-8">${
           this._data.tagline
         }</q>
@@ -32,27 +46,24 @@ class MovieView extends View {
         <div
           class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8">
           <img
-            class="mx-0 object-cover    max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
+            class="mx-0 object-cover mt-1    max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
             src="${API_IMAGE}${this._data.image}"
             alt="${this._data.title}"
           />
 
           <div class="col-span-2 sm:col-span-1 md:col-span-2">
             <p
-              class="mx-2 mt-2.5 text-lg tracking-wide leading-relaxed text-balance sm:mt-0"
+              class="mx-2 mt-2.5 mb-8 text-lg tracking-wide leading-relaxed text-balance sm:mt-0"
             >
               ${this._data.overview}
             </p>
-            <p class="mx-2 mt-4 text-lg tracking-wider">${
-              this._data.releaseDate
-            }</p>
-            <p class="mx-2 mb-4 pb-4 text-lg tracking-wider">
-              ${this._data.runtime}
-            </p>
+           
+      </section>
 
-            <section class="videos mb-4 mx-2">
+
+            <section class="videos mb-4 mx-2 mt-4 text-white md:mx-2 xl:mx-8">
               <ul class="container">
-              <p class="mb-2 text-lg tracking-wider">Trailers:</p>
+              <p class="mb-2 text-lg tracking-wider font-semibold text-slate-100">Trailers:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -71,9 +82,9 @@ class MovieView extends View {
               </ul>
             </section>
 
-            <section class="actor-container mb-4 mx-2">
+            <section class="actor-container mb-4 mx-2 text-white md:mx-2 xl:mx-8">
               <ul class="container">
-              <p class="mb-2 text-lg tracking-wider">Cast:</p>
+              <p class="mb-2 text-lg tracking-wider font-semibold text-slate-100">Cast:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -90,10 +101,10 @@ class MovieView extends View {
                       alt="${this._data.actorName}"
                     />
 
-                    <p class="my-0 ml-1 pt-1 text-xs font-thin tracking-tight">
+                    <p class="my-0 ml-1 pt-1 text-xs tracking-tight font-bold">
                       ${result.actorName}
                     </p>
-                    <p class="my-0 ml-1 pt-1 text-xs font-thin tracking-tight">
+                    <p class="my-0 ml-1 pt-1 text-xs tracking-tight text-slate-400">
                       ${result.characterName}
                     </p>
                   </section>
@@ -108,9 +119,9 @@ class MovieView extends View {
           </div>
         </div>
 
-         <section class="recommendations-container mb-4 mx-2">
+         <section class="recommendations-container mb-4 mx-2 text-white md:mx-2 xl:mx-8">
               <ul class="container">
-               <p class="mb-2 text-lg tracking-wider">Recommendations:</p>
+               <p class="mb-2 text-lg tracking-wider font-semibold text-slate-100">Recommendations:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -122,12 +133,12 @@ class MovieView extends View {
                       return `
                   <section class="flex flex-col">
                     <img
-                      class="mx-1 my-2 bg-center max-w-64 max-h-auto rounded-md  hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:border hover:border-slate-800"
+                      class="mx-1 my-1 bg-center max-w-56 max-h-auto rounded-md snap-always snap-center hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:border hover:border-slate-800 sm:max-w-64 sm:max-h-auto"
                       src="${isRecImage}"
                       alt="${this._data.recTitle}"
                     />
 
-                    <p class="my-0 ml-1 pt-1 text-sm font-thin tracking-tight">
+                    <p class="my-0 ml-1 pt-1 text-md font-semibold tracking-tight text-slate-100">
                       ${result.recTitle}
                     </p>
                   
@@ -138,16 +149,16 @@ class MovieView extends View {
                 </li>
               </ul>
             </section>
-      </section>
+      
       `;
   }
 
   _generateMarkupReview() {
     return `
-      <div class="overscroll-none mb-4 mx-2">
+      <div class="overscroll-none mb-4 mx-2 text-white md:mx-2 xl:mx-8">
       <section class="flex justify-between">  
-        <p class="mb-2 text-lg tracking-wider">Reviews:</p> 
-          <button class="show-more-btn mb-4 mt-1 text-white hover:underline">Show More</button>
+        <p class="mb-2 text-lg tracking-wider font-semibold text-slate-200">Reviews:</p> 
+          <button class="show-more-btn mb-4 mt-1 text-slate-100 hover:underline">Show More</button>
           </section>
         <div class="reviews h-72 flex flex-col gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content mb-6">
           
@@ -171,11 +182,13 @@ class MovieView extends View {
                       src="${authorAvatar}"
                       alt="${review.author}"
                     />
-                    <h2>  ${review.author}:</h2>
+                    <h2 class="font-bold">  ${review.author}:</h2>
                     </aside>
                     ${authorRating}
                   </section>
-                  <p class="leading-snug mt-3 text-pretty">${review.content}</p>
+                  <p class="leading-snug mt-3 text-pretty text-slate-200">${
+                    review.content
+                  }</p>
                 </section>
               `;
             })

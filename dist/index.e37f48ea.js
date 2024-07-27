@@ -1999,13 +1999,14 @@ const loadMovie = async function(id) {
         // Check if the movie ID is the same as the one in the state
         if (state.movie.id === id) return; // Avoid reloading the same movie
         const data = await (0, _helpersJs.getJSON)(`${(0, _configJs.API_URL)}${(0, _configJs.TV_OR_MOVIE)}/${id}?language=${(0, _configJs.USER_LANGUAGE)}&append_to_response=videos,images,reviews,credits,recommendations`);
-        console.log("LOAD MOVIE", data);
+        // console.log("LOAD MOVIE", data);
         const movie = data;
         state.movie = {
             id: movie.id,
             title: movie.original_title,
             overview: movie.overview,
             image: movie.poster_path,
+            backgroundImage: movie.backdrop_path,
             runtime: (0, _helpersJs.timeConvert)(movie.runtime),
             releaseDate: (0, _momentDefault.default)(movie.release_date).format("YYYY"),
             genres: movie.genres,
@@ -6024,41 +6025,53 @@ class MovieView extends (0, _viewDefault.default) {
             "load"
         ].forEach((ev)=>window.addEventListener(ev, handler));
     }
+    // <section class=" text-white bg-center bg-cover" style="background-image: url(${API_IMAGE}${
+    //   this._data.backgroundImage
+    // });">
     _generateMarkup() {
         return `
       <button
-        class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-white border-2 w-16 hidden md:flex md:justify-center xl:mx-8">
+        class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-slate-100 border-2 w-16 hidden hover:bg-slate-200 hover:border-slate-600  md:flex md:justify-center xl:mx-8">
         Back
       </button>
 
-      <section class="bg-slate-800 text-white ">
-        <h2 class="mx-2 pt-2.5 text-3xl font-medium tracking-wide md:mx-2 xl:mx-8">
-          ${this._data.title} 
-        </h2>
+      <section class=" text-white bg-center bg-cover">
+            <section class="flex justify-between content-center mx-2 pt-2.5 font-medium tracking-wide md:mx-2 xl:mx-8">
+              <h2 class="text-3xl font-bold">
+                ${this._data.title} 
+              </h2>
+              </section>
+
+          <section class="flex text-m text-slate-400 tracking-wider mx-2 md:mx-2 xl:mx-8">
+                <p class="">(${this._data.releaseDate})</p>
+                <p class="mx-2 mb-4">
+                      ${this._data.runtime}
+                </p>
+            </section>
+
         <q class="mx-2 mt-0.5 pb-1 text-base tracking-wider md:mx-2 xl:mx-8">${this._data.tagline}</q>
 
         <div
           class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8">
           <img
-            class="mx-0 object-cover    max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
+            class="mx-0 object-cover mt-1    max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
             src="${0, _config.API_IMAGE}${this._data.image}"
             alt="${this._data.title}"
           />
 
           <div class="col-span-2 sm:col-span-1 md:col-span-2">
             <p
-              class="mx-2 mt-2.5 text-lg tracking-wide leading-relaxed text-balance sm:mt-0"
+              class="mx-2 mt-2.5 mb-8 text-lg tracking-wide leading-relaxed text-balance sm:mt-0"
             >
               ${this._data.overview}
             </p>
-            <p class="mx-2 mt-4 text-lg tracking-wider">${this._data.releaseDate}</p>
-            <p class="mx-2 mb-4 pb-4 text-lg tracking-wider">
-              ${this._data.runtime}
-            </p>
+           
+      </section>
 
-            <section class="videos mb-4 mx-2">
+
+            <section class="videos mb-4 mx-2 mt-4 text-white md:mx-2 xl:mx-8">
               <ul class="container">
-              <p class="mb-2 text-lg tracking-wider">Trailers:</p>
+              <p class="mb-2 text-lg tracking-wider font-semibold text-slate-100">Trailers:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -6073,9 +6086,9 @@ class MovieView extends (0, _viewDefault.default) {
               </ul>
             </section>
 
-            <section class="actor-container mb-4 mx-2">
+            <section class="actor-container mb-4 mx-2 text-white md:mx-2 xl:mx-8">
               <ul class="container">
-              <p class="mb-2 text-lg tracking-wider">Cast:</p>
+              <p class="mb-2 text-lg tracking-wider font-semibold text-slate-100">Cast:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -6089,10 +6102,10 @@ class MovieView extends (0, _viewDefault.default) {
                       alt="${this._data.actorName}"
                     />
 
-                    <p class="my-0 ml-1 pt-1 text-xs font-thin tracking-tight">
+                    <p class="my-0 ml-1 pt-1 text-xs tracking-tight font-bold">
                       ${result.actorName}
                     </p>
-                    <p class="my-0 ml-1 pt-1 text-xs font-thin tracking-tight">
+                    <p class="my-0 ml-1 pt-1 text-xs tracking-tight text-slate-400">
                       ${result.characterName}
                     </p>
                   </section>
@@ -6106,9 +6119,9 @@ class MovieView extends (0, _viewDefault.default) {
           </div>
         </div>
 
-         <section class="recommendations-container mb-4 mx-2">
+         <section class="recommendations-container mb-4 mx-2 text-white md:mx-2 xl:mx-8">
               <ul class="container">
-               <p class="mb-2 text-lg tracking-wider">Recommendations:</p>
+               <p class="mb-2 text-lg tracking-wider font-semibold text-slate-100">Recommendations:</p>
                 <li
                   class="flex flex-row gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content"
                 >
@@ -6117,12 +6130,12 @@ class MovieView extends (0, _viewDefault.default) {
             return `
                   <section class="flex flex-col">
                     <img
-                      class="mx-1 my-2 bg-center max-w-64 max-h-auto rounded-md  hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:border hover:border-slate-800"
+                      class="mx-1 my-1 bg-center max-w-56 max-h-auto rounded-md snap-always snap-center hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:border hover:border-slate-800 sm:max-w-64 sm:max-h-auto"
                       src="${isRecImage}"
                       alt="${this._data.recTitle}"
                     />
 
-                    <p class="my-0 ml-1 pt-1 text-sm font-thin tracking-tight">
+                    <p class="my-0 ml-1 pt-1 text-md font-semibold tracking-tight text-slate-100">
                       ${result.recTitle}
                     </p>
                   
@@ -6132,15 +6145,15 @@ class MovieView extends (0, _viewDefault.default) {
                 </li>
               </ul>
             </section>
-      </section>
+      
       `;
     }
     _generateMarkupReview() {
         return `
-      <div class="overscroll-none mb-4 mx-2">
+      <div class="overscroll-none mb-4 mx-2 text-white md:mx-2 xl:mx-8">
       <section class="flex justify-between">  
-        <p class="mb-2 text-lg tracking-wider">Reviews:</p> 
-          <button class="show-more-btn mb-4 mt-1 text-white hover:underline">Show More</button>
+        <p class="mb-2 text-lg tracking-wider font-semibold text-slate-200">Reviews:</p> 
+          <button class="show-more-btn mb-4 mt-1 text-slate-100 hover:underline">Show More</button>
           </section>
         <div class="reviews h-72 flex flex-col gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content mb-6">
           
@@ -6156,11 +6169,11 @@ class MovieView extends (0, _viewDefault.default) {
                       src="${authorAvatar}"
                       alt="${review.author}"
                     />
-                    <h2>  ${review.author}:</h2>
+                    <h2 class="font-bold">  ${review.author}:</h2>
                     </aside>
                     ${authorRating}
                   </section>
-                  <p class="leading-snug mt-3 text-pretty">${review.content}</p>
+                  <p class="leading-snug mt-3 text-pretty text-slate-200">${review.content}</p>
                 </section>
               `;
         }).join("")}
@@ -6396,10 +6409,10 @@ class InitialView extends (0, _viewDefault.default) {
     _generateMarkupOMG(popularMovie) {
         const isImage = popularMovie.image ? `${0, _config.API_IMAGE}${popularMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
+    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center ">
       <a href="#${popularMovie.id}">
         <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
-        <h2 class=" my-0 ml-1 pt-1 text-xs font-medium text-balance ">${popularMovie.title}</h2>
+        <h2 class=" my-0 ml-1 pt-1 text-xs font-semibold text-balance ">${popularMovie.title}</h2>
       </a>
     </li>
     `;
@@ -6427,10 +6440,10 @@ class NowPlayingView extends (0, _viewDefault.default) {
     _generateMarkupOMG(nowPlayingMovie) {
         const isImage = nowPlayingMovie.image ? `${0, _config.API_IMAGE}${nowPlayingMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
+    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center ">
       <a  href="#${nowPlayingMovie.id}">
         <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${nowPlayingMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${nowPlayingMovie.title}</h2>
+        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${nowPlayingMovie.title}</h2>
       </a>
     </li>
     `;
@@ -6458,10 +6471,10 @@ class TopRatedView extends (0, _viewDefault.default) {
     _generateMarkupOMG(topRatedMovie) {
         const isImage = topRatedMovie.image ? `${0, _config.API_IMAGE}${topRatedMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
+    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center">
       <a  href="#${topRatedMovie.id}">
         <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${topRatedMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${topRatedMovie.title}</h2>
+        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${topRatedMovie.title}</h2>
       </a>
     </li>
     `;
@@ -6489,10 +6502,10 @@ class UpcomingView extends (0, _viewDefault.default) {
     _generateMarkupOMG(upcomingMovie) {
         const isImage = upcomingMovie.image ? `${0, _config.API_IMAGE}${upcomingMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
+    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center">
       <a  href="#${upcomingMovie.id}">
         <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${upcomingMovie.title}</h2>
+        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${upcomingMovie.title}</h2>
       </a>
     </li>
     `;

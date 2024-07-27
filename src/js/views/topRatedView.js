@@ -20,10 +20,10 @@ class TopRatedView extends View {
       : noImage;
 
     return `
-    <li class="m-0.5 p-0 bg-slate-800 text-white snap-always snap-center">
+    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center">
       <a  href="#${topRatedMovie.id}">
         <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${API_IMAGE}${isImage}" alt="${topRatedMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-xs font-medium text-balance">${topRatedMovie.title}</h2>
+        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${topRatedMovie.title}</h2>
       </a>
     </li>
     `;
