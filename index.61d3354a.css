@@ -488,6 +488,22 @@ img, video {
   height: 1px;
 }
 
+.h-60 {
+  height: 15rem;
+}
+
+.h-24 {
+  height: 6rem;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.h-28 {
+  height: 7rem;
+}
+
 .max-h-12 {
   max-height: 3rem;
 }
@@ -819,10 +835,6 @@ img, video {
 
 .font-bold {
   font-weight: 700;
-}
-
-.font-medium {
-  font-weight: 500;
 }
 
 .font-semibold {
