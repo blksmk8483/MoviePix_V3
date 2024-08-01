@@ -871,7 +871,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView/movieView.js":"4QBAj","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/homepageView/topRatedView.js":"5knYH","./views/homepageView/popularView.js":"dNfJ4","./views/homepageView/nowPlayingView.js":"9W0RK","./views/homepageView/upcomingView.js":"1q7Jb","./views/searchView/searchView.js":"2uhv5","./views/searchView/resultsView.js":"lbPJB"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/movieView/movieView.js":"4QBAj","./views/searchView/searchView.js":"2uhv5","./views/searchView/resultsView.js":"lbPJB","./views/homepageView/popularView.js":"dNfJ4","./views/homepageView/nowPlayingView.js":"9W0RK","./views/homepageView/topRatedView.js":"5knYH","./views/homepageView/upcomingView.js":"1q7Jb","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -6482,7 +6482,7 @@ var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieCh
 var _config = require("../../config");
 function generateMarkupRecommendation(data) {
     return `
-       <section class="recommendations-container mb-4 mx-2 text-white md:mx-2 xl:mx-8">
+       <section class="recommendations-container pb-4 mx-2 text-white md:mx-2 xl:mx-8">
               <ul class="container">
                <p class="mb-2 text-lg tracking-wider font-semibold text-slate-100">Recommendations:</p>
                 <li
@@ -6511,7 +6511,207 @@ function generateMarkupRecommendation(data) {
   `;
 }
 
-},{"../../../img/movieChairs_HoldTheButter.webp":"81N47","../../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
+},{"../../../img/movieChairs_HoldTheButter.webp":"81N47","../../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2uhv5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class SearchView {
+    _parentElement = document.querySelector(".search");
+    getQuery() {
+        const query = this._parentElement.querySelector(".search__field").value;
+        this._clearInput();
+        return query;
+    }
+    _clearInput() {
+        this._parentElement.querySelector(".search__field").value = "";
+    }
+    addHandlerSearch(handler) {
+        this._parentElement.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                handler();
+                document.activeElement.blur();
+            }
+        });
+    }
+}
+exports.default = new SearchView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lbPJB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _config = require("../../config");
+var _view = require("../View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
+var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
+class ResultsView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector(".results");
+    _errorMessage = "No movies found. Please try again.";
+    _message = "";
+    addScrollHandler(handler) {
+        window.addEventListener("scroll", async ()=>{
+            if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 10) {
+                if (handler) await handler();
+            }
+        });
+    }
+    _generateMarkup() {
+        return this._data.map(this._generateMarkupPreview).join("");
+    }
+    _generateMarkupPreview(result) {
+        const isImage = result.image ? `${0, _config.API_IMAGE}${result.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
+        const releaseDate = isNaN(result.releaseDate) ? "" : result.releaseDate;
+        return `
+     <li class="m-1.5 p-0 bg-slate-700 rounded-md hover:shadow-white hover:border hover:shadow-md">
+      <a class="" href="#${result.id}">
+        <img
+          class="m-0 bg-contain rounded-t-md "
+          src="${isImage}"
+          loading="lazy"
+          alt="${result.title}"
+        />
+        <section class="my-0 ml-1.5 content-center text-white text-base tracking-wide">
+          <h4 class="pt-0.5">${result.title}</h4>
+          <p class="pb-2">${releaseDate}</p>
+        </section>
+      </a>
+    </li>
+    `;
+    }
+    scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+}
+exports.default = new ResultsView();
+
+},{"../../config":"k5Hzs","../View":"5cUXS","../../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dNfJ4":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("../View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+var _config = require("../../config");
+var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
+var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
+class InitialView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector(".initialResults");
+    _errorMessage = "Sorry, no popular movies are displaying at the moment.";
+    addHandlerInit(handler) {
+        handler();
+    }
+    _generateMarkup() {
+        return this._data.results.map(this._generateMarkupOMG).join("");
+    }
+    _generateMarkupOMG(popularMovie) {
+        const isImage = popularMovie.image ? `${0, _config.API_IMAGE}${popularMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
+        return `
+    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center ">
+      <a href="#${popularMovie.id}">
+        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
+        <h2 class=" my-0 ml-1 pt-1 text-xs font-semibold text-balance ">${popularMovie.title}</h2>
+      </a>
+    </li>
+    `;
+    }
+}
+exports.default = new InitialView();
+
+},{"../View":"5cUXS","../../config":"k5Hzs","../../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9W0RK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("../View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+var _config = require("../../config");
+var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
+var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
+class NowPlayingView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector(".nowPlaying");
+    _errorMessage = "Sorry, no now playing movies are displaying at the moment.";
+    addHandlerInit(handler) {
+        handler();
+    }
+    _generateMarkup() {
+        return this._data.results.map(this._generateMarkupOMG).join("");
+    }
+    _generateMarkupOMG(nowPlayingMovie) {
+        const isImage = nowPlayingMovie.image ? `${0, _config.API_IMAGE}${nowPlayingMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
+        return `
+    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center ">
+      <a  href="#${nowPlayingMovie.id}">
+        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${nowPlayingMovie.title}" />
+        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${nowPlayingMovie.title}</h2>
+      </a>
+    </li>
+    `;
+    }
+}
+exports.default = new NowPlayingView();
+
+},{"../View":"5cUXS","../../config":"k5Hzs","../../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5knYH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("../View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+var _config = require("../../config");
+var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
+var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
+class TopRatedView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector(".top-rated");
+    _errorMessage = "Sorry, no top rated movies are displaying at the moment.";
+    addHandlerInit(handler) {
+        handler();
+    }
+    _generateMarkup() {
+        return this._data.results.map(this._generateMarkupOMG).join("");
+    }
+    _generateMarkupOMG(topRatedMovie) {
+        const isImage = topRatedMovie.image ? `${0, _config.API_IMAGE}${topRatedMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
+        return `
+    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center">
+      <a  href="#${topRatedMovie.id}">
+        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${topRatedMovie.title}" />
+        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${topRatedMovie.title}</h2>
+      </a>
+    </li>
+    `;
+    }
+}
+exports.default = new TopRatedView();
+
+},{"../View":"5cUXS","../../config":"k5Hzs","../../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1q7Jb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("../View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+var _config = require("../../config");
+var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
+var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
+class UpcomingView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector(".upcoming");
+    _errorMessage = "Sorry, no upcoming movies are displaying at the moment.";
+    addHandlerInit(handler) {
+        handler();
+    }
+    _generateMarkup() {
+        return this._data.results.map(this._generateMarkupOMG).join("");
+    }
+    _generateMarkupOMG(upcomingMovie) {
+        const isImage = upcomingMovie.image ? `${0, _config.API_IMAGE}${upcomingMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
+        return `
+    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center">
+      <a  href="#${upcomingMovie.id}">
+        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
+        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${upcomingMovie.title}</h2>
+      </a>
+    </li>
+    `;
+    }
+}
+exports.default = new UpcomingView();
+
+},{"../View":"5cUXS","../../config":"k5Hzs","../../../img/movieChairs_HoldTheButter.webp":"81N47","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -7096,206 +7296,6 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"5knYH":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _view = require("../View");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-var _config = require("../../config");
-var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
-var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
-class TopRatedView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector(".top-rated");
-    _errorMessage = "Sorry, no top rated movies are displaying at the moment.";
-    addHandlerInit(handler) {
-        handler();
-    }
-    _generateMarkup() {
-        return this._data.results.map(this._generateMarkupOMG).join("");
-    }
-    _generateMarkupOMG(topRatedMovie) {
-        const isImage = topRatedMovie.image ? `${0, _config.API_IMAGE}${topRatedMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
-        return `
-    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center">
-      <a  href="#${topRatedMovie.id}">
-        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${topRatedMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${topRatedMovie.title}</h2>
-      </a>
-    </li>
-    `;
-    }
-}
-exports.default = new TopRatedView();
-
-},{"../View":"5cUXS","../../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../img/movieChairs_HoldTheButter.webp":"81N47"}],"dNfJ4":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _view = require("../View");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-var _config = require("../../config");
-var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
-var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
-class InitialView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector(".initialResults");
-    _errorMessage = "Sorry, no popular movies are displaying at the moment.";
-    addHandlerInit(handler) {
-        handler();
-    }
-    _generateMarkup() {
-        return this._data.results.map(this._generateMarkupOMG).join("");
-    }
-    _generateMarkupOMG(popularMovie) {
-        const isImage = popularMovie.image ? `${0, _config.API_IMAGE}${popularMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
-        return `
-    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center ">
-      <a href="#${popularMovie.id}">
-        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
-        <h2 class=" my-0 ml-1 pt-1 text-xs font-semibold text-balance ">${popularMovie.title}</h2>
-      </a>
-    </li>
-    `;
-    }
-}
-exports.default = new InitialView();
-
-},{"../View":"5cUXS","../../config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../img/movieChairs_HoldTheButter.webp":"81N47"}],"9W0RK":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _view = require("../View");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-var _config = require("../../config");
-var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
-var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
-class NowPlayingView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector(".nowPlaying");
-    _errorMessage = "Sorry, no now playing movies are displaying at the moment.";
-    addHandlerInit(handler) {
-        handler();
-    }
-    _generateMarkup() {
-        return this._data.results.map(this._generateMarkupOMG).join("");
-    }
-    _generateMarkupOMG(nowPlayingMovie) {
-        const isImage = nowPlayingMovie.image ? `${0, _config.API_IMAGE}${nowPlayingMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
-        return `
-    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center ">
-      <a  href="#${nowPlayingMovie.id}">
-        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${nowPlayingMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${nowPlayingMovie.title}</h2>
-      </a>
-    </li>
-    `;
-    }
-}
-exports.default = new NowPlayingView();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../View":"5cUXS","../../../img/movieChairs_HoldTheButter.webp":"81N47","../../config":"k5Hzs"}],"1q7Jb":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _view = require("../View");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-var _config = require("../../config");
-var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
-var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
-class UpcomingView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector(".upcoming");
-    _errorMessage = "Sorry, no upcoming movies are displaying at the moment.";
-    addHandlerInit(handler) {
-        handler();
-    }
-    _generateMarkup() {
-        return this._data.results.map(this._generateMarkupOMG).join("");
-    }
-    _generateMarkupOMG(upcomingMovie) {
-        const isImage = upcomingMovie.image ? `${0, _config.API_IMAGE}${upcomingMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
-        return `
-    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center">
-      <a  href="#${upcomingMovie.id}">
-        <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
-        <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${upcomingMovie.title}</h2>
-      </a>
-    </li>
-    `;
-    }
-}
-exports.default = new UpcomingView();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../View":"5cUXS","../../../img/movieChairs_HoldTheButter.webp":"81N47","../../config":"k5Hzs"}],"2uhv5":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-class SearchView {
-    _parentElement = document.querySelector(".search");
-    getQuery() {
-        const query = this._parentElement.querySelector(".search__field").value;
-        this._clearInput();
-        return query;
-    }
-    _clearInput() {
-        this._parentElement.querySelector(".search__field").value = "";
-    }
-    addHandlerSearch(handler) {
-        this._parentElement.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                handler();
-                document.activeElement.blur();
-            }
-        });
-    }
-}
-exports.default = new SearchView();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lbPJB":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _config = require("../../config");
-var _view = require("../View");
-var _viewDefault = parcelHelpers.interopDefault(_view);
-var _movieChairsHoldTheButterWebp = require("../../../img/movieChairs_HoldTheButter.webp");
-var _movieChairsHoldTheButterWebpDefault = parcelHelpers.interopDefault(_movieChairsHoldTheButterWebp);
-class ResultsView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector(".results");
-    _errorMessage = "No movies found. Please try again.";
-    _message = "";
-    addScrollHandler(handler) {
-        window.addEventListener("scroll", async ()=>{
-            if (document.documentElement.scrollTop + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 10) {
-                if (handler) await handler();
-            }
-        });
-    }
-    _generateMarkup() {
-        return this._data.map(this._generateMarkupPreview).join("");
-    }
-    _generateMarkupPreview(result) {
-        const isImage = result.image ? `${0, _config.API_IMAGE}${result.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
-        const releaseDate = isNaN(result.releaseDate) ? "" : result.releaseDate;
-        return `
-     <li class="m-1.5 p-0 bg-slate-700 rounded-md hover:shadow-white hover:border hover:shadow-md">
-      <a class="" href="#${result.id}">
-        <img
-          class="m-0 bg-contain rounded-t-md "
-          src="${isImage}"
-          loading="lazy"
-          alt="${result.title}"
-        />
-        <section class="my-0 ml-1.5 content-center text-white text-base tracking-wide">
-          <h4 class="pt-0.5">${result.title}</h4>
-          <p class="pb-2">${releaseDate}</p>
-        </section>
-      </a>
-    </li>
-    `;
-    }
-    scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }
-}
-exports.default = new ResultsView();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../config":"k5Hzs","../View":"5cUXS","../../../img/movieChairs_HoldTheButter.webp":"81N47"}]},["hycaY","aenu9"], "aenu9", "parcelRequire6553")
+},{}]},["hycaY","aenu9"], "aenu9", "parcelRequire6553")
 
 //# sourceMappingURL=index.e37f48ea.js.map

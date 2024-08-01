@@ -4,7 +4,7 @@ import { API_IMAGE } from "../../config";
 
 export function generateMarkupRecommendation(data) {
   return `
-       <section class="recommendations-container mb-4 mx-2 text-white md:mx-2 xl:mx-8">
+       <section class="recommendations-container pb-4 mx-2 text-white md:mx-2 xl:mx-8">
               <ul class="container">
                <p class="mb-2 text-lg tracking-wider font-semibold text-slate-100">Recommendations:</p>
                 <li
