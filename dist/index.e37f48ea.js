@@ -755,7 +755,7 @@ if (module.hot) module.hot.accept();
 const controlStartingPage = async function() {
     try {
         _modelJs.state.view = "initial";
-        (0, _popularViewJsDefault.default).renderSpinner();
+        (0, _nowPlayingViewJsDefault.default).renderSpinner();
         await Promise.all([
             _modelJs.popularMovies(),
             _modelJs.nowPlayingMovies(),
@@ -6258,8 +6258,8 @@ class View {
     }
     renderSpinner() {
         const markup = `
-    <div class = "spinner col-span-full">    
-      <img class="bg-center" src="${(0, _popcornHoldTheButterWebpDefault.default)}" alt="Bucket of popcorn rotating 360 degrees in a clockwise rotation.">
+    <div class = "spinner col-span-full bg-transparent">    
+      <img class="bg-center " src="${(0, _popcornHoldTheButterWebpDefault.default)}" alt="Bucket of popcorn rotating 360 degrees in a clockwise rotation.">
     </div>
     `;
         this._clear();
@@ -6607,7 +6607,7 @@ class InitialView extends (0, _viewDefault.default) {
     _generateMarkupOMG(popularMovie) {
         const isImage = popularMovie.image ? `${0, _config.API_IMAGE}${popularMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center ">
+    <li class="m-0.5 p-0 bg-transparent text-slate-200 snap-always snap-center ">
       <a href="#${popularMovie.id}">
         <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${popularMovie.title}" />
         <h2 class=" my-0 ml-1 pt-1 text-xs font-semibold text-balance ">${popularMovie.title}</h2>
@@ -6638,7 +6638,7 @@ class NowPlayingView extends (0, _viewDefault.default) {
     _generateMarkupOMG(nowPlayingMovie) {
         const isImage = nowPlayingMovie.image ? `${0, _config.API_IMAGE}${nowPlayingMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center ">
+    <li class="m-0.5 p-0 bg-transparent text-slate-200 snap-always snap-center ">
       <a  href="#${nowPlayingMovie.id}">
         <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${nowPlayingMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${nowPlayingMovie.title}</h2>
@@ -6669,7 +6669,7 @@ class TopRatedView extends (0, _viewDefault.default) {
     _generateMarkupOMG(topRatedMovie) {
         const isImage = topRatedMovie.image ? `${0, _config.API_IMAGE}${topRatedMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center">
+    <li class="m-0.5 p-0 bg-transparent text-slate-200 snap-always snap-center">
       <a  href="#${topRatedMovie.id}">
         <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${topRatedMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${topRatedMovie.title}</h2>
@@ -6700,7 +6700,7 @@ class UpcomingView extends (0, _viewDefault.default) {
     _generateMarkupOMG(upcomingMovie) {
         const isImage = upcomingMovie.image ? `${0, _config.API_IMAGE}${upcomingMovie.image}` : (0, _movieChairsHoldTheButterWebpDefault.default);
         return `
-    <li class="m-0.5 p-0 bg-slate-800 text-slate-200 snap-always snap-center">
+    <li class="m-0.5 p-0 bg-transparent text-slate-200 snap-always snap-center">
       <a  href="#${upcomingMovie.id}">
         <img class="m-0 max-w-28 rounded-md hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:rounded-lg  hover:border hover:border-slate-800" src="${0, _config.API_IMAGE}${isImage}" alt="${upcomingMovie.title}" />
         <h2 class="my-0 ml-1 pt-1 text-xs font-semibold text-balance">${upcomingMovie.title}</h2>

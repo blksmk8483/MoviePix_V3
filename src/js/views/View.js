@@ -19,8 +19,8 @@ export default class View {
 
   renderSpinner() {
     const markup = `
-    <div class = "spinner col-span-full">    
-      <img class="bg-center" src="${popcornImage}" alt="Bucket of popcorn rotating 360 degrees in a clockwise rotation.">
+    <div class = "spinner col-span-full bg-transparent">    
+      <img class="bg-center " src="${popcornImage}" alt="Bucket of popcorn rotating 360 degrees in a clockwise rotation.">
     </div>
     `;
     this._clear();

@@ -23,41 +23,42 @@
     <title>MoviePix &mdash; Find your movie!</title>
   </head>
   <body
-    class="overscroll-none overscroll-x-none font-serif bg-gradient-to-r from-slate-800 to-zinc-700"
+    class="overscroll-none overscroll-x-none w-screen font-serif bg-zinc-700"
   >
-    <header class="flex bg-gradient-to-r from-slate-800 to-zinc-700 p-1">
-      <a href="https://moviepix.netlify.app/" class="flex">
-        <img
-          class="max-h-12 m-1"
-          src="img/favicon.png"
-          alt="red and blue vertically striped box of popcorn and a pair of red and blue 3d glasses"
-        />
-        <h1
-          class="mt-3.5 ml-1 tracking-widest font-semibold text-2xl bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent"
-        >
-          <span class="text-3xl">M</span>ovie<span class="text-3xl">P</span>ix
-        </h1>
-      </a>
-    </header>
-    <form
-      class="search grid place-content-center bg-gradient-to-r from-slate-800 to-zinc-700"
-    >
-      <input
-        type="text"
-        class="search__field mb-2 bg-slate-600 p-0.5 pl-1 h-9 rounded border-black w-96 hover:bg-slate-600 focus:bg-slate-600 focus:placeholder:opacity-0 text-white"
-        placeholder="&#x1F50E; Find movies, shows, and more"
-      />
-      <button class="btn search__btn container hidden">
-        <span class="bg-slate-800">Search</span>
-      </button>
-    </form>
+    <header class="bg-gradient-to-b from-slate-800 to-zinc-700 p-1">
+      <div class="flex">
+        <a href="https://moviepix.netlify.app/" class="flex">
+          <img
+            class="max-h-12 m-1"
+            src="img/favicon.png"
+            alt="red and blue vertically striped box of popcorn and a pair of red and blue 3d glasses"
+          />
+          <h1
+            class="mt-3.5 ml-1 tracking-widest font-semibold text-2xl text-white"
+          >
+            <span class="text-3xl">M</span>ovie<span class="text-3xl">P</span>ix
+          </h1>
+        </a>
+      </div>
 
-    <main class="bg-slate-800">
+      <form class="search grid place-content-center">
+        <input
+          type="text"
+          class="search__field mb-2 bg-slate-200 p-0.5 pl-1 h-9 rounded border-black w-96 hover:bg-slate-600 focus:bg-slate-600 focus:placeholder:opacity-0 text-white"
+          placeholder="&#x1F50E; Find movies, shows, and more"
+        />
+        <button class="btn search__btn container hidden">
+          <span class="bg-slate-800">Search</span>
+        </button>
+      </form>
+    </header>
+
+    <main class="bg-gradient-to-t from-slate-800 to-zinc-700">
       <hr class="h-px bg-slate-800 dark:bg-white w-screen" />
 
       <!-- Now Playing -->
       <section
-        class="now-playing-container container bg-slate-800 mt-1.5 mx-auto"
+        class="now-playing-container container bg-transparent mt-1.5 mx-auto"
       >
         <span class="text-slate-200 ml-3 text-xs tracking-wide"
           ><span class="text-lg text-slate-200">N</span>OW </span
@@ -69,7 +70,9 @@
       </section>
 
       <!-- Upcoming -->
-      <section class="upcoming-container container bg-slate-800 mt-1.5 mx-auto">
+      <section
+        class="upcoming-container container bg-transparent mt-1.5 mx-auto"
+      >
         <span class="text-slate-200 ml-3 text-xs tracking-wide"
           ><span class="text-lg">U</span>PCOMING:</span
         >
@@ -80,7 +83,7 @@
 
       <!-- Popular -->
       <section
-        class="popular-view-container container bg-slate-800 mt-1.5 mx-auto"
+        class="popular-view-container container bg-transparent mt-1.5 mx-auto"
       >
         <span class="text-slate-200 ml-3 text-xs tracking-wide"
           ><span class="text-lg">P</span>OPULAR:</span
@@ -92,7 +95,7 @@
 
       <!-- Top Rated -->
       <section
-        class="top-rated-container container bg-slate-800 mt-1.5 mx-auto"
+        class="top-rated-container container bg-transparent mt-1.5 mx-auto"
       >
         <span class="text-slate-200 ml-3 text-xs tracking-wide"
           ><span class="text-lg">T</span>OP </span
@@ -124,68 +127,70 @@
     </main>
 
     <!-- Footer / Links -->
-    <hr class="h-px bg-slate-800 dark:bg-white w-full" />
 
-    <footer class="container mx-auto w-64 sm:max-w-80 text-slate-200">
-      <section class="flex flex-row justify-between mb-4 mt-4 mr-10">
-        <div>
+    <footer class="bg-gradient-to-b from-slate-800 to-zinc-700">
+      <hr class="h-px bg-slate-800 dark:bg-white w-full" />
+      <div class="container mx-auto w-64 sm:max-w-80 text-slate-200">
+        <section class="flex flex-row justify-between mb-4 mt-4 mr-10">
+          <div>
+            <a
+              target="_blank"
+              href="https://knighttechdesigns.com/"
+              class="overflow-hidden relative"
+            >
+              <i
+                class="size-10 hover:size-11 hover:text-purple-500 hover:animate-bounce absolute overflow-hidden"
+                data-feather="briefcase"
+              ></i>
+            </a>
+          </div>
+          <div>
+            <a
+              target="_blank"
+              href="https://github.com/blksmk8483"
+              class="overflow-hidden relative"
+            >
+              <i
+                class="size-10 hover:size-11 hover:text-green-500 hover:animate-bounce absolute overflow-hidden"
+                data-feather="github"
+              ></i>
+            </a>
+          </div>
+          <div>
+            <a
+              target="_blank"
+              href="https://linkedin.com/in/brandonknight8483"
+              class="overflow-hidden relative"
+            >
+              <i
+                class="size-10 hover:size-11 hover:text-blue-500 hover:animate-bounce absolute overflow-hidden"
+                data-feather="linkedin"
+              ></i>
+            </a>
+          </div>
+          <div>
+            <a
+              target="_blank"
+              href="mailto:brandonknightwork@gmail.com"
+              class="overflow-hidden relative"
+            >
+              <i
+                class="size-10 hover:drop-shadow-2xl hover:text-orange-500 hover:animate-bounce absolute overflow-hidden"
+                data-feather="mail"
+              ></i>
+            </a>
+          </div>
+        </section>
+
+        <section class="flex content-center">
           <a
-            target="_blank"
+            class="flex-row justify-center mt-8 mb-2 mx-auto text-slate-200 hover:text-yellow-300"
             href="https://knighttechdesigns.com/"
-            class="overflow-hidden relative"
           >
-            <i
-              class="size-10 hover:size-11 hover:text-purple-500 hover:animate-bounce absolute overflow-hidden"
-              data-feather="briefcase"
-            ></i>
-          </a>
-        </div>
-        <div>
-          <a
-            target="_blank"
-            href="https://github.com/blksmk8483"
-            class="overflow-hidden relative"
+            &copy; Copyright by Brandon Knight</a
           >
-            <i
-              class="size-10 hover:size-11 hover:text-green-500 hover:animate-bounce absolute overflow-hidden"
-              data-feather="github"
-            ></i>
-          </a>
-        </div>
-        <div>
-          <a
-            target="_blank"
-            href="https://linkedin.com/in/brandonknight8483"
-            class="overflow-hidden relative"
-          >
-            <i
-              class="size-10 hover:size-11 hover:text-blue-500 hover:animate-bounce absolute overflow-hidden"
-              data-feather="linkedin"
-            ></i>
-          </a>
-        </div>
-        <div>
-          <a
-            target="_blank"
-            href="mailto:brandonknightwork@gmail.com"
-            class="overflow-hidden relative"
-          >
-            <i
-              class="size-10 hover:drop-shadow-2xl hover:text-orange-500 hover:animate-bounce absolute overflow-hidden"
-              data-feather="mail"
-            ></i>
-          </a>
-        </div>
-      </section>
-
-      <section class="flex content-center">
-        <a
-          class="flex-row justify-center mt-8 mb-2 mx-auto text-slate-200 hover:text-yellow-300"
-          href="https://knighttechdesigns.com/"
-        >
-          &copy; Copyright by Brandon Knight</a
-        >
-      </section>
+        </section>
+      </div>
     </footer>
 
     <script>

@@ -18,7 +18,7 @@ if (module.hot) {
 export const controlStartingPage = async function () {
   try {
     model.state.view = "initial";
-    popularView.renderSpinner();
+    nowPlayingView.renderSpinner();
     await Promise.all([
       model.popularMovies(),
       model.nowPlayingMovies(),
