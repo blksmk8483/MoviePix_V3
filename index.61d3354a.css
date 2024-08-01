@@ -472,8 +472,8 @@ img, video {
   height: 2.5rem;
 }
 
-.h-72 {
-  height: 18rem;
+.h-28 {
+  height: 7rem;
 }
 
 .h-8 {
@@ -486,22 +486,6 @@ img, video {
 
 .h-px {
   height: 1px;
-}
-
-.h-60 {
-  height: 15rem;
-}
-
-.h-24 {
-  height: 6rem;
-}
-
-.h-auto {
-  height: auto;
-}
-
-.h-28 {
-  height: 7rem;
 }
 
 .max-h-12 {
