@@ -1,6 +1,6 @@
 // reviews.js
-import noActorImage from "../../img/movieChairs_HoldTheButter.webp";
-import { API_IMAGE } from "../config";
+import noActorImage from "../../../img/movieChairs_HoldTheButter.webp";
+import { API_IMAGE } from "../../config";
 
 export function generateMarkupActor(data) {
   return `

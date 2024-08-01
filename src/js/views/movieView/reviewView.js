@@ -1,6 +1,6 @@
 // reviews.js
-import noImage from "../../img/spilledPopcornHoldTheButter.webp";
-import { API_IMAGE } from "../config";
+import noImage from "../../../img/spilledPopcornHoldTheButter.webp";
+import { API_IMAGE } from "../../config";
 
 export function generateMarkupReview(data) {
   return `

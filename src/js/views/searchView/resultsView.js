@@ -1,6 +1,6 @@
-import { API_IMAGE } from "../config";
-import View from "./View";
-import noImage from "../../img/movieChairs_HoldTheButter.webp";
+import { API_IMAGE } from "../../config";
+import View from "../View";
+import noImage from "../../../img/movieChairs_HoldTheButter.webp";
 
 class ResultsView extends View {
   _parentElement = document.querySelector(".results");

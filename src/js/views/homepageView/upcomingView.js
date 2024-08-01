@@ -1,6 +1,6 @@
-import View from "./View";
-import { API_IMAGE } from "../config";
-import noImage from "../../img/movieChairs_HoldTheButter.webp";
+import View from "../View";
+import { API_IMAGE } from "../../config";
+import noImage from "../../../img/movieChairs_HoldTheButter.webp";
 
 class UpcomingView extends View {
   _parentElement = document.querySelector(".upcoming");

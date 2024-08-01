@@ -26,15 +26,15 @@ export const state = {
   view: "initial", // initial, search, or movie
 };
 
-export const loadMovie = async function (id) {
+export const loadMovie = async function (movieId) {
   try {
     // Check if the movie ID is the same as the one in the state
-    if (state.movie.id === id) return; // Avoid reloading the same movie
+    if (state.movie.id === movieId) return; // Avoid reloading the same movie
 
     const data = await getJSON(
-      `${API_URL}${TV_OR_MOVIE}/${id}?language=${USER_LANGUAGE}&append_to_response=videos,images,reviews,credits,recommendations`
+      `${API_URL}${TV_OR_MOVIE}/${movieId}?language=${USER_LANGUAGE}&append_to_response=videos,images,reviews,credits,recommendations`
     );
-    // console.log("LOAD MOVIE", data);
+    console.log("LOAD MOVIE", data);
     const movie = data;
     state.movie = {
       id: movie.id,
@@ -69,6 +69,7 @@ export const loadMovie = async function (id) {
       recommendations: movie.recommendations.results.map((result) => ({
         recTitle: result.original_title,
         recImg: result.backdrop_path,
+        recId: result.id,
       })),
     };
   } catch (err) {

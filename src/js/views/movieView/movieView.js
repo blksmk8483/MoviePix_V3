@@ -1,5 +1,5 @@
-import View from "./View";
-import { API_IMAGE } from "../config";
+import View from "../View";
+import { API_IMAGE } from "../../config";
 import { generateMarkupReview, addHandlerShowMore } from "./reviewView";
 import { generateMarkupActor } from "./actorView";
 import { generateMarkupTrailer } from "./trailersView";
@@ -69,6 +69,16 @@ class MovieView extends View {
 
   addHandlerShowMore() {
     addHandlerShowMore(this._parentElement);
+  }
+
+  addHandlerRecommendationClick(handler) {
+    this._parentElement.addEventListener("click", function (e) {
+      const movieEl = e.target.closest("[data-movie-id]");
+      if (!movieEl) return;
+
+      const movieId = movieEl.dataset.movieId;
+      handler(movieId);
+    });
   }
 }
 
