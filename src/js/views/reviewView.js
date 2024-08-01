@@ -9,7 +9,7 @@ export function generateMarkupReview(data) {
         <p class="mb-2 text-lg tracking-wider font-semibold text-slate-200">Reviews:</p> 
         <button class="show-more-btn mb-4 mt-1 text-slate-100 hover:underline">Show More</button>
       </section>
-      <div class="reviews h-72 flex flex-col gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content mb-6">
+      <div class="reviews h-28 flex flex-col gap-0.5 overflow-y-auto snap-x snap-mandatory scrollable-content mb-6">
         ${data.reviews
           .map((review, index) => {
             const authorAvatar = review.authorAvatar
@@ -59,7 +59,7 @@ export function addHandlerShowMore(parentElement) {
         review.classList.remove("hidden");
         document
           .querySelector(".reviews")
-          .setAttribute("style", "height: 22rem;");
+          .setAttribute("style", "height: 18rem;");
       });
       btn.textContent = "Show Less";
     } else {

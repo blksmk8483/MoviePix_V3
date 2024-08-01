@@ -16,7 +16,7 @@ export function generateMarkupRecommendation(data) {
                         ? `${API_IMAGE}${result.recImg}`
                         : noActorImage;
                       return `
-                  <section class="flex">
+                  <section class="flex flex-col">
                     <img
                       class="mx-1 my-1 bg-center max-w-56 max-h-auto rounded-md snap-always snap-center hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:border hover:border-slate-800 sm:max-w-64 sm:max-h-auto"
                       src="${isRecImage}"
