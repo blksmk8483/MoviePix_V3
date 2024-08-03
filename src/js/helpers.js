@@ -79,6 +79,8 @@ export const formatNumberWithCommas = function (number) {
   return new Intl.NumberFormat(userLocale, {
     style: "currency",
     currency: currency,
+    minimumFractionDigits: 0, // Set minimum fraction digits to 0
+    maximumFractionDigits: 0, // Set maximum fraction digits to 0
   }).format(number);
 };
 
