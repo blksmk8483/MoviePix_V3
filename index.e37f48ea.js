@@ -2162,6 +2162,9 @@ const loadMovie = async function(movieId) {
             genres: movie.genres,
             tagline: movie.tagline,
             homepage: movie.homepage,
+            budget: (0, _helpersJs.formatNumberWithCommas)(movie.budget),
+            revenue: (0, _helpersJs.formatNumberWithCommas)(movie.revenue),
+            originalLanguage: (0, _helpersJs.convertLanguage)(movie.original_language),
             credits: movie.credits.cast.map((result)=>({
                     actorName: result.original_name,
                     characterName: result.character,
@@ -2357,6 +2360,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getJSON", ()=>getJSON);
 parcelHelpers.export(exports, "timeConvert", ()=>timeConvert);
+parcelHelpers.export(exports, "formatNumberWithCommas", ()=>formatNumberWithCommas);
+parcelHelpers.export(exports, "convertLanguage", ()=>convertLanguage);
 var _config = require("./config");
 const timeout = function(s) {
     return new Promise(function(_, reject) {
@@ -2398,7 +2403,14 @@ const timeConvert = function(n) {
     // Round the remaining minutes to the nearest whole number
     var rminutes = Math.round(minutes);
     // Construct and return a string representing the conversion result
-    return rhours + "h " + rminutes + "m";
+    return rminutes < 1 ? rhours + "hrs " : rhours + "h " + rminutes + "m";
+};
+const formatNumberWithCommas = function(number) {
+    return `$${number.toLocaleString()}`;
+};
+const convertLanguage = function(language) {
+    language = "en";
+    return "English";
 };
 
 },{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jwcsj":[function(require,module,exports) {
@@ -6204,9 +6216,26 @@ class MovieView extends (0, _viewDefault.default) {
               alt="${this._data.title}"
             />
 
-            <p class="col-span-2 mx-2 mt-2.5 mb-8 text-lg tracking-wide leading-relaxed text-balance sm:mt-0 sm:col-span-1 md:col-span-2">
-              ${this._data.overview}
-            </p>
+            <div class="col-span-2 mx-2 text-lg tracking-wide leading-relaxed text-balance">
+                <p class=" mt-2.5 mb-4 sm:mt-0 sm:col-span-1 md:col-span-2">
+                ${this._data.overview}
+                </p>
+            
+              <section class="flex gap-x-8 mb-8 text-base">
+                <div class="">
+                  <p class="font-bold">Budget:</p>
+                  <p class="text-slate-400">${this._data.budget}</p>
+                </div>
+                <div class="">
+                  <p class="font-bold">Revenue:</p>
+                  <p class="text-slate-400">${this._data.revenue}</p>
+                </div>
+                <div class="">
+                  <p class="font-bold">Language:</p>
+                  <p class="text-slate-400">${this._data.originalLanguage}</p>
+                </div>
+              </section>
+            </div>
           </section>
 
           ${(0, _trailersView.generateMarkupTrailer)(this._data)}
