@@ -4,6 +4,7 @@ import { generateMarkupReview, addHandlerShowMore } from "./reviewView";
 import { generateMarkupActor } from "./actorView";
 import { generateMarkupTrailer } from "./trailersView";
 import { generateMarkupRecommendation } from "./recommendationsView";
+import noPosterImage from "../../../img/spilledPopcornHoldTheButter.webp";
 
 class MovieView extends View {
   _parentElement = document.querySelector(".movieView");
@@ -17,6 +18,9 @@ class MovieView extends View {
   }
 
   _generateMarkup() {
+    const isPosterImage = this._data.backgroundImage
+      ? `${API_IMAGE}${this._data.backgroundImage}`
+      : noPosterImage;
     return `
       <button
         class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-slate-100 border-2 w-16 hidden hover:bg-slate-200 hover:border-slate-600 md:flex md:justify-center xl:mx-8">
@@ -42,7 +46,7 @@ class MovieView extends View {
           <section class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8">
             <img
               class="mx-0 object-cover mt-1 max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
-              src="${API_IMAGE}${this._data.backgroundImage}"
+              src="${isPosterImage}"
               alt="${this._data.title}"
             />
 

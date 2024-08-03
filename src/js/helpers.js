@@ -45,17 +45,42 @@ export const timeConvert = function (num) {
 //   return `$${number.toLocaleString()}`;
 // };
 
-export const formatNumberWithCommas = function (number) {
-  // Get the user's preferred language setting
-  const userLocale = navigator.language || "en-US"; // Fallback to 'en-US' if not available
+// export const formatNumberWithCommas = function (number) {
+//   // Get the user's preferred language setting
+//   const userLocale = navigator.language || "en-US"; // Fallback to 'en-US' if not available
 
-  // Format the number using the user's locale
-  return `$${number.toLocaleString(userLocale)}`;
-};
+//   // Format the number using the user's locale
+//   return `$${number.toLocaleString(userLocale)}`;
+// };
 
 // export const convertLanguage = function (language) {
 //   if ((language = "en")) return "English";
 // };
+
+const localeToCurrency = {
+  "en-US": "USD",
+  "en-GB": "GBP",
+  "en-CA": "CAD",
+  "en-AU": "AUD",
+  "de-DE": "EUR",
+  "fr-FR": "EUR",
+  "ja-JP": "JPY",
+  "zh-CN": "CNY",
+};
+
+export const formatNumberWithCommas = function (number) {
+  // Get the user's preferred language setting
+  const userLocale = navigator.language || "en-US";
+
+  // Determine the currency code based on the user's locale
+  const currency = localeToCurrency[userLocale] || "USD";
+
+  // Format the number using the user's locale and currency
+  return new Intl.NumberFormat(userLocale, {
+    style: "currency",
+    currency: currency,
+  }).format(number);
+};
 
 export const convertLanguage = function (language) {
   const languageMap = {
@@ -64,6 +89,10 @@ export const convertLanguage = function (language) {
     fr: "French",
     de: "German",
     it: "Italian",
+    zh: "Chinese",
+    fa: "Persian",
+    kk: "Kazakh",
+    ja: "Japanese",
   };
 
   return languageMap[language] || "Unknown Language";
