@@ -2391,26 +2391,60 @@ const getJSON = async function(url) {
         throw err;
     }
 };
-const timeConvert = function(n) {
-    // Store the input number of minutes in a variable num
-    var num = n;
-    // Calculate the total hours by dividing the number of minutes by 60
-    var hours = num / 60;
-    // Round down the total hours to get the number of full hours
-    var rhours = Math.floor(hours);
-    // Calculate the remaining minutes after subtracting the full hours from the total hours
-    var minutes = (hours - rhours) * 60;
-    // Round the remaining minutes to the nearest whole number
-    var rminutes = Math.round(minutes);
-    // Construct and return a string representing the conversion result
-    return rminutes < 1 ? rhours + "hrs " : rhours + "h " + rminutes + "m";
+const timeConvert = function(num) {
+    // Calculate the number of hours by dividing num by 60 and rounding down
+    const hours = Math.floor(num / 60);
+    // Calculate the remaining minutes by taking the remainder when dividing num by 60
+    const minutes = num % 60;
+    // Return the result as a string in the format "hours:minutes"
+    return minutes < 1 ? `${hours}hrs` : `${hours}h ${minutes}m`;
+};
+// export const formatNumberWithCommas = function (number) {
+//   return `$${number.toLocaleString()}`;
+// };
+// export const formatNumberWithCommas = function (number) {
+//   // Get the user's preferred language setting
+//   const userLocale = navigator.language || "en-US"; // Fallback to 'en-US' if not available
+//   // Format the number using the user's locale
+//   return `$${number.toLocaleString(userLocale)}`;
+// };
+// export const convertLanguage = function (language) {
+//   if ((language = "en")) return "English";
+// };
+const localeToCurrency = {
+    "en-US": "USD",
+    "en-GB": "GBP",
+    "en-CA": "CAD",
+    "en-AU": "AUD",
+    "de-DE": "EUR",
+    "fr-FR": "EUR",
+    "ja-JP": "JPY",
+    "zh-CN": "CNY"
 };
 const formatNumberWithCommas = function(number) {
-    return `$${number.toLocaleString()}`;
+    // Get the user's preferred language setting
+    const userLocale = navigator.language || "en-US";
+    // Determine the currency code based on the user's locale
+    const currency = localeToCurrency[userLocale] || "USD";
+    // Format the number using the user's locale and currency
+    return new Intl.NumberFormat(userLocale, {
+        style: "currency",
+        currency: currency
+    }).format(number);
 };
 const convertLanguage = function(language) {
-    language = "en";
-    return "English";
+    const languageMap = {
+        en: "English",
+        es: "Spanish",
+        fr: "French",
+        de: "German",
+        it: "Italian",
+        zh: "Chinese",
+        fa: "Persian",
+        kk: "Kazakh",
+        ja: "Japanese"
+    };
+    return languageMap[language] || "Unknown Language";
 };
 
 },{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jwcsj":[function(require,module,exports) {
@@ -6178,6 +6212,8 @@ var _reviewView = require("./reviewView");
 var _actorView = require("./actorView");
 var _trailersView = require("./trailersView");
 var _recommendationsView = require("./recommendationsView");
+var _spilledPopcornHoldTheButterWebp = require("../../../img/spilledPopcornHoldTheButter.webp");
+var _spilledPopcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_spilledPopcornHoldTheButterWebp);
 class MovieView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".movieView");
     _errorMessage = "Could not find that movie. <br> Please try another one.";
@@ -6189,6 +6225,7 @@ class MovieView extends (0, _viewDefault.default) {
         ].forEach((ev)=>window.addEventListener(ev, handler));
     }
     _generateMarkup() {
+        const isPosterImage = this._data.backgroundImage ? `${0, _config.API_IMAGE}${this._data.backgroundImage}` : (0, _spilledPopcornHoldTheButterWebpDefault.default);
         return `
       <button
         class="back-button text-slate-700 m-1.5 mt-2.5 ml-2 rounded-lg border-slate-200 bg-slate-100 border-2 w-16 hidden hover:bg-slate-200 hover:border-slate-600 md:flex md:justify-center xl:mx-8">
@@ -6200,7 +6237,7 @@ class MovieView extends (0, _viewDefault.default) {
               ${this._data.title} 
             </h2>
           
-          <section class="flex text-m text-slate-400 tracking-wider mx-2 md:mx-2 xl:mx-8">
+          <section class="flex text-base text-slate-400 tracking-wider mx-2 md:mx-2 xl:mx-8">
               <p class="">(${this._data.releaseDate})</p>
               <p class="mx-2 mb-4">
               ${this._data.runtime}
@@ -6209,10 +6246,10 @@ class MovieView extends (0, _viewDefault.default) {
 
             <q class="mx-2 mt-0.5 pb-1 text-base tracking-wider md:mx-2 xl:mx-8">${this._data.tagline}</q>
 
-        <section class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8">
+          <section class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8">
             <img
               class="mx-0 object-cover mt-1 max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
-              src="${0, _config.API_IMAGE}${this._data.backgroundImage}"
+              src="${isPosterImage}"
               alt="${this._data.title}"
             />
 
@@ -6266,7 +6303,7 @@ class MovieView extends (0, _viewDefault.default) {
 }
 exports.default = new MovieView();
 
-},{"../View":"5cUXS","../../config":"k5Hzs","./reviewView":"8HAWO","./actorView":"kuIIx","./trailersView":"bqZaB","./recommendationsView":"8tw9m","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
+},{"../View":"5cUXS","../../config":"k5Hzs","./reviewView":"8HAWO","./actorView":"kuIIx","./trailersView":"bqZaB","./recommendationsView":"8tw9m","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../../img/spilledPopcornHoldTheButter.webp":"2gXYm"}],"5cUXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _popcornHoldTheButterWebp = require("url:../../img/popcornHoldTheButter.webp");
