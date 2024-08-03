@@ -46,9 +46,26 @@ class MovieView extends View {
               alt="${this._data.title}"
             />
 
-            <p class="col-span-2 mx-2 mt-2.5 mb-8 text-lg tracking-wide leading-relaxed text-balance sm:mt-0 sm:col-span-1 md:col-span-2">
-              ${this._data.overview}
-            </p>
+            <div class="col-span-2 mx-2 text-lg tracking-wide leading-relaxed text-balance">
+                <p class=" mt-2.5 mb-4 sm:mt-0 sm:col-span-1 md:col-span-2">
+                ${this._data.overview}
+                </p>
+            
+              <section class="flex gap-x-8 mb-8 text-base">
+                <div class="">
+                  <p class="font-bold">Budget:</p>
+                  <p class="text-slate-400">${this._data.budget}</p>
+                </div>
+                <div class="">
+                  <p class="font-bold">Revenue:</p>
+                  <p class="text-slate-400">${this._data.revenue}</p>
+                </div>
+                <div class="">
+                  <p class="font-bold">Language:</p>
+                  <p class="text-slate-400">${this._data.originalLanguage}</p>
+                </div>
+              </section>
+            </div>
           </section>
 
           ${generateMarkupTrailer(this._data)}

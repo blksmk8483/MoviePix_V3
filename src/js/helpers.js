@@ -41,5 +41,13 @@ export const timeConvert = function (n) {
   // Round the remaining minutes to the nearest whole number
   var rminutes = Math.round(minutes);
   // Construct and return a string representing the conversion result
-  return rhours + "h " + rminutes + "m";
+  return rminutes < 1 ? rhours + "hrs " : rhours + "h " + rminutes + "m";
+};
+
+export const formatNumberWithCommas = function (number) {
+  return `$${number.toLocaleString()}`;
+};
+
+export const convertLanguage = function (language) {
+  if ((language = "en")) return "English";
 };

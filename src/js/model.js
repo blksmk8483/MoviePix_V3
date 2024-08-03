@@ -1,5 +1,10 @@
 import { API_URL, USER_LANGUAGE, TV_OR_MOVIE, RES_PER_PAGE } from "./config.js";
-import { getJSON, timeConvert } from "./helpers.js";
+import {
+  getJSON,
+  timeConvert,
+  formatNumberWithCommas,
+  convertLanguage,
+} from "./helpers.js";
 import moment from "moment";
 
 export const state = {
@@ -47,6 +52,9 @@ export const loadMovie = async function (movieId) {
       genres: movie.genres,
       tagline: movie.tagline,
       homepage: movie.homepage,
+      budget: formatNumberWithCommas(movie.budget),
+      revenue: formatNumberWithCommas(movie.revenue),
+      originalLanguage: convertLanguage(movie.original_language),
       credits: movie.credits.cast.map((result) => ({
         actorName: result.original_name,
         characterName: result.character,
