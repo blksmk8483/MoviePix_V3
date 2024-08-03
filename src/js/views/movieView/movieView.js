@@ -28,7 +28,7 @@ class MovieView extends View {
               ${this._data.title} 
             </h2>
           
-          <section class="flex text-m text-slate-400 tracking-wider mx-2 md:mx-2 xl:mx-8">
+          <section class="flex text-base text-slate-400 tracking-wider mx-2 md:mx-2 xl:mx-8">
               <p class="">(${this._data.releaseDate})</p>
               <p class="mx-2 mb-4">
               ${this._data.runtime}
@@ -39,7 +39,7 @@ class MovieView extends View {
               this._data.tagline
             }</q>
 
-        <section class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8">
+          <section class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8">
             <img
               class="mx-0 object-cover mt-1 max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
               src="${API_IMAGE}${this._data.backgroundImage}"

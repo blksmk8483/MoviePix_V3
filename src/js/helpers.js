@@ -29,25 +29,42 @@ export const getJSON = async function (url) {
   }
 };
 
-export const timeConvert = function (n) {
-  // Store the input number of minutes in a variable num
-  var num = n;
-  // Calculate the total hours by dividing the number of minutes by 60
-  var hours = num / 60;
-  // Round down the total hours to get the number of full hours
-  var rhours = Math.floor(hours);
-  // Calculate the remaining minutes after subtracting the full hours from the total hours
-  var minutes = (hours - rhours) * 60;
-  // Round the remaining minutes to the nearest whole number
-  var rminutes = Math.round(minutes);
-  // Construct and return a string representing the conversion result
-  return rminutes < 1 ? rhours + "hrs " : rhours + "h " + rminutes + "m";
+// Define a function named time_convert with parameter num
+export const timeConvert = function (num) {
+  // Calculate the number of hours by dividing num by 60 and rounding down
+  const hours = Math.floor(num / 60);
+
+  // Calculate the remaining minutes by taking the remainder when dividing num by 60
+  const minutes = num % 60;
+
+  // Return the result as a string in the format "hours:minutes"
+  return minutes < 1 ? `${hours}hrs` : `${hours}h ${minutes}m`;
 };
+
+// export const formatNumberWithCommas = function (number) {
+//   return `$${number.toLocaleString()}`;
+// };
 
 export const formatNumberWithCommas = function (number) {
-  return `$${number.toLocaleString()}`;
+  // Get the user's preferred language setting
+  const userLocale = navigator.language || "en-US"; // Fallback to 'en-US' if not available
+
+  // Format the number using the user's locale
+  return `$${number.toLocaleString(userLocale)}`;
 };
 
+// export const convertLanguage = function (language) {
+//   if ((language = "en")) return "English";
+// };
+
 export const convertLanguage = function (language) {
-  if ((language = "en")) return "English";
+  const languageMap = {
+    en: "English",
+    es: "Spanish",
+    fr: "French",
+    de: "German",
+    it: "Italian",
+  };
+
+  return languageMap[language] || "Unknown Language";
 };
