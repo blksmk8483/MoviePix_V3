@@ -18,7 +18,7 @@ export function generateMarkupRecommendation(data) {
                       return `
                   <section class="flex flex-col" data-movie-id="${result.recId}">
                     <img
-                      class="mx-1 my-1 bg-center max-w-56 max-h-auto rounded-md snap-always snap-center hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:border hover:border-slate-800 sm:max-w-64 sm:max-h-auto"
+                      class="mx-1 my-1 bg-center min-w-48 h-28 rounded-md snap-always snap-center hover:shadow-lg hover:shadow-slate-600 hover:scale-105 hover:border hover:border-slate-800 sm:min-w-56 sm:h-32"
                       src="${isRecImage}"
                       alt="${result.recTitle}"
                     />

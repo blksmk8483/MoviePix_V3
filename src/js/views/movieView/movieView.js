@@ -39,11 +39,11 @@ class MovieView extends View {
               </p>
             </section>
 
-            <q class="mx-2 mt-0.5 pb-1 text-base tracking-wider md:mx-2 xl:mx-8">${
+            <p class="mx-2 mt-0.5 pb-0.5 text-base tracking-wider md:mx-2 xl:mx-8">"${
               this._data.tagline
-            }</q>
+            }"</p>
 
-          <section class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mx-0 lg:mb-8 lg:gap-12 xl:mx-8">
+          <section class="sm:grid sm:grid-cols-2 sm:gap-2 md:grid-cols-3 md:mx-2 md:gap-3 lg:mb-8 lg:gap-12 xl:mx-8">
             <img
               class="mx-0 object-cover mt-1 max-w-svh md:max-w-full lg:max-w-full xl:max-w-full"
               src="${isPosterImage}"
@@ -55,7 +55,7 @@ class MovieView extends View {
                 ${this._data.overview}
                 </p>
             
-              <section class="flex gap-x-8 mb-8 text-base">
+              <section class="flex gap-x-6 mb-8 text-base sm:gap-x-8">
                 <div class="">
                   <p class="font-bold">Budget:</p>
                   <p class="text-slate-400">${this._data.budget}</p>
