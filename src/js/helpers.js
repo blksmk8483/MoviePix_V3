@@ -95,6 +95,7 @@ export const convertLanguage = function (language) {
     fa: "Persian",
     kk: "Kazakh",
     ja: "Japanese",
+    ko: "Korean",
   };
 
   return languageMap[language] || "Unknown Language";
