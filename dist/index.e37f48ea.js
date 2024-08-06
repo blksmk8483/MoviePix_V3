@@ -2444,7 +2444,8 @@ const convertLanguage = function(language) {
         zh: "Chinese",
         fa: "Persian",
         kk: "Kazakh",
-        ja: "Japanese"
+        ja: "Japanese",
+        ko: "Korean"
     };
     return languageMap[language] || "Unknown Language";
 };
@@ -6404,6 +6405,31 @@ module.exports = require("f5d79527d85a4b79").getBundleURL("hWUTQ") + "spilledPop
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "generateMarkupReview", ()=>generateMarkupReview);
+// export function addHandlerShowMore(parentElement) {
+//   parentElement.addEventListener("click", function (e) {
+//     const btn = e.target.closest(".show-more-btn");
+//     if (!btn) return;
+//     const hiddenReviews = document.querySelectorAll(".review.hidden");
+//     const visibleReviews = document.querySelectorAll(".review:not(.hidden)");
+//     if (btn.textContent === "Show More") {
+//       hiddenReviews.forEach((review) => {
+//         review.classList.remove("hidden");
+//         document
+//           .querySelector(".reviews")
+//           .setAttribute("style", "height: 18rem;");
+//       });
+//       btn.textContent = "Show Less";
+//     } else {
+//       visibleReviews.forEach((review, index) => {
+//         if (index > 0) review.classList.add("hidden");
+//       });
+//       btn.textContent = "Show More";
+//       document
+//         .querySelector(".reviews")
+//         .setAttribute("style", "height: 18rem;");
+//     }
+//   });
+// }
 parcelHelpers.export(exports, "addHandlerShowMore", ()=>addHandlerShowMore);
 var _spilledPopcornHoldTheButterWebp = require("../../../img/spilledPopcornHoldTheButter.webp");
 var _spilledPopcornHoldTheButterWebpDefault = parcelHelpers.interopDefault(_spilledPopcornHoldTheButterWebp);
@@ -6446,20 +6472,10 @@ function addHandlerShowMore(parentElement) {
     parentElement.addEventListener("click", function(e) {
         const btn = e.target.closest(".show-more-btn");
         if (!btn) return;
-        const hiddenReviews = document.querySelectorAll(".review.hidden");
-        const visibleReviews = document.querySelectorAll(".review:not(.hidden)");
         if (btn.textContent === "Show More") {
-            hiddenReviews.forEach((review)=>{
-                review.classList.remove("hidden");
-                document.querySelector(".reviews").setAttribute("style", "height: 18rem;");
-            });
-            btn.textContent = "Show Less";
-        } else {
-            visibleReviews.forEach((review, index)=>{
-                if (index > 0) review.classList.add("hidden");
-            });
-            btn.textContent = "Show More";
-            document.querySelector(".reviews").setAttribute("style", "height: 18rem;");
+            const bobs = document.querySelector(".reviewPage");
+            const yourUncle = window.open(bobs, "_parent");
+            yourUncle.focus();
         }
     });
 }

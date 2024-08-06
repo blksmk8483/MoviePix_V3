@@ -46,30 +46,44 @@ export function generateMarkupReview(data) {
   `;
 }
 
+// export function addHandlerShowMore(parentElement) {
+//   parentElement.addEventListener("click", function (e) {
+//     const btn = e.target.closest(".show-more-btn");
+//     if (!btn) return;
+
+//     const hiddenReviews = document.querySelectorAll(".review.hidden");
+//     const visibleReviews = document.querySelectorAll(".review:not(.hidden)");
+
+//     if (btn.textContent === "Show More") {
+//       hiddenReviews.forEach((review) => {
+//         review.classList.remove("hidden");
+//         document
+//           .querySelector(".reviews")
+//           .setAttribute("style", "height: 18rem;");
+//       });
+//       btn.textContent = "Show Less";
+//     } else {
+//       visibleReviews.forEach((review, index) => {
+//         if (index > 0) review.classList.add("hidden");
+//       });
+//       btn.textContent = "Show More";
+//       document
+//         .querySelector(".reviews")
+//         .setAttribute("style", "height: 18rem;");
+//     }
+//   });
+// }
+
 export function addHandlerShowMore(parentElement) {
   parentElement.addEventListener("click", function (e) {
     const btn = e.target.closest(".show-more-btn");
     if (!btn) return;
 
-    const hiddenReviews = document.querySelectorAll(".review.hidden");
-    const visibleReviews = document.querySelectorAll(".review:not(.hidden)");
-
     if (btn.textContent === "Show More") {
-      hiddenReviews.forEach((review) => {
-        review.classList.remove("hidden");
-        document
-          .querySelector(".reviews")
-          .setAttribute("style", "height: 18rem;");
-      });
-      btn.textContent = "Show Less";
-    } else {
-      visibleReviews.forEach((review, index) => {
-        if (index > 0) review.classList.add("hidden");
-      });
-      btn.textContent = "Show More";
-      document
-        .querySelector(".reviews")
-        .setAttribute("style", "height: 18rem;");
+      const bobs = document.querySelector(".reviewPage");
+
+      const yourUncle = window.open(bobs, "_parent");
+      yourUncle.focus();
     }
   });
 }
